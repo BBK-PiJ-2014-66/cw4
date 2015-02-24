@@ -68,6 +68,12 @@ public interface ContactManager {
 	 *
 	 * If there are none, the returned list will be empty. Otherwise, the list
 	 * will be chronologically sorted and will not contain any duplicates.
+	 * 
+	 * Additional specification from Moodle cw4 discussion forum: SERGIO
+	 * GUTIERREZ-SANTOS 15 December 2014, 5:23 PM "The method must return also
+	 * past meetings if it is called with a past date as parameter. The name is
+	 * confusing, a better name would have been getMeetingList(Calendar) or even
+	 * getMeetingListOn(Calendar). We apologise for the confusion."
 	 *
 	 * @param date
 	 *            the date
