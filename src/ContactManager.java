@@ -89,7 +89,7 @@ public interface ContactManager {
 	 *
 	 * @param contact
 	 *            one of the user’s contacts
-	 * @return the list of future meeting(s) scheduled with this contact (maybe
+	 * @return the list of past meeting(s) scheduled with this contact (maybe
 	 *         empty).
 	 * @throws IllegalArgumentException
 	 *             if the contact does not exist
