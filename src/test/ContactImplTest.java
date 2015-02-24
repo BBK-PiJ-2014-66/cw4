@@ -32,6 +32,16 @@ public class ContactImplTest {
 				+ "check that .getNotes() returns the supplied notes.",
 				backNotes, is(supplyNotes));
 	}
+	
+	@Test
+	public void testGetBackId() {
+		int supplyId = 57;
+		Contact testContact = new ContactImpl(supplyId, "Joe Bloggs", "some notes");
+		int backId = testContact.getId();
+		assertThat("ContactImpl constructor with ID, "
+				+ "check that .getID() returns the supplied ID.",
+				backId, is(supplyId));
+	}	
 
 	@Test
 	public void testAddNotes() {
