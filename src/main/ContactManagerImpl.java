@@ -95,7 +95,7 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public Set<Contact> getContacts(String name) {
-		// TODO return NullPointerException if name is null
+		// TODO return NullPointerException if name is null..
 		Set<Contact> retContacts = new HashSet<>();
 		for (Contact itContact : contacts) {
 			if (itContact.getName().equals(name))

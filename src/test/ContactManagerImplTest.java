@@ -46,7 +46,7 @@ public class ContactManagerImplTest {
 		// to retrieve contact search of name
 		Set<Contact> retrieveContacts = testCM.getContacts(testName);
 		// should not be null
-		assertNotNull("retrieving contacts set should not return null",
+		assertNotNull("retrieving contacts set should never return null",
 				retrieveContacts);
 		// should have one contact
 		assertThat(
@@ -86,6 +86,8 @@ public class ContactManagerImplTest {
 		}
 		// now search for the id's that we know are there
 		Set<Contact> retrieveContacts = testCM.getContacts(testIDs);
+		assertNotNull("retrieving contacts set should never return null",
+				retrieveContacts);
 		assertThat("searching by id should return correct number of names.",
 				retrieveContacts.size(), is(nNames));
 	}
@@ -123,5 +125,14 @@ public class ContactManagerImplTest {
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.getContacts(-10000);
 	}
-
+	
+	/**
+	 * test searching with null name produces NullPointerException as specified in interface
+	 */
+	@Test(expected = NullPointerException.class)
+	public void testGetContactsNullName(){
+		ContactManager testCM = new ContactManagerImpl();
+		String strNull = null;
+		testCM.getContacts(strNull);
+	}
 }
