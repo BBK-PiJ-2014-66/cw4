@@ -1,9 +1,12 @@
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Class to Manage contacts and Meetings
+ * 
  * @see ContactManager
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
@@ -11,6 +14,15 @@ import java.util.Set;
  * 
  */
 public class ContactManagerImpl implements ContactManager {
+
+	List<Contact> contacts;
+
+	/**
+	 * construct a brand new ContactManager
+	 */
+	ContactManagerImpl() {
+		contacts = new ArrayList<>();
+	}
 
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
@@ -61,10 +73,15 @@ public class ContactManagerImpl implements ContactManager {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addNewContact(String name, String notes) {
-		// TODO Auto-generated method stub
-
+		// ContactImpl constructor will throw required NullPointerException
+		// if name or notes are null
+		Contact newContact = new ContactImpl(name, notes);
+		contacts.add(newContact);
 	}
 
 	@Override
@@ -72,11 +89,19 @@ public class ContactManagerImpl implements ContactManager {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<Contact> getContacts(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO return NullPointerException if name is null
+		Set<Contact> retContacts = new HashSet<>();
+		for (Contact itContact : contacts) {
+			if (itContact.getName().equals(name))
+				retContacts.add(itContact);
+		}
+		return retContacts;
 	}
 
 	@Override
