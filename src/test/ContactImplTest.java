@@ -5,7 +5,9 @@ import static org.hamcrest.CoreMatchers.not;
 import org.junit.Test;
 
 /**
- * JUnit tests for ContactImpl implementation of Contact. (all now pass)
+ * JUnit tests for ContactImpl implementation of Contact. 
+ * 
+ * All the tests now pass.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
