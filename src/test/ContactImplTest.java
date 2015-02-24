@@ -5,8 +5,7 @@ import static org.hamcrest.CoreMatchers.not;
 import org.junit.Test;
 
 /**
- * JUnit tests for ContactImpl implementation of Contact.
- * (all now pass)
+ * JUnit tests for ContactImpl implementation of Contact. (all now pass)
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -33,16 +32,17 @@ public class ContactImplTest {
 				+ "check that .getNotes() returns the supplied notes.",
 				backNotes, is(supplyNotes));
 	}
-	
+
 	@Test
 	public void testGetBackId() {
 		int supplyId = 57;
-		Contact testContact = new ContactImpl(supplyId, "Joe Bloggs", "some notes");
+		Contact testContact = new ContactImpl(supplyId, "Joe Bloggs",
+				"some notes");
 		int backId = testContact.getId();
 		assertThat("ContactImpl constructor with ID, "
-				+ "check that .getID() returns the supplied ID.",
-				backId, is(supplyId));
-	}	
+				+ "check that .getID() returns the supplied ID.", backId,
+				is(supplyId));
+	}
 
 	@Test
 	public void testAddNotes() {
@@ -51,8 +51,8 @@ public class ContactImplTest {
 		testContact.addNotes(supplyNotes);
 		String backNotes = testContact.getNotes();
 		assertThat("Supply notes with .addNotes & "
-				+ "check that .getNotes() returns the supplied.",
-				backNotes, is(supplyNotes));
+				+ "check that .getNotes() returns the supplied.", backNotes,
+				is(supplyNotes));
 	}
 
 	@Test
@@ -61,6 +61,36 @@ public class ContactImplTest {
 		int idA = new ContactImpl("Joe Bloggs").getId();
 		int idB = new ContactImpl("Jane Doe").getId();
 		assertThat("ID of two contacts should be different.", idA, not(idB));
+	}
+
+	/*
+	 * supplying a null string as a name should result in a NullPointerException
+	 * For method see
+	 * http://stackoverflow.com/questions/156503/how-do-you-assert
+	 * -that-a-certain -exception-is-thrown-in-junit-4-tests
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = NullPointerException.class)
+	public void testSupplyNullName() {
+		Contact testContact = new ContactImpl(null);
+	}
+
+	/*
+	 * supplying null notes should result in a NullPointerException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = NullPointerException.class)
+	public void testSupplyNullNotes() {
+		Contact testContact = new ContactImpl("Joe Bloggs", null);
+	}
+
+	/*
+	 * adding null notes should result in a NullPointerException
+	 */
+	@Test(expected = NullPointerException.class)
+	public void testAddNullNotes() {
+		Contact testContact = new ContactImpl("Joe Bloggs");
+		testContact.addNotes(null);
 	}
 
 }
