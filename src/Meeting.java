@@ -27,7 +27,7 @@ public interface Meeting {
 	 * Return the details of people that attended the meeting.
 	 *
 	 * The list contains a minimum of one contact (if there were just two
-	 * people: the user and the contact) and may contain an arbitraty number of
+	 * people: the user and the contact) and may contain an arbitrary number of
 	 * them.
 	 *
 	 * @return the details of people that attended the meeting.
