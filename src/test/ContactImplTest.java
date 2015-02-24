@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 
 import org.junit.Test;
 
@@ -18,21 +19,37 @@ public class ContactImplTest {
 		Contact testContact = new ContactImpl(supplyName);
 		String backName = testContact.getName();
 		assertThat("Use ContactImpl constructor with just a name, "
-				+ "check that getName returns the same.", backName, is(supplyName));
+				+ "check that getName returns the same.", backName,
+				is(supplyName));
 	}
-	
 
 	@Test
 	public void testGetBackNotes() {
-		String supplyName = "Joe Bloggs";
 		String supplyNotes = "email: joe.bloggs@fictious.com";
-		Contact testContact = new ContactImpl(supplyName, supplyNotes);
+		Contact testContact = new ContactImpl("Joe Bloggs", supplyNotes);
 		String backNotes = testContact.getNotes();
 		assertThat("Use ContactImpl constructor name & notes, "
-				+ "check that getName returns the same.", backNotes, is(supplyNotes));
+				+ "check that .getNotes() returns the supplied notes.",
+				backNotes, is(supplyNotes));
 	}
-	
-	
-	
+
+	@Test
+	public void testAddNotes() {
+		Contact testContact = new ContactImpl("Joe Bloggs");
+		String supplyNotes = "email: joe.bloggs@fictious.com";
+		testContact.addNotes(supplyNotes);
+		String backNotes = testContact.getNotes();
+		assertThat("Supply notes with .addNotes & "
+				+ "check that .getNotes() returns the supplied.",
+				backNotes, is(supplyNotes));
+	}
+
+	@Test
+	public void testTwoContactsHaveDistinctIDs() {
+		// get ID of two new contacts
+		int idA = new ContactImpl("Joe Bloggs").getId();
+		int idB = new ContactImpl("Jane Doe").getId();
+		assertThat("ID of two contacts should be different.", idA, not(idB));
+	}
 
 }
