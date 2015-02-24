@@ -1,7 +1,7 @@
 /**
  * A contact is a person we are making business with or may do in the future.
  * Contacts have an ID (unique), a name (probably unique, but maybe not), and
- * notes that the user may want to save about them
+ * notes that the user may want to save about them.
  * 
  * @see Contact
  * 
@@ -11,6 +11,11 @@
  */
 public class ContactImpl implements Contact {
 
+	private String name;
+	private String notes;
+	private int id;
+	private static int maxId=0; // maximum ID seen
+	
 	/**
 	 * Constructor supplied with just a name
 	 * 
@@ -18,7 +23,7 @@ public class ContactImpl implements Contact {
 	 *            the contact's name
 	 */
 	ContactImpl(String name) {
-		// TODO write constructor
+		this(name, "");
 	}
 
 	/**
@@ -30,7 +35,7 @@ public class ContactImpl implements Contact {
 	 *            notes about the contact (email...?)
 	 */
 	ContactImpl(String name, String notes) {
-		// TODO write constructor
+		this( ++maxId, name, notes); // increment maxId and use this
 	}
 
 	/**
@@ -45,7 +50,11 @@ public class ContactImpl implements Contact {
 	 *            notes about the contact (email...?)
 	 */
 	ContactImpl(int id, String name, String notes) {
-		// TODO write constructor
+		this.name = name;
+		this.notes = notes;
+		this.id = id;
+		if (id > maxId) // is this the biggest ID seen so far
+			maxId = id; 
 	}
 
 	/**
@@ -53,8 +62,7 @@ public class ContactImpl implements Contact {
 	 */
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 	
 	/**
@@ -62,16 +70,14 @@ public class ContactImpl implements Contact {
 	 */
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String getNotes() {
-		// TODO Auto-generated method stub
-		return null;
+		return notes;
 	}
 	
 	/**
@@ -79,8 +85,7 @@ public class ContactImpl implements Contact {
 	 */
 	@Override
 	public void addNotes(String note) {
-		// TODO Auto-generated method stub
-
+		this.notes = note;
 	}
 
 }
