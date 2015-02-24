@@ -71,19 +71,17 @@ public class ContactImplTest {
 	 * http://stackoverflow.com/questions/156503/how-do-you-assert
 	 * -that-a-certain -exception-is-thrown-in-junit-4-tests
 	 */
-	@SuppressWarnings("unused")
 	@Test(expected = NullPointerException.class)
 	public void testSupplyNullName() {
-		Contact testContact = new ContactImpl(null);
+		new ContactImpl(null);
 	}
 
 	/*
 	 * supplying null notes should result in a NullPointerException
 	 */
-	@SuppressWarnings("unused")
 	@Test(expected = NullPointerException.class)
 	public void testSupplyNullNotes() {
-		Contact testContact = new ContactImpl("Joe Bloggs", null);
+		new ContactImpl("Joe Bloggs", null);
 	}
 
 	/*
