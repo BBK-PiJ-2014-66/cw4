@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -22,6 +24,20 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	ContactManagerImpl() {
 		contacts = new ArrayList<>();
+	}
+	
+	ContactManagerImpl( String FileName) {
+		ContactManagerImpl readCM=null;
+		try {
+			readCM = FileSaveRetrieve.retrieveFromXMLfile(FileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		contacts = readCM.contacts;
 	}
 
 	@Override
@@ -128,7 +144,12 @@ public class ContactManagerImpl implements ContactManager {
 
 	@Override
 	public void flush() {
-		// TODO Auto-generated method stub
+		try {
+			FileSaveRetrieve.saveToXMLfile("contacts.txt", this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
