@@ -10,6 +10,8 @@ import org.junit.Test;
 /**
  * JUnit tests for ContactManageImpl implementation of ContactManager.
  * 
+ * All tests currently pass.
+ * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
  *

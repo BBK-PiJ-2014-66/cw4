@@ -84,18 +84,40 @@ public class ContactManagerImpl implements ContactManager {
 		contacts.add(newContact);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<Contact> getContacts(int... ids) {
-		// TODO Auto-generated method stub
-		return null;
+		// can never match no ids
+		if (ids.length == 0)
+			throw new IllegalArgumentException(
+					"must supply at least one id to getContacts");
+		Set<Contact> retContacts = new HashSet<>();
+		for (int itID : ids) {
+			boolean match = false;
+			for (Contact itContact : contacts) {
+				if (itContact.getId() == itID) {
+					match = true;
+					retContacts.add(itContact);
+					break;
+				}
+			}
+			if (!match)
+				throw new IllegalArgumentException(
+						"getContacts supplied with invalid contact id = " + itID);
+		}
+
+		return retContacts;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Set<Contact> getContacts(String name) {
-		// TODO return NullPointerException if name is null..
+		if (name == null)
+			throw new NullPointerException("cannot search for null name.");
 		Set<Contact> retContacts = new HashSet<>();
 		for (Contact itContact : contacts) {
 			if (itContact.getName().equals(name))
