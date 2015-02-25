@@ -13,4 +13,5 @@
 
 ## Implementation
 * [ContactImpl](src/main/ContactImpl.java) tested by  [ContactImplTest](src/test/ContactImplTest.java)
+* [ContactManagerImpl](src/main/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java)
 
