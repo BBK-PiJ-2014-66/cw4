@@ -3,6 +3,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -56,9 +58,41 @@ public class ContactManagerImplTest {
 				retrieveContacts.size(), is(1));
 		// furthermore should be able to get back the name
 		Contact back = retrieveContacts.stream().findFirst().get(); // java 8
-		// Contact back = retrieveContacts.toArray(new Contact[0])[0]; //
-		// old-style
-		assertThat(back.getName(), is(testName));
+		// old-style:
+		// Contact back = retrieveContacts.toArray(new Contact[0])[0];
+		assertThat("added one contact and searched for that name. Check name",
+				back.getName(), is(testName));
+	}
+
+	/**
+	 * test getContacts(String) "contains"
+	 */
+	@Test
+	public void testGetContactContains() {
+		ContactManager testCM = new ContactManagerImpl();
+		List<String> names = Arrays.asList("John Smith", "Jane Doe",
+				"Adam Ant", "Jason Hippo");
+		for (String name : names) {
+			testCM.addNewContact(name, "");
+		}
+		int numBack;
+		numBack = testCM.getContacts("J").size();
+		assertThat("added contacts " + names
+				+ ".\n getContacts(\"J\").size() ", numBack, is(3));
+		numBack = testCM.getContacts("son").size();
+		assertThat("added contacts " + names
+				+ ".\n getContacts(\"son\").size() ", numBack, is(1));
+		numBack = testCM.getContacts("z").size();
+		assertThat("added contacts " + names
+				+ ".\n getContacts(\"son\").size() ", numBack, is(0));
+		// Regular expression .* should match any string
+		numBack = testCM.getContacts(".*").size();
+		assertThat("added contacts " + names
+				+ ".\n getContacts(\".*\").size() ", numBack, is(4));
+		
+
+		
+
 	}
 
 	/**
@@ -120,19 +154,21 @@ public class ContactManagerImplTest {
 
 	/**
 	 * test searching with an invalid id produces IllegalArgumentException as
-	 * specified in Interface {@link ContactManager#getContacts(int...) getContacts}
+	 * specified in Interface {@link ContactManager#getContacts(int...)
+	 * getContacts}
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetContactsInvalidID() {
 		ContactManager testCM = new ContactManagerImpl();
 		testCM.getContacts(-10000);
 	}
-	
+
 	/**
-	 * test searching with null name produces NullPointerException as specified in interface
+	 * test searching with null name produces NullPointerException as specified
+	 * in interface
 	 */
 	@Test(expected = NullPointerException.class)
-	public void testGetContactsNullName(){
+	public void testGetContactsNullName() {
 		ContactManager testCM = new ContactManagerImpl();
 		String strNull = null;
 		testCM.getContacts(strNull);
