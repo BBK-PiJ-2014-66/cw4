@@ -136,7 +136,7 @@ public class ContactManagerImpl implements ContactManager {
 			throw new NullPointerException("cannot search for null name.");
 		Set<Contact> retContacts = new HashSet<>();
 		for (Contact itContact : contacts) {
-			if (itContact.getName().equals(name))
+			if (itContact.getName().contains(name))
 				retContacts.add(itContact);
 		}
 		return retContacts;

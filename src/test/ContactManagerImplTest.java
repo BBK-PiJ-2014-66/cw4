@@ -85,11 +85,6 @@ public class ContactManagerImplTest {
 		numBack = testCM.getContacts("z").size();
 		assertThat("added contacts " + names
 				+ ".\n getContacts(\"son\").size() ", numBack, is(0));
-		// Regular expression .* should match any string
-		numBack = testCM.getContacts(".*").size();
-		assertThat("added contacts " + names
-				+ ".\n getContacts(\".*\").size() ", numBack, is(4));
-		
 
 		
 
