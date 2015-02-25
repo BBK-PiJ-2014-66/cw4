@@ -4,7 +4,7 @@
 
 ## Intefaces
 * As supplied on coursework document:
-  * [ContactManager.java](src/main/ContactManager.java)
+  * [ContactManager](src/main/ContactManager.java)
   * [Contact](src/main/Contact.java)
   * [Meeting](src/main/Meeting.java)
   * [PastMeeting](src/main/PastMeeting.java)
