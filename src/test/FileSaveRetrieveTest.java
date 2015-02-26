@@ -25,8 +25,7 @@ public class FileSaveRetrieveTest {
 		ContactManagerImpl restoreCM = FileSaveRetrieve.fromXMLString(xml);
 		assertNotNull(".fromXMLString() should return null!",
 				restoreCM);
-		assertThat("Restored ContactManager .equals(original)",
-				restoreCM.equals(origCM), is(true));
+		assertThat("Restored ContactManager equals original", restoreCM, is(origCM));
 
 	}
 

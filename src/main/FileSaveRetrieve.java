@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 /**
  * 
@@ -49,7 +50,7 @@ class FileSaveRetrieve { // class is package-private
 	 * @return XML encoding of the contactManager object
 	 */
 	protected static String toXMLSting(ContactManagerImpl contactManager) {
-		XStream xstream = new XStream();
+		XStream xstream = new XStream(new StaxDriver());
 		String xml = xstream.toXML(contactManager);
 		return xml;
 	}
@@ -64,8 +65,9 @@ class FileSaveRetrieve { // class is package-private
 	 * @throws someexception???? on error???? //TODO
 	 */
 	protected static ContactManagerImpl fromXMLString(String xml) {
-		// TODO write the method!
-		return null;
+		XStream xstream = new XStream(new StaxDriver());
+		ContactManagerImpl restore = (ContactManagerImpl) xstream.fromXML(xml);
+		return restore;
 	}
 
 	/**
