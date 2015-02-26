@@ -1,0 +1,6 @@
+XStream jars used for XML encode/decode
+
+Taken from:
+https://nexus.codehaus.org/content/repositories/releases/com/thoughtworks/xstream/xstream-distribution/1.4.8/xstream-distribution-1.4.8-bin.zip
+
+See: http://xstream.codehaus.org/
