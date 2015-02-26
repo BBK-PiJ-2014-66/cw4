@@ -1,6 +1,6 @@
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,14 +14,20 @@ public class FileSaveRetrieveTest {
 	 */
 	@Test
 	public void testSaveToXmlStringAndRestore() {
-		ContactManagerImpl testCM = new ContactManagerImpl();
+		ContactManagerImpl origCM = new ContactManagerImpl();
 		List<String> names = Arrays.asList("John Smith", "Jane Doe",
 				"Adam Ant", "Jason Hippo");
 		for (String name : names) {
-			testCM.addNewContact(name, "<email>");
+			origCM.addNewContact(name, "<email>");
 		}
-		String xml = FileSaveRetrieve.toXMLSting(testCM);
-		fail("test not yet implemented xml= \n" + xml);
+		String xml = FileSaveRetrieve.toXMLSting(origCM);
+
+		ContactManagerImpl restoreCM = FileSaveRetrieve.fromXMLString(xml);
+		assertNotNull(".fromXMLString() should return null!",
+				restoreCM);
+		assertThat("Restored ContactManager .equals(original)",
+				restoreCM.equals(origCM), is(true));
+
 	}
 
 }
