@@ -10,7 +10,7 @@ public class FileSaveRetrieveTest {
 
 	/**
 	 * Test saving state to a string and creating a new ContactManagerImpl from
-	 * that object
+	 * that object (now passes).
 	 */
 	@Test
 	public void testSaveToXmlStringAndRestore() {
@@ -26,7 +26,6 @@ public class FileSaveRetrieveTest {
 		assertNotNull(".fromXMLString() should return null!",
 				restoreCM);
 		assertThat("Restored ContactManager equals original", restoreCM, is(origCM));
-
 	}
 
 }
