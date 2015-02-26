@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.thoughtworks.xstream.XStream;
+
 /**
  * 
  * Deals with saving {@link ContactManagerImpl} state to an external file.
@@ -32,10 +34,24 @@ class FileSaveRetrieve { // class is package-private
 	 */
 	protected static void saveToXMLfile(String fileName,
 			ContactManagerImpl contactManager) throws IOException {
-		// TODO write method
-
+		String xml = toXMLSting(contactManager);
+		System.out.println("Debug need to write to file " + fileName + " xml=\n" + xml);
+		// TODO writing to file	
 	}
-
+	/**
+	 * Converts the supplied contactManager to a single XML format string
+	 * using XStream
+	 * 
+	 * @param contactManager the contactManager to encode
+	 * @return XML encoding of the contactManager object 
+	 */
+	protected static String toXMLSting( ContactManagerImpl contactManager) {		
+		XStream xstream = new XStream();
+		String xml = xstream.toXML(contactManager);
+		return xml;
+	}
+	
+	
 	/**
 	 * reads ContactManagerImpl state information from an XML file (written by
 	 * {@link saveToXMLfile})
