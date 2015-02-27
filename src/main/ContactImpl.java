@@ -57,6 +57,7 @@ public class ContactImpl implements Contact {
 	 *             if name or notes are null.
 	 */
 	ContactImpl(int id, String name, String notes) {
+		System.out.println("debug call to ContactImpl constructor id="+ id + " name=" + name + " notes=" + notes);
 		if (name == null)
 			throw new NullPointerException("name cannot be null");
 		if (notes == null)

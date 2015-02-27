@@ -20,9 +20,14 @@ public class FileSaveRetrieveTest {
 		for (String name : names) {
 			origCM.addNewContact(name, "<email>");
 		}
+		System.out.println("debug origCM=" + origCM);
+		
 		String xml = FileSaveRetrieve.toXMLSting(origCM);
-
+		
 		ContactManagerImpl restoreCM = FileSaveRetrieve.fromXMLString(xml);
+		
+		System.out.println("debug restoreCM=" + restoreCM);
+		
 		assertThat("Restored ContactManager equals original", restoreCM, is(origCM));
 	}
 
