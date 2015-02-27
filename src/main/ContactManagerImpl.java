@@ -26,10 +26,10 @@ public class ContactManagerImpl implements ContactManager {
 		contacts = new ArrayList<>();
 	}
 
-	ContactManagerImpl(String FileName) {
+	ContactManagerImpl(String fileName) {
 		ContactManagerImpl readCM = null;
 		try {
-			readCM = FileSaveRetrieve.retrieveFromXMLfile(FileName);
+			readCM = FileSaveRetrieve.retrieveFromfile(fileName);
 			contacts = readCM.contacts;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -167,7 +167,7 @@ public class ContactManagerImpl implements ContactManager {
 	@Override
 	public void flush() {
 		try {
-			FileSaveRetrieve.saveToXMLfile("contacts.txt", this);
+			FileSaveRetrieve.saveToFile("contacts.txt", this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

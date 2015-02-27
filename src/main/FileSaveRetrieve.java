@@ -23,8 +23,8 @@ class FileSaveRetrieve { // class is package-private
 	}
 
 	/**
-	 * writes the ContactManagerImpl information to an XML file (so that than it
-	 * be read back in by {@link saveToXMLfile})
+	 * writes the ContactManagerImpl information to a file (so that than it
+	 * be read back in by {@link retrieveFromfile})
 	 * 
 	 * @param fileName
 	 *            name of the file to save to
@@ -33,12 +33,32 @@ class FileSaveRetrieve { // class is package-private
 	 * @throws IOException
 	 *             if there is an error opening or writing to the file
 	 */
-	protected static void saveToXMLfile(String fileName,
+	protected static void saveToFile(String fileName,
 			ContactManagerImpl contactManager) throws IOException {
+		// use XML format (for now)
 		String xml = toXMLSting(contactManager);
 		System.out.println("Debug need to write to file " + fileName
 				+ " xml=\n" + xml);
 		// TODO writing to file
+	}
+	
+	/**
+	 * reads ContactManagerImpl state information from a file (written by
+	 * {@link saveTofile})
+	 * 
+	 * @param fileName
+	 *            the name of the input file (must already exist).
+	 * @return a new ContactManagerImpl object based on the information from
+	 *         file
+	 * @throws FileNotFoundException
+	 *             if file cannot be opened
+	 * @throws IOException
+	 *             if there is an error reading the file
+	 */
+	protected static ContactManagerImpl retrieveFromfile(String fileName)
+			throws FileNotFoundException, IOException {
+		// TODO write method
+		return null;
 	}
 
 	/**
@@ -76,23 +96,6 @@ class FileSaveRetrieve { // class is package-private
 		return restore;
 	}
 
-	/**
-	 * reads ContactManagerImpl state information from an XML file (written by
-	 * {@link saveToXMLfile})
-	 * 
-	 * @param fileName
-	 *            the name of the input file (must already exist).
-	 * @return a new ContactManagerImpl object based on the information from
-	 *         file
-	 * @throws FileNotFoundException
-	 *             if file cannot be opened
-	 * @throws IOException
-	 *             if there is an error reading the file
-	 */
-	protected static ContactManagerImpl retrieveFromXMLfile(String fileName)
-			throws FileNotFoundException, IOException {
-		// TODO write method
-		return null;
-	}
+
 
 }
