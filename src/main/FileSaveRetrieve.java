@@ -91,7 +91,7 @@ class FileSaveRetrieve { // class is package-private
 		// register all id's read so they will not be reissued.
 		for (Contact itCon: restore.getAllContacts()) {
 			int id = itCon.getId();
-			IdContact.getInstance().registerExistingID(id);
+			IdGenerator.CONTACT.registerExistingID(id);
 		}
 		return restore;
 	}

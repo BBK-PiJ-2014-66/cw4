@@ -44,7 +44,7 @@ public class ContactImpl implements Contact {
 			throw new NullPointerException("notes cannot be null");
 		this.name = name;
 		this.notes = notes;
-		id = IdContact.getInstance().nextID(); // issues a unique ID
+		id = IdGenerator.CONTACT.nextID(); // issues a unique ID
 	}
 
 	/**
