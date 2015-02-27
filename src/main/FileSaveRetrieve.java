@@ -67,6 +67,12 @@ class FileSaveRetrieve { // class is package-private
 	protected static ContactManagerImpl fromXMLString(String xml) {
 		XStream xstream = new XStream(new StaxDriver());
 		ContactManagerImpl restore = (ContactManagerImpl) xstream.fromXML(xml);
+		// TODO ensure that ID's are unique
+		// register all id's read so they will not be reissued.
+		for (Contact itCon: restore.getAllContacts()) {
+			int id = itCon.getId();
+			IdContact.getInstance().registerExistingID(id);
+		}
 		return restore;
 	}
 

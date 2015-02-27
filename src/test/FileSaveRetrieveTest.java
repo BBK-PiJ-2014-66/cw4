@@ -11,7 +11,7 @@ public class FileSaveRetrieveTest {
 
 	/**
 	 * Test restoring state from a a hard coded string this is like a program
-	 * starting up. Add a new contact - will this create raise exception?
+	 * starting up. Add a new contact and check whether there is a conflict.
 	 * 
 	 * Make this the first test to avoid altering state first.
 	 */
@@ -24,10 +24,11 @@ public class FileSaveRetrieveTest {
 		 * getXML.addNewContact("A","B"); System.out.println("Get xml=\n" +
 		 * FileSaveRetrieve.toXMLSting(getXML));
 		 */
-
 		String xml = "<?xml version=\"1.0\" ?><ContactManagerImpl><contacts><ContactImpl><name>A</name><notes>B</notes><id>1</id></ContactImpl></contacts></ContactManagerImpl>";
 		ContactManagerImpl testCM = FileSaveRetrieve.fromXMLString(xml);
-		testCM.addNewContact("New Person", "new notes");
+		// addNewContact now checks whether the new ID conflicts with any existing
+		// and raises an RuntimeException if this happens.
+		testCM.addNewContact("New Person", "new notes"); 
 
 		// there should be two contacts
 		List<Contact> contacts = testCM.getAllContacts();
