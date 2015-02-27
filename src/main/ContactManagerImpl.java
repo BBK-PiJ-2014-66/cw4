@@ -30,6 +30,7 @@ public class ContactManagerImpl implements ContactManager {
 		ContactManagerImpl readCM = null;
 		try {
 			readCM = FileSaveRetrieve.retrieveFromXMLfile(FileName);
+			contacts = readCM.contacts;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +38,6 @@ public class ContactManagerImpl implements ContactManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		contacts = readCM.contacts;
 	}
 
 	@Override
