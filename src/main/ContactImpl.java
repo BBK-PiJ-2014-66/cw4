@@ -14,7 +14,6 @@ public class ContactImpl implements Contact {
 	private String name;
 	private String notes;
 	private int id;
-	private static int maxId = 0; // maximum ID seen
 
 	/**
 	 * Constructor supplied with just a name
@@ -39,33 +38,13 @@ public class ContactImpl implements Contact {
 	 *             if name or notes are null.
 	 */
 	ContactImpl(String name, String notes) {
-		this(++maxId, name, notes); // increment maxId and use this
-	}
-
-	/**
-	 * Constructor: supply id, name and notes (needed to recreate objects on
-	 * file read)
-	 * 
-	 * @param id
-	 *            the user id
-	 * @param name
-	 *            the contact's name
-	 * @param notes
-	 *            notes about the contact (email...?)
-	 * 
-	 * @throws NullPointerException
-	 *             if name or notes are null.
-	 */
-	ContactImpl(int id, String name, String notes) {
 		if (name == null)
 			throw new NullPointerException("name cannot be null");
 		if (notes == null)
 			throw new NullPointerException("notes cannot be null");
 		this.name = name;
 		this.notes = notes;
-		this.id = id;
-		if (id > maxId) // is this the biggest ID seen so far
-			maxId = id;
+		id = IdContact.getInstance().nextID(); // issues a unique ID
 	}
 
 	/**
