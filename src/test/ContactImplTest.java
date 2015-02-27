@@ -36,17 +36,6 @@ public class ContactImplTest {
 	}
 
 	@Test
-	public void testGetBackId() {
-		int supplyId = 57;
-		Contact testContact = new ContactImpl(supplyId, "Joe Bloggs",
-				"some notes");
-		int backId = testContact.getId();
-		assertThat("ContactImpl constructor with ID, "
-				+ "check that .getID() returns the supplied ID.", backId,
-				is(supplyId));
-	}
-
-	@Test
 	public void testAddNotes() {
 		Contact testContact = new ContactImpl("Joe Bloggs");
 		String supplyNotes = "email: joe.bloggs@fictious.com";
