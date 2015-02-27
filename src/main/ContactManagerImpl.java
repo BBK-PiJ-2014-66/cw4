@@ -154,6 +154,18 @@ public class ContactManagerImpl implements ContactManager {
 
 	}
 
+	/**
+	 * Customised toString() N.B. produces output on multiple lines as this is
+	 * useful in debugging.
+	 */
+	@Override
+	public String toString() {
+		String retStr = "\n\tcontacts: \n";
+		for (Contact itCon : contacts)
+			retStr += "\t\t" + itCon + "\n";
+		return retStr;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

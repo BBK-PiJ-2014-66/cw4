@@ -107,6 +107,14 @@ public class ContactImpl implements Contact {
 		this.notes = note;
 	}
 
+	/**
+	 * Customised toString 
+	 */
+	@Override
+	public String toString() {
+		return "name='" + name + "', notes='" + notes + "', id=" + id;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
