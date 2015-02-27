@@ -102,12 +102,12 @@ public class ContactManagerImpl implements ContactManager {
 		// if name or notes are null
 		Contact newContact = new ContactImpl(name, notes);
 		// contacts are required to have new IDs - lets check that this is true
-//		for (Contact itCon : contacts) {
-//			if (itCon.getId() == newContact.getId())
-//				throw new RuntimeException(
-//						"programming error: identical contact IDs for " + itCon
-//								+ " and " + newContact);
-//		}
+		for (Contact itCon : contacts) {
+			if (itCon.getId() == newContact.getId())
+				throw new RuntimeException(
+						"programming error: identical contact IDs for " + itCon
+								+ " and " + newContact);
+		}
 
 		contacts.add(newContact);
 	}

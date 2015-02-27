@@ -37,7 +37,7 @@ public class FileSaveRetrieveTest {
 		int id0 = contacts.get(0).getId();
 		int id1 = contacts.get(1).getId();
 		assertThat("Get one contact from initial XML and adding another,"
-				+ " ID must not be the same.", id0, not(id1));
+				+ " IDs must not be the same.", id0, not(id1));
 	}
 
 	/**
