@@ -181,10 +181,10 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	@Override
 	public String toString() {
-		String retStr = "\n\tcontacts: \n";
+		StringBuffer ret = new StringBuffer("\n\tcontacts: \n");
 		for (Contact itCon : contacts)
-			retStr += "\t\t" + itCon + "\n";
-		return retStr;
+			ret.append("\t\t" + itCon + "\n");
+		return ret.toString();
 	}
 
 	/*
