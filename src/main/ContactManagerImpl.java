@@ -91,12 +91,24 @@ public class ContactManagerImpl implements ContactManager {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws RuntimeException
+	 *             if identical contact ID error occurs (this should be an
+	 *             "impossible error")
 	 */
 	@Override
 	public void addNewContact(String name, String notes) {
 		// ContactImpl constructor will throw required NullPointerException
 		// if name or notes are null
 		Contact newContact = new ContactImpl(name, notes);
+		// contacts are required to have new IDs - lets check that this is true
+//		for (Contact itCon : contacts) {
+//			if (itCon.getId() == newContact.getId())
+//				throw new RuntimeException(
+//						"programming error: identical contact IDs for " + itCon
+//								+ " and " + newContact);
+//		}
+
 		contacts.add(newContact);
 	}
 
@@ -141,6 +153,15 @@ public class ContactManagerImpl implements ContactManager {
 				retContacts.add(itContact);
 		}
 		return retContacts;
+	}
+
+	/**
+	 * A simple getter for contacts. Not an interface method but I would add it
+	 * 
+	 * @return list of all the contacts
+	 */
+	public List<Contact> getAllContacts() {
+		return contacts;
 	}
 
 	@Override
