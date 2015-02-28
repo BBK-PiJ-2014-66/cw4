@@ -32,7 +32,7 @@ public class MeetingImplTest {
 		assertThat("Get back the same date as provided to constructor?",
 				testMeeting.getDate(), is(testDate));
 		assertThat("Get back the same contacts as provided to constructor?",
-				testMeeting.getContact(), is(testContacts));
+				testMeeting.getContacts(), is(testContacts));
 	}
 
 	/**

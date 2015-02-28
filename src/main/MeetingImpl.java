@@ -3,7 +3,7 @@ import java.util.Set;
 
 /**
  * 
- * A class to represent meetings
+ * A class to represent meetings.
  *
  * Meetings have unique IDs, scheduled date and a list of participating
  * contacts: so a pretty simple class single constructor and three getters.
