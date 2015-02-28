@@ -4,21 +4,50 @@ import static org.junit.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
 /**
- * JUnit tests for ContactManagerImpl implementation of ContactManager.
+ * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
+ * often use ContactManagerPlus interface to use simple getters.
  * 
- * All tests currently pass.
+ * All tests DO NOT currently pass.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
  *
  */
 public class ContactManagerImplTest {
+
+	/**
+	 * Test adding a future meeting
+	 */
+	@Test
+	public void testaddFutureMeeting() {
+		ContactManagerPlus testCMP = new ContactManagerImpl();
+		Calendar future = new GregorianCalendar(3000, 0, 01); // 1st January
+																// 3000
+		String testName = "Test Name";
+		testCMP.addNewContact(testName, "Test Notes");
+		Set<Contact> testContacts = testCMP.getContacts(testName);
+		testCMP.addFutureMeeting(testContacts, future);
+		// to check this has worked now need to get the meeting back.
+		List<Meeting> allFutureMeetings = testCMP.getAllFutureMeetings();
+		assertNotNull(
+				"Added a future meeting: .getAllFutureMeetings should not return null.",
+				allFutureMeetings);
+		assertThat(
+				"Added a future meeting: there should be one future meeting stored.",
+				allFutureMeetings.size(), is(1));
+		assertThat(
+				"Added a future meeting: date of the meeting should be same as supplied.",
+				allFutureMeetings.get(0).getDate(), is(future));
+
+	}
 
 	/**
 	 * test for a contact when contacts are empty
@@ -30,7 +59,6 @@ public class ContactManagerImplTest {
 		// should not be null
 		assertNotNull("retrieving contacts set should not return null",
 				retrieveContacts);
-		// should have one contact
 		assertTrue(
 				"Looking for contacts when none added. Should get an empty set back",
 				retrieveContacts.isEmpty());
@@ -77,16 +105,15 @@ public class ContactManagerImplTest {
 		}
 		int numBack;
 		numBack = testCM.getContacts("J").size();
-		assertThat("added contacts " + names
-				+ ".\n getContacts(\"J\").size() ", numBack, is(3));
+		assertThat(
+				"added contacts " + names + ".\n getContacts(\"J\").size() ",
+				numBack, is(3));
 		numBack = testCM.getContacts("son").size();
 		assertThat("added contacts " + names
 				+ ".\n getContacts(\"son\").size() ", numBack, is(1));
 		numBack = testCM.getContacts("z").size();
 		assertThat("added contacts " + names
 				+ ".\n getContacts(\"son\").size() ", numBack, is(0));
-
-		
 
 	}
 
