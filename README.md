@@ -13,7 +13,10 @@
 ## Implementation
 * [ContactImpl](src/main/ContactImpl.java) tested by  [ContactImplTest](src/test/ContactImplTest.java)
 * [ContactManagerImpl](src/main/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java)
-* [IdGenerator](src/main/IdGenerator.java) uses Enum singleton objects for unique ID's.
+* [IdGenerator](src/main/IdGenerator.java) uses Enum singleton objects for unique ID's. 
+Nice thing as same code can provide separate ID's for Contacts and Meetings.
+* [FileSaveRetrieve](src/main/FileSaveRetrieve.java) tested by [FileSaveRetrieveTest](src/test/FileSaveRetrieveTest.java)
+* [MeetingImpl](src/main/MeetingImpl.java) tested by [MeetingImplTest](src/test/MeetingImplTest.java).
 
 ## Storing data to file
 The coursework document specifies 
