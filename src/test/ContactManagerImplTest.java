@@ -35,8 +35,6 @@ public class ContactManagerImplTest {
 		testCM.addNewContact(testName, "Test Notes");
 		Set<Contact> testContacts = testCM.getContacts(testName);
 		int meetingID = testCM.addFutureMeeting(testContacts, future);
-		// development - print the ContactManager
-		System.out.println("debug contact manager with one future meeting: " + testCM);
 		// to check this has worked now need to get the meeting back.
 		// (much simpler than I had made it at first and can be done with basic ContactManager)
 		FutureMeeting futureMeeting = testCM.getFutureMeeting(meetingID);
@@ -47,6 +45,20 @@ public class ContactManagerImplTest {
 				"Added a future meeting: date of the meeting should be same as supplied.",
 				futureMeeting.getDate(), is(future));
 
+	}
+	
+	/**
+	 * Test addFutureMeeting() in the past (1066) produces the required IllegalArgumentException 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testaddFutureMeetingWithPastDate() {
+		ContactManager testCM = new ContactManagerImpl();
+		// Battle of Hastings 14 October 1066 - in the past!
+		Calendar future = new GregorianCalendar(1066, 9, 14); 
+		String testName = "Test Name";
+		testCM.addNewContact(testName, "Test Notes");
+		Set<Contact> testContacts = testCM.getContacts(testName);
+		testCM.addFutureMeeting(testContacts, future);
 	}
 
 	/**
