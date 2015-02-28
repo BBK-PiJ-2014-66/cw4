@@ -40,4 +40,14 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 		return notes;
 	}
 
+	/**
+	 * Add notes to an existing past meeting
+	 * 
+	 * @param notes
+	 *            detailing what happened and what was agreed
+	 */
+	public void addNotes(String notes) {
+		//this.notes = notes;
+	}
+
 }

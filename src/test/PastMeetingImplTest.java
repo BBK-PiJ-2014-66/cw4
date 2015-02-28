@@ -48,8 +48,6 @@ public class PastMeetingImplTest {
 		past.addNotes(testNotes);
 		assertThat("Get back the same notes as added with addNotes?",
 				past.getNotes(), is(testNotes));
-
-)
 	}
 	
 	/**
