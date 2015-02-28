@@ -18,12 +18,14 @@ import java.util.Set;
 public class ContactManagerImpl implements ContactManagerPlus {
 
 	List<Contact> contacts;
+	List<FutureMeeting> futureMeetings;
 
 	/**
 	 * construct a brand new ContactManager
 	 */
 	ContactManagerImpl() {
 		contacts = new ArrayList<>();
+		futureMeetings = new ArrayList<>();
 	}
 
 	ContactManagerImpl(String fileName) {
@@ -40,10 +42,23 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if the meeting is set for a time in the past, or if any
+	 *             contact is not in list of current contacts
+	 */
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		// TODO Auto-generated method stub
-		return 0;
+		// TODO check that date supplied is in future and throw
+		// IllegalArgumentException if not
+
+		// TODO check that all supplied contacts are legit and that there is at
+		// least one
+		FutureMeeting thisFM = new FutureMeetingImpl(contacts, date);
+		futureMeetings.add(thisFM);
+		return thisFM.getId(); // the ID of the meeting
 	}
 
 	@Override
@@ -159,17 +174,18 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public List<Contact> getAllContacts() {
 		return contacts;
 	}
-	
+
 	@Override
-	public List<Meeting> getAllFutureMeetings() {
-		return null; // TODO write method
+	public List<FutureMeeting> getAllFutureMeetings() {
+		// TODO sort chronologically;
+		return futureMeetings;
 	}
 
 	@Override
-	public List<Meeting> getAllPastMeetings() {
+	public List<PastMeeting> getAllPastMeetings() {
 		return null; // TODO write method
 	}
-	
+
 	@Override
 	public void flush() {
 		try {
@@ -190,6 +206,10 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		StringBuffer ret = new StringBuffer("\n\tcontacts: \n");
 		for (Contact itCon : contacts)
 			ret.append("\t\t" + itCon + "\n");
+		ret.append("\n\tfuture meetings: \n");
+		for (FutureMeeting itFM : futureMeetings)
+			ret.append("\t\t" + itFM + "\n");
+
 		return ret.toString();
 	}
 
