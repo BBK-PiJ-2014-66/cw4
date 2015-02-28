@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Class to Manage contacts and Meetings
@@ -67,10 +68,30 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 *             "if there is a meeting with that ID happening in the past"
+	 *             (i.e. stored as a past meeting)
+	 */
 	@Override
 	public FutureMeeting getFutureMeeting(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO check past meetings for that ID - throw an exception on match
+
+		FutureMeeting retFM = null;
+		// Select meeting that matches id
+		// use a stream lambda expression rather than for loop
+		// http://stackoverflow.com/questions/22694884/filter-java-stream-to-1-and-only-1-element
+		List<FutureMeeting> matchingFMs = futureMeetings.stream()
+				.filter(fm -> fm.getId() == id).collect(Collectors.toList());
+		if (matchingFMs.size() > 1) // belt and braces
+			throw new RuntimeException("Programming Error. "
+					+ "Have two future meeting with matching ids: "
+					+ matchingFMs);
+		if (matchingFMs.size() == 1)
+			retFM = matchingFMs.get(0);
+		return retFM;
 	}
 
 	@Override
