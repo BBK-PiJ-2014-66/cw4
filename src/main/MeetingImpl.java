@@ -14,16 +14,27 @@ import java.util.Set;
  */
 public class MeetingImpl implements Meeting {
 
+	private int id; // unique ID
+	private Calendar date;
+	private Set<Contact> contacts;
+
 	/**
-	 * Constructor
+	 * Constructor for Meeting
 	 * 
 	 * @param contacts
 	 *            list of the participating contact or contacts
 	 * @param date
 	 *            the scheduled date of the meeting (or when it occurred).
+	 * @throws NullPointerException
+	 *             if contacts or date is null.
+	 * @throws IllegalArgumentException
+	 *             if supplied with an empty set of contacts
 	 */
 	MeetingImpl(Set<Contact> contacts, Calendar date) {
-		// TODO write the constructor
+		// TODO throw exception on dodgy input
+		id = IdGenerator.MEETING.nextID(); // issues an ID unique to meetings
+		this.contacts = contacts;
+		this.date = date;
 	}
 
 	/**
@@ -31,24 +42,23 @@ public class MeetingImpl implements Meeting {
 	 */
 	@Override
 	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Calendar getDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return date;
 	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Set<Contact> getContacts() {
-		// TODO Auto-generated method stub
-		return null;
+		return contacts;
 	}
 
 }
