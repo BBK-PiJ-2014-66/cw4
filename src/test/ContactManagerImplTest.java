@@ -28,24 +28,24 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testaddFutureMeeting() {
-		ContactManagerPlus testCMP = new ContactManagerImpl();
+		ContactManager testCM = new ContactManagerImpl();
 		Calendar future = new GregorianCalendar(3000, 0, 01); // 1st January
 																// 3000
 		String testName = "Test Name";
-		testCMP.addNewContact(testName, "Test Notes");
-		Set<Contact> testContacts = testCMP.getContacts(testName);
-		testCMP.addFutureMeeting(testContacts, future);
+		testCM.addNewContact(testName, "Test Notes");
+		Set<Contact> testContacts = testCM.getContacts(testName);
+		int meetingID = testCM.addFutureMeeting(testContacts, future);
+		// development - print the ContactManager
+		System.out.println("debug contact manager with one future meeting: " + testCM);
 		// to check this has worked now need to get the meeting back.
-		List<Meeting> allFutureMeetings = testCMP.getAllFutureMeetings();
+		// (much simpler than I had made it at first and can be done with basic ContactManager)
+		FutureMeeting futureMeeting = testCM.getFutureMeeting(meetingID);
 		assertNotNull(
-				"Added a future meeting: .getAllFutureMeetings should not return null.",
-				allFutureMeetings);
-		assertThat(
-				"Added a future meeting: there should be one future meeting stored.",
-				allFutureMeetings.size(), is(1));
+				"Added a future meeting: .getFutureMeetings(ID) should not return null.",
+				futureMeeting);
 		assertThat(
 				"Added a future meeting: date of the meeting should be same as supplied.",
-				allFutureMeetings.get(0).getDate(), is(future));
+				futureMeeting.getDate(), is(future));
 
 	}
 
