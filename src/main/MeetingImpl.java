@@ -31,7 +31,12 @@ public class MeetingImpl implements Meeting {
 	 *             if supplied with an empty set of contacts
 	 */
 	MeetingImpl(Set<Contact> contacts, Calendar date) {
-		// TODO throw exception on dodgy input
+		if (contacts == null || date == null)
+			throw new NullPointerException(
+					"null contacts or dates not allowed.");
+		if (contacts.size() == 0)
+			throw new IllegalArgumentException("empty contact set supplied."
+					+ " A meeting must have at least one contact.");
 		id = IdGenerator.MEETING.nextID(); // issues an ID unique to meetings
 		this.contacts = contacts;
 		this.date = date;
