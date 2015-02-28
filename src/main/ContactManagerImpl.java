@@ -54,12 +54,22 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		// TODO check that date supplied is in future and throw
 		// IllegalArgumentException if not
+		if (!checkDateIsFuture(date))
+			throw new IllegalArgumentException(
+					"Future meetings cannot have past dates."
+							+ " Supplied date =" + date.getTime());
 
 		// TODO check that all supplied contacts are legit and that there is at
 		// least one
 		FutureMeeting thisFM = new FutureMeetingImpl(contacts, date);
 		futureMeetings.add(thisFM);
 		return thisFM.getId(); // the ID of the meeting
+	}
+
+	private boolean checkDateIsFuture(Calendar date) {
+		Calendar now = Calendar.getInstance(); 
+		//TODO must allow now override to a supplied pretend time
+		return date.after(now);
 	}
 
 	@Override
@@ -88,7 +98,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			throw new RuntimeException("Programming Error. "
 					+ "Have two future meeting with matching ids: "
 					+ matchingFMs);
-		// if there is one matching future meeting return it otherwise return null
+		// if there is one matching future meeting return it otherwise return
+		// null
 		return (matchingFMs.size() == 1) ? matchingFMs.get(0) : null;
 	}
 
