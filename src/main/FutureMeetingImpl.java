@@ -27,4 +27,13 @@ public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
 		super(contacts, date);
 	}
 	// thats all no methods
+
+	/**
+	 * use Meeting method
+	 */
+	@Override
+	public String toString() {
+		return  super.toString();
+	}
+	
 }

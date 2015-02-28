@@ -71,4 +71,15 @@ public class MeetingImpl implements Meeting {
 		return contacts;
 	}
 
+	/**
+	 * string representation meeting in human readable form (single line).
+	 */
+	@Override
+	public String toString() {
+		return "id=" + id + ", date=" + date.getTime() + ", contacts="
+				+ contacts;
+	}
+	
+	
+
 }
