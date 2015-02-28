@@ -7,7 +7,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
+/**
+ * JUnit tests for PastMeetingImpl. 
+ * 
+ * Need to be able to convert a future meeting to a past one.
+ * 
+ * Passes all tests.
+ * 
+ * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
+ * @since 28 February 2015
+ *
+ */
 public class PastMeetingImplTest {
 
 	/**

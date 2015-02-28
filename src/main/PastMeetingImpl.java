@@ -30,10 +30,15 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	 */
 	public PastMeetingImpl(Set<Contact> contacts, Calendar date, String notes) {
 		super(contacts, date);
-		if (notes == null)
-			throw new NullPointerException("null notes is not allowed.");
-		this.notes = notes;
+		addNotes(notes);
 	}
+	
+	public PastMeetingImpl(int id, Set<Contact> contacts, Calendar date, String notes) {
+		super(id, contacts, date);
+		addNotes(notes);
+	}
+	
+	
 
 	@Override
 	public String getNotes() {
@@ -47,7 +52,9 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	 *            detailing what happened and what was agreed
 	 */
 	public void addNotes(String notes) {
-		//this.notes = notes;
+		if (notes == null)
+			throw new NullPointerException("null notes is not allowed.");
+		this.notes = notes;
 	}
 
 }
