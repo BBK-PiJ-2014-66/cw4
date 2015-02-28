@@ -37,8 +37,13 @@ public class PastMeetingImplTest {
 	 */
 	@SuppressWarnings("unused")
 	@Test(expected = NullPointerException.class)
-	public void SupplyNullArgumentsToConstructor() {
-		PastMeeting test = new PastMeetingImpl( null, null, null);
+	public void SupplyNullNotesToConstructor() {
+		Contact testContact = new ContactImpl("Test User");
+		Set<Contact> testContacts = new HashSet<>();
+		testContacts.add(testContact);
+		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January 2015
+		String testNotes = "Test notes";
+		PastMeeting testMeeting = new PastMeetingImpl(testContacts, testDate, null);
 	}
 	
 	
