@@ -10,6 +10,8 @@ import java.util.Set;
  */
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
+	private String notes;
+
 	/**
 	 * 
 	 * Constructor for Meeting
@@ -28,14 +30,14 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	 */
 	public PastMeetingImpl(Set<Contact> contacts, Calendar date, String notes) {
 		super(contacts, date);
-		// TODO check for null notes and throw an exception
-		// TODO store the notes
+		if (notes == null)
+			throw new NullPointerException("null notes is not allowed.");
+		this.notes = notes;
 	}
 
 	@Override
 	public String getNotes() {
-		// TODO retrieve stored notes
-		return null;
+		return notes;
 	}
 
 }
