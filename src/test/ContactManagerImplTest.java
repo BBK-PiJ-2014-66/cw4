@@ -10,7 +10,7 @@ import java.util.Set;
 import org.junit.Test;
 
 /**
- * JUnit tests for ContactManageImpl implementation of ContactManager.
+ * JUnit tests for ContactManagerImpl implementation of ContactManager.
  * 
  * All tests currently pass.
  * 
