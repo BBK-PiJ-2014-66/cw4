@@ -15,7 +15,7 @@ import java.util.Set;
  * @since 24 February 2015
  * 
  */
-public class ContactManagerImpl implements ContactManager {
+public class ContactManagerImpl implements ContactManagerPlus {
 
 	List<Contact> contacts;
 
@@ -155,15 +155,21 @@ public class ContactManagerImpl implements ContactManager {
 		return retContacts;
 	}
 
-	/**
-	 * A simple getter for contacts. Not an interface method but I would add it
-	 * 
-	 * @return list of all the contacts
-	 */
+	@Override
 	public List<Contact> getAllContacts() {
 		return contacts;
 	}
+	
+	@Override
+	public List<Meeting> getAllFutureMeetings() {
+		return null; // TODO write method
+	}
 
+	@Override
+	public List<Meeting> getAllPastMeetings() {
+		return null; // TODO write method
+	}
+	
 	@Override
 	public void flush() {
 		try {
