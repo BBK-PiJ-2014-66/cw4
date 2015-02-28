@@ -23,13 +23,13 @@ public interface ContactManagerPlus extends ContactManager {
 	 * 
 	 * @return a list of meetings that is chronologically sorted.
 	 */
-	public List<Meeting> getAllFutureMeetings();
+	public List<FutureMeeting> getAllFutureMeetings();
 
 	/**
 	 * A simple getter for all past meetings
 	 * 
 	 * @return a list of meetings that is chronologically sorted.
 	 */
-	public List<Meeting> getAllPastMeetings();
+	public List<PastMeeting> getAllPastMeetings();
 
 }
