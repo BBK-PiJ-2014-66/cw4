@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -27,7 +28,7 @@ public class MeetingImplTest {
 		Contact testContact = new ContactImpl("Test User");
 		Set<Contact> testContacts = new HashSet<>();
 		testContacts.add(testContact);
-		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January
+		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January 2015
 		Meeting testMeeting = new MeetingImpl(testContacts, testDate);
 		assertThat("Get back the same date as provided to constructor?",
 				testMeeting.getDate(), is(testDate));
@@ -49,5 +50,28 @@ public class MeetingImplTest {
 		assertThat("Two meetings have distinct ID's", testMeetA.getId(),
 				not(testMeetB.getId()));
 	}
+	
+	/**
+	 * error testing: supply null contacts and calendar
+	 * must get a NullPointerException to pass test
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = NullPointerException.class)
+	public void SupplyNullArgumentsToConstructor() {
+		Meeting testCM = new MeetingImpl( null, null);
+	}
+	
+	/**
+	 * error testing: supply empty set of contacts
+	 * must get a NullPointerException to pass test
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = IllegalArgumentException.class)
+	public void SupplyEmptyContactsToConstructor() {
+		Set<Contact> testContacts = new HashSet<>();
+		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January 2015
+		Meeting testMeeting = new MeetingImpl(testContacts, testDate);
+	}
+	
 
 }
