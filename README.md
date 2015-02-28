@@ -1,6 +1,6 @@
 # PiJ Coursework Four
 * The assignment document [cw4.pdf](cw4.pdf)
-* Due **your github repo will be cloned on Sunday, 22nd March 2015 @ 23:59**
+* Due: **your github repo will be cloned on Sunday, 22nd March 2015 @ 23:59**
 
 ## Intefaces
 * As supplied on coursework document:
@@ -9,10 +9,15 @@
   * [Meeting](src/main/Meeting.java)
   * [PastMeeting](src/main/PastMeeting.java)
   * [FutureMeeting](src/main/FutureMeeting.java)
+* Own interfaces:
+  * [ContactManagerPlus](src/main/ContactManagerPlus.java) extends [ContactManager](src/main/ContactManager.java) 
+     adding methods that are needed for both JUnit testing and to produce a functional final program.
+
 
 ## Implementation
 * [ContactImpl](src/main/ContactImpl.java) tested by  [ContactImplTest](src/test/ContactImplTest.java)
-* [ContactManagerImpl](src/main/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java)
+* [ContactManagerImpl](src/main/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java) 
+**N.B., often tests use [ContactManagerPlus](src/main/ContactManagerPlus.java) rather than simple  [ContactManager](src/main/ContactManager.java) because the interface lacks simple getters and writing tests without these would be painful in the extreme.**
 * [IdGenerator](src/main/IdGenerator.java) uses Enum singleton objects for unique ID's. 
 Nice thing as same code can provide separate ID's for Contacts and Meetings.
 * [FileSaveRetrieve](src/main/FileSaveRetrieve.java) tested by [FileSaveRetrieveTest](src/test/FileSaveRetrieveTest.java)
