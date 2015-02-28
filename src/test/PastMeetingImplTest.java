@@ -32,12 +32,33 @@ public class PastMeetingImplTest {
 	}
 	
 	/**
+	 * it would be convenient to cast a future meeting to a past meeting
+	 */
+	@Test
+	public void castFutureMeetingToPastAddNotes(){
+		Contact testContact = new ContactImpl("Test User");
+		Set<Contact> testContacts = new HashSet<>();
+		testContacts.add(testContact);
+		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January 2015
+		FutureMeeting test = new FutureMeetingImpl( testContacts, testDate);
+		// cast to PastMeetingImpl rather than PastMeeting as inteface lacks 
+		// the .addNotes( String) method. 
+		PastMeetingImpl past = (PastMeetingImpl) test;
+		String testNotes = "Test notes";
+		past.addNotes(testNotes);
+		assertThat("Get back the same notes as added with addNotes?",
+				past.getNotes(), is(testNotes));
+
+)
+	}
+	
+	/**
 	 * error testing: supply null parameters
 	 * must get a NullPointerException to pass test
 	 */
 	@SuppressWarnings("unused")
 	@Test(expected = NullPointerException.class)
-	public void SupplyNullNotesToConstructor() {
+	public void supplyNullNotesToConstructor() {
 		Contact testContact = new ContactImpl("Test User");
 		Set<Contact> testContacts = new HashSet<>();
 		testContacts.add(testContact);
