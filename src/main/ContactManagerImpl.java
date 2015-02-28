@@ -79,8 +79,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public FutureMeeting getFutureMeeting(int id) {
 		// TODO check past meetings for that ID - throw an exception on match
 
-		FutureMeeting retFM = null;
-		// Select meeting that matches id
+		// Select meetings that matches the id
 		// use a stream lambda expression rather than for loop
 		// http://stackoverflow.com/questions/22694884/filter-java-stream-to-1-and-only-1-element
 		List<FutureMeeting> matchingFMs = futureMeetings.stream()
@@ -89,9 +88,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			throw new RuntimeException("Programming Error. "
 					+ "Have two future meeting with matching ids: "
 					+ matchingFMs);
-		if (matchingFMs.size() == 1)
-			retFM = matchingFMs.get(0);
-		return retFM;
+		// if there is one matching future meeting return it otherwise return null
+		return (matchingFMs.size() == 1) ? matchingFMs.get(0) : null;
 	}
 
 	@Override
