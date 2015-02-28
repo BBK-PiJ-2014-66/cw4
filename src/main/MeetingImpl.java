@@ -31,13 +31,18 @@ public class MeetingImpl implements Meeting {
 	 *             if supplied with an empty set of contacts
 	 */
 	MeetingImpl(Set<Contact> contacts, Calendar date) {
+		// call the 3 argument constructor with a new unique ID
+		this( IdGenerator.MEETING.nextID(),  contacts, date);
+	}
+	
+	MeetingImpl(int id, Set<Contact> contacts, Calendar date) {
 		if (contacts == null || date == null)
 			throw new NullPointerException(
 					"null contacts or dates not allowed.");
 		if (contacts.size() == 0)
 			throw new IllegalArgumentException("empty contact set supplied."
 					+ " A meeting must have at least one contact.");
-		id = IdGenerator.MEETING.nextID(); // issues an ID unique to meetings
+		this.id = id;
 		this.contacts = contacts;
 		this.date = date;
 	}
