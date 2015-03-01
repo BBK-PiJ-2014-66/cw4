@@ -22,7 +22,7 @@ public class FileSaveRetrieveTest {
 	 * Make this the first test to avoid altering state first.
 	 */
 	@Test
-	public void restoreFromXmlStringAddNewContact() {
+	public void restoreFromXmlStringAddNewContact() {		// TODO test fails!
 		// hard coded XML string for a single contact "A" with notes "B"
 		// Obtained from using following code and cut/paste:
 		/*
