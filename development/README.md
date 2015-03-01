@@ -8,26 +8,26 @@ packages* In the end will use to produce an "official-to-be-marked-submission".
 
 ## Intefaces
 * As supplied on coursework document:
-  * [ContactManager](src/gw4/ContactManager.java)
-  * [Contact](src/gw4/Contact.java)
-  * [Meeting](src/gw4/Meeting.java)
-  * [PastMeeting](src/gw4/PastMeeting.java)
-  * [FutureMeeting](src/gw4/FutureMeeting.java)
+  * [ContactManager](src/cw4/ContactManager.java)
+  * [Contact](src/cw4/Contact.java)
+  * [Meeting](src/cw4/Meeting.java)
+  * [PastMeeting](src/cw4/PastMeeting.java)
+  * [FutureMeeting](src/cw4/FutureMeeting.java)
 * Own interfaces:
-  * [ContactManagerPlus](src/gw4/ContactManagerPlus.java) extends [ContactManager](src/gw4/ContactManager.java) 
+  * [ContactManagerPlus](src/cw4/ContactManagerPlus.java) extends [ContactManager](src/cw4/ContactManager.java) 
      adding methods that are needed for both JUnit testing and to produce a functional final program.
 
 
 ## Implementation
-* [ContactImpl](src/gw4/ContactImpl.java) tested by  [ContactImplTest](src/test/ContactImplTest.java)
-* [ContactManagerImpl](src/gw4/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java) 
-**N.B., often tests use [ContactManagerPlus](src/gw4/ContactManagerPlus.java) rather than simple  [ContactManager](src/gw4/ContactManager.java) because the interface lacks simple getters and writing tests without these would be painful in the extreme.**
-* [IdGenerator](src/gw4/IdGenerator.java) uses Enum singleton objects for unique ID's. 
+* [ContactImpl](src/cw4/ContactImpl.java) tested by  [ContactImplTest](src/test/ContactImplTest.java)
+* [ContactManagerImpl](src/cw4/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java) 
+**N.B., often tests use [ContactManagerPlus](src/cw4/ContactManagerPlus.java) rather than simple  [ContactManager](src/cw4/ContactManager.java) because the interface lacks simple getters and writing tests without these would be painful in the extreme.**
+* [IdGenerator](src/cw4/IdGenerator.java) uses Enum singleton objects for unique ID's. 
 Nice thing as same code can provide separate ID's for Contacts and Meetings.
-* [FileSaveRetrieve](src/gw4/FileSaveRetrieve.java) tested by [FileSaveRetrieveTest](src/test/FileSaveRetrieveTest.java)
-* [MeetingImpl](src/gw4/MeetingImpl.java) tested by [MeetingImplTest](src/test/MeetingImplTest.java).
-* [PastMeetingImpl](src/gw4/PastMeetingImpl.java) tested by [PastMeetingImplTest](src/test/PastMeetingImplTest.java).
-* [FutureMeetingImpl](src/gw4/FutureMeetingImpl.java) tested by [FutureMeetingImplTest](src/test/FutureMeetingImplTest.java).
+* [FileSaveRetrieve](src/cw4/FileSaveRetrieve.java) tested by [FileSaveRetrieveTest](src/test/FileSaveRetrieveTest.java)
+* [MeetingImpl](src/cw4/MeetingImpl.java) tested by [MeetingImplTest](src/test/MeetingImplTest.java).
+* [PastMeetingImpl](src/cw4/PastMeetingImpl.java) tested by [PastMeetingImplTest](src/test/PastMeetingImplTest.java).
+* [FutureMeetingImpl](src/cw4/FutureMeetingImpl.java) tested by [FutureMeetingImplTest](src/test/FutureMeetingImplTest.java).
 
 
 
