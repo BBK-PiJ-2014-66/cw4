@@ -109,7 +109,10 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public Meeting getMeeting(int id) {
-		return null;
+		// use the other methods and cast result
+		Meeting retMeet = (Meeting) getFutureMeeting(id);
+		// TODO if null look in past meetings....
+		return retMeet;
 	}
 
 	@Override
