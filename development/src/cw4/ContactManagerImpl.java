@@ -55,8 +55,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		// TODO check that date supplied is in future and throw
-		// IllegalArgumentException if not
 		if (!checkDateIsFuture(date))
 			throw new IllegalArgumentException(
 					"Future meetings cannot have past dates."
