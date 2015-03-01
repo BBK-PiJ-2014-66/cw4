@@ -25,7 +25,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	/**
 	 * construct a brand new ContactManager
 	 */
-	ContactManagerImpl() {
+	public ContactManagerImpl() {
 		contacts = new ArrayList<>();
 		futureMeetings = new ArrayList<>();
 	}

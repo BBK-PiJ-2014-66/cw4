@@ -1,3 +1,5 @@
+package test;
+
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -10,6 +12,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
+
+import cw4.Contact;
+import cw4.ContactManager;
+import cw4.ContactManagerImpl;
+import cw4.FutureMeeting;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
