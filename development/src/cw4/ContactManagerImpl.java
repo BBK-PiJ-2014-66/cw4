@@ -22,6 +22,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	List<Contact> contacts;
 	List<FutureMeeting> futureMeetings;
+	Calendar pretendNow = null;
 
 	/**
 	 * construct a brand new ContactManager
@@ -67,7 +68,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		futureMeetings.add(thisFM);
 		return thisFM.getId(); // the ID of the meeting
 	}
-
 
 	@Override
 	public PastMeeting getPastMeeting(int id) {
@@ -183,9 +183,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/*
-	 * extra methods from interface ContactManagerPlus follow: 
+	 * extra methods from interface ContactManagerPlus follow:
 	 */
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -216,21 +216,29 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public List<PastMeeting> getAllPastMeetings() {
 		return null; // TODO write method
 	}
-	
+
 	/**
 	 * {@inheritDoc}
-	 */ 
+	 */
 	@Override
 	public void overrideDateNow(Calendar pretendNow) {
-		// TODO to be written
+		this.pretendNow = pretendNow;
 	}
 
+	/**
+	 * check whether a date is in the future N.B. checks against current
+	 * date/time unless {@link overrideDateNow} has been used to set a
+	 * "pretendNow"
+	 * 
+	 * @param date
+	 *            the date to check
+	 * @return whether the date is in the future.
+	 */
 	private boolean checkDateIsFuture(Calendar date) {
-		Calendar now = Calendar.getInstance();
-		// TODO must allow now override to a supplied pretend time
+		Calendar now = (pretendNow != null) ? pretendNow : Calendar
+				.getInstance();
 		return date.after(now);
 	}
-
 
 	@Override
 	public void flush() {
