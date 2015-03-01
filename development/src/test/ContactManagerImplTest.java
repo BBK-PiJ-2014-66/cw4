@@ -8,12 +8,14 @@ import static org.hamcrest.CoreMatchers.is;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
 import cw4.Contact;
+import cw4.ContactImpl;
 import cw4.ContactManager;
 import cw4.ContactManagerImpl;
 import cw4.ContactManagerPlus;
@@ -23,7 +25,7 @@ import cw4.FutureMeeting;
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
  * often use ContactManagerPlus interface to use simple getters.
  * 
- * All tests currently pass.
+ * All tests ***************
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -39,8 +41,8 @@ public class ContactManagerImplTest {
 		ContactManagerPlus testCM = new ContactManagerImpl();
 		// for test override the current date time "now" to 13th March 2014
 		testCM.overrideDateNow(new GregorianCalendar(2014, 2, 13));
-		// so 15th March 2014 will be in the future 
-		Calendar future = new GregorianCalendar(2014, 2, 15); 
+		// so 15th March 2014 will be in the future
+		Calendar future = new GregorianCalendar(2014, 2, 15);
 		String testName = "Test Name";
 		testCM.addNewContact(testName, "Test Notes");
 		Set<Contact> testContacts = testCM.getContacts(testName);
@@ -55,18 +57,34 @@ public class ContactManagerImplTest {
 				futureMeeting.getDate(), is(future));
 
 	}
-	
+
 	/**
-	 * Test addFutureMeeting() in the past (1066) produces the required IllegalArgumentException 
+	 * Test addFutureMeeting() in the past (1066) produces the required
+	 * IllegalArgumentException
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testaddFutureMeetingWithPastDate() {
 		ContactManager testCM = new ContactManagerImpl();
 		// Battle of Hastings 14 October 1066 - in the past!
-		Calendar future = new GregorianCalendar(1066, 9, 14); 
+		Calendar future = new GregorianCalendar(1066, 9, 14);
 		String testName = "Test Name";
 		testCM.addNewContact(testName, "Test Notes");
 		Set<Contact> testContacts = testCM.getContacts(testName);
+		testCM.addFutureMeeting(testContacts, future);
+	}
+
+	/**
+	 * Test addFutureMeeting() with a contact that has not been added with
+	 * addNewContact so is "unknown/non-existent". Interface requires this to
+	 * produce an IllegalArgumentException.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testaddFutureMeetingUnknownContact() {
+		ContactManagerPlus testCM = new ContactManagerImpl();
+		testCM.overrideDateNow(new GregorianCalendar(2014, 2, 13));
+		Calendar future = new GregorianCalendar(2014, 2, 15);
+		Contact unknown = new ContactImpl("Mr X");
+		Set<Contact> testContacts = new HashSet<>(Arrays.asList(unknown));
 		testCM.addFutureMeeting(testContacts, future);
 	}
 
