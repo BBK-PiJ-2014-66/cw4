@@ -1,5 +1,6 @@
 package cw4;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,20 +19,28 @@ public interface ContactManagerPlus extends ContactManager {
 	 * 
 	 * @return list of all the contacts
 	 */
-	public List<Contact> getAllContacts();
+	List<Contact> getAllContacts();
 
 	/**
 	 * A simple getter for all future meetings.
 	 * 
 	 * @return a list of meetings that is chronologically sorted.
 	 */
-	public List<FutureMeeting> getAllFutureMeetings();
+	List<FutureMeeting> getAllFutureMeetings();
 
 	/**
 	 * A simple getter for all past meetings
 	 * 
 	 * @return a list of meetings that is chronologically sorted.
 	 */
-	public List<PastMeeting> getAllPastMeetings();
+	List<PastMeeting> getAllPastMeetings();
+	
+	/**
+	 * Used to set a false current date in place of the real actual date/time
+	 * "now". Useful for testing.
+	 * 
+	 * @param pretendNow the date/time to treat as now.
+	 */
+	void overrideDateNow(Calendar pretendNow);
 
 }

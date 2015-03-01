@@ -1,4 +1,5 @@
 package cw4;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,11 +68,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return thisFM.getId(); // the ID of the meeting
 	}
 
-	private boolean checkDateIsFuture(Calendar date) {
-		Calendar now = Calendar.getInstance(); 
-		//TODO must allow now override to a supplied pretend time
-		return date.after(now);
-	}
 
 	@Override
 	public PastMeeting getPastMeeting(int id) {
@@ -186,6 +182,10 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return retContacts;
 	}
 
+	/*
+	 * extra methods from interface ContactManagerPlus follow: 
+	 */
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -216,6 +216,21 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public List<PastMeeting> getAllPastMeetings() {
 		return null; // TODO write method
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */ 
+	@Override
+	public void overrideDateNow(Calendar pretendNow) {
+		// TODO to be written
+	}
+
+	private boolean checkDateIsFuture(Calendar date) {
+		Calendar now = Calendar.getInstance();
+		// TODO must allow now override to a supplied pretend time
+		return date.after(now);
+	}
+
 
 	@Override
 	public void flush() {

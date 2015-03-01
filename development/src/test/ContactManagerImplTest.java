@@ -16,6 +16,7 @@ import org.junit.Test;
 import cw4.Contact;
 import cw4.ContactManager;
 import cw4.ContactManagerImpl;
+import cw4.ContactManagerPlus;
 import cw4.FutureMeeting;
 
 /**
@@ -35,15 +36,16 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testaddFutureMeeting() {
-		ContactManager testCM = new ContactManagerImpl();
-		Calendar future = new GregorianCalendar(3000, 0, 01); // 1st January
-																// 3000
+		ContactManagerPlus testCM = new ContactManagerImpl();
+		// for test override the current date time "now" to 13th March 2014
+		testCM.overrideDateNow(new GregorianCalendar(2014, 2, 13));
+		// so 15th March 2014 will be in the future 
+		Calendar future = new GregorianCalendar(2014, 2, 15); 
 		String testName = "Test Name";
 		testCM.addNewContact(testName, "Test Notes");
 		Set<Contact> testContacts = testCM.getContacts(testName);
 		int meetingID = testCM.addFutureMeeting(testContacts, future);
 		// to check this has worked now need to get the meeting back.
-		// (much simpler than I had made it at first and can be done with basic ContactManager)
 		FutureMeeting futureMeeting = testCM.getFutureMeeting(meetingID);
 		assertNotNull(
 				"Added a future meeting: .getFutureMeetings(ID) should not return null.",
