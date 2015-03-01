@@ -55,6 +55,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
+		// I would add a check that the meeting time/date is not the same as
+		// another meeting maybe +/- 5 mins but as this is not in the spec!
 		if (!checkDateIsFuture(date))
 			throw new IllegalArgumentException(
 					"Future meetings cannot have past dates."
@@ -115,10 +117,32 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return retMeet;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if the contact does not exist
+	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		// TODO Auto-generated method stub
-		return null;
+		// N.B. do not understand "will not contain duplicates"?
+		// A meeting has a unique ID so cannot be a duplicate ever.
+		// Can have two meetings at the same time with the same or different
+		// contacts but filtering these out seems a silly idea. 
+		// I would prevent two meetings being added at the same (+/- 5 minutes)
+		// but we have to implement what is on the spec.
+		
+		
+		// TODO check that contact is legit
+
+		// use lambda expression to select all meeting in futureMeetings that 
+		// involves the contact
+		List<Meeting> matchingMs = futureMeetings.stream()
+				.filter(fm -> fm.getContacts().contains(contact)).collect(Collectors.toList());
+
+		// TODO sort matchingMs chronologically
+		
+		return matchingMs;
 	}
 
 	@Override
