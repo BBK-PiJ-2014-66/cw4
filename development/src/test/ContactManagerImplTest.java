@@ -83,6 +83,53 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * Test getFutureMeetingList(Contact) normal behaviour
+	 */
+	@Test
+	public void testGetFutureMeetingList_Contact() {
+		ContactManagerPlus testCMP = new ContactManagerImpl();
+		String testName = "Test Name";
+		testCMP.addNewContact(testName, "Test Notes");
+		// need to get the contact created by this back
+		// for search: use getAllContacts() for this
+		assertThat(testCMP.getAllContacts().size(), is(1));
+		Contact testContact = testCMP.getAllContacts().get(0);
+		// get futureMeetings with the contact
+		List<Meeting> futureMeets = testCMP.getFutureMeetingList(testContact);
+		// should have returned an empty list (not null).
+		assertNotNull(
+				".getFutureMeetingList(Contact) should never return null!",
+				futureMeets);
+		assertThat(
+				".getFutureMeetingList(Contact) should return empty list if there are no meetings",
+				futureMeets.size(), is(0));
+
+		// for test override the current date time "now" to 13th March 2014
+		testCMP.overrideDateNow(new GregorianCalendar(2014, 2, 13));
+		// add meetings on 20th March, 17th March, 18th March
+		Calendar futureA = new GregorianCalendar(2014, 2, 20);
+		Calendar futureB = new GregorianCalendar(2014, 2, 17);
+		Calendar futureC = new GregorianCalendar(2014, 2, 18);
+		// add the meetings
+		Set<Contact> testContacts = testCMP.getContacts(testName);
+		testCMP.addFutureMeeting(testContacts, futureA);
+		testCMP.addFutureMeeting(testContacts, futureB);
+		testCMP.addFutureMeeting(testContacts, futureC);
+		futureMeets = testCMP.getFutureMeetingList(testContact);
+		assertThat(
+				"after adding 3 meetings involving the contact."
+						+ " .getFutureMeetingList(Contact) should return list of three meetings",
+				futureMeets.size(), is(3));
+		// meeting should have been sorted chronologically
+		Calendar futureMeetsDates[] = new Calendar[] {
+				futureMeets.get(0).getDate(), futureMeets.get(1).getDate(),
+				futureMeets.get(2).getDate() };
+		Calendar expected[] = new Calendar[] { futureB, futureC, futureA};
+		assertThat(".getFutureMeetingList(Contact) should return meetings sorted chronologically",
+				futureMeetsDates, is(expected));
+	}
+
+	/**
 	 * Test addFutureMeeting() with a contact that has not been added with
 	 * addNewContact so is "unknown/non-existent". Interface requires this to
 	 * produce an IllegalArgumentException.
