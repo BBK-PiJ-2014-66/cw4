@@ -24,7 +24,7 @@ public class ContactImpl implements Contact {
 	 * @throws NullPointerException
 	 *             if name is null.
 	 */
-	ContactImpl(String name) {
+	public ContactImpl(String name) {
 		this(name, "");
 	}
 
@@ -38,7 +38,7 @@ public class ContactImpl implements Contact {
 	 * @throws NullPointerException
 	 *             if name or notes are null.
 	 */
-	ContactImpl(String name, String notes) {
+	public ContactImpl(String name, String notes) {
 		if (name == null)
 			throw new NullPointerException("name cannot be null");
 		if (notes == null)
