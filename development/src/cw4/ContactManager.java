@@ -1,4 +1,5 @@
 package cw4;
+
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +47,15 @@ public interface ContactManager {
 	 *             if there is a meeting with that ID happening in the past
 	 */
 	FutureMeeting getFutureMeeting(int id);
+
+	/**
+	 * Returns the meeting with the requested ID, or null if it there is none.
+	 *
+	 * @param id
+	 *            the ID for the meeting
+	 * @return the meeting with the requested ID, or null if it there is none.
+	 */
+	Meeting getMeeting(int id);
 
 	/**
 	 * Returns the list of future meetings scheduled with this contact.
