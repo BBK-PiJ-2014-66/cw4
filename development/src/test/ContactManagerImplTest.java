@@ -20,6 +20,7 @@ import cw4.ContactManager;
 import cw4.ContactManagerImpl;
 import cw4.ContactManagerPlus;
 import cw4.FutureMeeting;
+import cw4.Meeting;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
@@ -50,11 +51,19 @@ public class ContactManagerImplTest {
 		// to check this has worked now need to get the meeting back.
 		FutureMeeting futureMeeting = testCM.getFutureMeeting(meetingID);
 		assertNotNull(
-				"Added a future meeting: .getFutureMeetings(ID) should not return null.",
+				"Added a future meeting: .getFutureMeeting(ID) should not return null.",
 				futureMeeting);
 		assertThat(
 				"Added a future meeting: date of the meeting should be same as supplied.",
 				futureMeeting.getDate(), is(future));
+		// additional test that getMeetings(id) returns the same meeting
+		Meeting baseMeeting = testCM.getMeeting(meetingID);
+		assertNotNull(
+				"Added a future meeting: .getMeeting(ID) should not return null.",
+				baseMeeting);
+		assertThat(
+				".getFutureMeetings(ID) and .getMeeting(ID) should return same meeting ",
+				baseMeeting.toString(), is(futureMeeting.toString()));
 
 	}
 
