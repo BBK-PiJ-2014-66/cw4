@@ -18,7 +18,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
  * @since 25 February 2015
  * 
  */
-class FileSaveRetrieve { // class is package-private
+public class FileSaveRetrieve { 
 
 	private FileSaveRetrieve() {
 		throw new UnsupportedOperationException("Uninstantiable class");
@@ -35,7 +35,7 @@ class FileSaveRetrieve { // class is package-private
 	 * @throws IOException
 	 *             if there is an error opening or writing to the file
 	 */
-	protected static void saveToFile(String fileName,
+	public static void saveToFile(String fileName,
 			ContactManagerImpl contactManager) throws IOException {
 		// use XML format (for now)
 		String xml = toXMLSting(contactManager);
@@ -57,7 +57,7 @@ class FileSaveRetrieve { // class is package-private
 	 * @throws IOException
 	 *             if there is an error reading the file
 	 */
-	protected static ContactManagerImpl retrieveFromfile(String fileName)
+	public static ContactManagerImpl retrieveFromfile(String fileName)
 			throws FileNotFoundException, IOException {
 		// TODO write method
 		return null;
@@ -71,7 +71,7 @@ class FileSaveRetrieve { // class is package-private
 	 *            the contactManager to encode
 	 * @return XML encoding of the contactManager object
 	 */
-	protected static String toXMLSting(ContactManagerImpl contactManager) {
+	public static String toXMLSting(ContactManagerImpl contactManager) {
 		XStream xstream = new XStream(new StaxDriver());
 		String xml = xstream.toXML(contactManager);
 		return xml;
@@ -86,7 +86,7 @@ class FileSaveRetrieve { // class is package-private
 	 * @return the contactManagerImpl encoded
 	 * @throws someexception???? on error???? //TODO
 	 */
-	protected static ContactManagerImpl fromXMLString(String xml) {
+	public static ContactManagerImpl fromXMLString(String xml) {
 		XStream xstream = new XStream(new StaxDriver());
 		ContactManagerImpl restore = (ContactManagerImpl) xstream.fromXML(xml);
 		// TODO ensure that ID's are unique

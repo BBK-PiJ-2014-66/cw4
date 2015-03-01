@@ -1,3 +1,5 @@
+package test;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -6,6 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+
+import cw4.Contact;
+import cw4.ContactManagerImpl;
+import cw4.FileSaveRetrieve;
 
 public class FileSaveRetrieveTest {
 
