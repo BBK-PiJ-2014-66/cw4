@@ -140,7 +140,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		List<Meeting> matchingMs = futureMeetings.stream()
 				.filter(fm -> fm.getContacts().contains(contact)).collect(Collectors.toList());
 
-		// TODO sort matchingMs chronologically
+		// TODO sort matchingMs chronologically.
 		
 		return matchingMs;
 	}

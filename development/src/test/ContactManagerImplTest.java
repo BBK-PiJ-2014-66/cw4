@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -121,10 +122,10 @@ public class ContactManagerImplTest {
 						+ " .getFutureMeetingList(Contact) should return list of three meetings",
 				futureMeets.size(), is(3));
 		// meeting should have been sorted chronologically
-		Calendar futureMeetsDates[] = new Calendar[] {
-				futureMeets.get(0).getDate(), futureMeets.get(1).getDate(),
-				futureMeets.get(2).getDate() };
-		Calendar expected[] = new Calendar[] { futureB, futureC, futureA};
+		Date futureMeetsDates[] = new Date[] {
+				futureMeets.get(0).getDate().getTime(), futureMeets.get(1).getDate().getTime(),
+				futureMeets.get(2).getDate().getTime() };
+		Date expected[] = new Date[] { futureB.getTime(), futureC.getTime(), futureA.getTime()};
 		assertThat(".getFutureMeetingList(Contact) should return meetings sorted chronologically",
 				futureMeetsDates, is(expected));
 	}
