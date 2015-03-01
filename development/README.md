@@ -1,29 +1,33 @@
 # PiJ Coursework Four
+## Development Work
+*Doing development work in a separate directory to allow use of
+packages* In the end will use to produce an "official-to-be-marked-submission".
+
 * The assignment document [cw4.pdf](cw4.pdf)
 * Due: **your github repo will be cloned on Sunday, 22nd March 2015 @ 23:59**
 
 ## Intefaces
 * As supplied on coursework document:
-  * [ContactManager](src/main/ContactManager.java)
-  * [Contact](src/main/Contact.java)
-  * [Meeting](src/main/Meeting.java)
-  * [PastMeeting](src/main/PastMeeting.java)
-  * [FutureMeeting](src/main/FutureMeeting.java)
+  * [ContactManager](src/gw4/ContactManager.java)
+  * [Contact](src/gw4/Contact.java)
+  * [Meeting](src/gw4/Meeting.java)
+  * [PastMeeting](src/gw4/PastMeeting.java)
+  * [FutureMeeting](src/gw4/FutureMeeting.java)
 * Own interfaces:
-  * [ContactManagerPlus](src/main/ContactManagerPlus.java) extends [ContactManager](src/main/ContactManager.java) 
+  * [ContactManagerPlus](src/gw4/ContactManagerPlus.java) extends [ContactManager](src/gw4/ContactManager.java) 
      adding methods that are needed for both JUnit testing and to produce a functional final program.
 
 
 ## Implementation
-* [ContactImpl](src/main/ContactImpl.java) tested by  [ContactImplTest](src/test/ContactImplTest.java)
-* [ContactManagerImpl](src/main/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java) 
-**N.B., often tests use [ContactManagerPlus](src/main/ContactManagerPlus.java) rather than simple  [ContactManager](src/main/ContactManager.java) because the interface lacks simple getters and writing tests without these would be painful in the extreme.**
-* [IdGenerator](src/main/IdGenerator.java) uses Enum singleton objects for unique ID's. 
+* [ContactImpl](src/gw4/ContactImpl.java) tested by  [ContactImplTest](src/test/ContactImplTest.java)
+* [ContactManagerImpl](src/gw4/ContactManagerImpl.java) tested by  [ContactManagerImplTest](src/test/ContactManagerImplTest.java) 
+**N.B., often tests use [ContactManagerPlus](src/gw4/ContactManagerPlus.java) rather than simple  [ContactManager](src/gw4/ContactManager.java) because the interface lacks simple getters and writing tests without these would be painful in the extreme.**
+* [IdGenerator](src/gw4/IdGenerator.java) uses Enum singleton objects for unique ID's. 
 Nice thing as same code can provide separate ID's for Contacts and Meetings.
-* [FileSaveRetrieve](src/main/FileSaveRetrieve.java) tested by [FileSaveRetrieveTest](src/test/FileSaveRetrieveTest.java)
-* [MeetingImpl](src/main/MeetingImpl.java) tested by [MeetingImplTest](src/test/MeetingImplTest.java).
-* [PastMeetingImpl](src/main/PastMeetingImpl.java) tested by [PastMeetingImplTest](src/test/PastMeetingImplTest.java).
-* [FutureMeetingImpl](src/main/FutureMeetingImpl.java) tested by [FutureMeetingImplTest](src/test/FutureMeetingImplTest.java).
+* [FileSaveRetrieve](src/gw4/FileSaveRetrieve.java) tested by [FileSaveRetrieveTest](src/test/FileSaveRetrieveTest.java)
+* [MeetingImpl](src/gw4/MeetingImpl.java) tested by [MeetingImplTest](src/test/MeetingImplTest.java).
+* [PastMeetingImpl](src/gw4/PastMeetingImpl.java) tested by [PastMeetingImplTest](src/test/PastMeetingImplTest.java).
+* [FutureMeetingImpl](src/gw4/FutureMeetingImpl.java) tested by [FutureMeetingImplTest](src/test/FutureMeetingImplTest.java).
 
 
 
