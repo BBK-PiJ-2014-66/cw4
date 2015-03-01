@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -128,20 +130,23 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		// N.B. do not understand "will not contain duplicates"?
 		// A meeting has a unique ID so cannot be a duplicate ever.
 		// Can have two meetings at the same time with the same or different
-		// contacts but filtering these out seems a silly idea. 
+		// contacts but filtering these out seems a silly idea.
 		// I would prevent two meetings being added at the same (+/- 5 minutes)
 		// but we have to implement what is on the spec.
-		
-		
+
 		// TODO check that contact is legit
 
-		// use lambda expression to select all meeting in futureMeetings that 
+		// use lambda expression to select all meeting in futureMeetings that
 		// involves the contact
 		List<Meeting> matchingMs = futureMeetings.stream()
-				.filter(fm -> fm.getContacts().contains(contact)).collect(Collectors.toList());
+				.filter(fm -> fm.getContacts().contains(contact))
+				.collect(Collectors.toList());
 
-		// TODO sort matchingMs chronologically.
-		
+		//  sort matchingMs chronologically.
+		Comparator<Meeting> byDate = (m1, m2) -> {
+			return m1.getDate().compareTo(m2.getDate());
+		};
+		Collections.sort(matchingMs, byDate);
 		return matchingMs;
 	}
 
