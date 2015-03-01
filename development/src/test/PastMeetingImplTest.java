@@ -1,3 +1,5 @@
+package test;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -7,6 +9,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+
+import cw4.Contact;
+import cw4.ContactImpl;
+import cw4.PastMeeting;
+import cw4.PastMeetingImpl;
 /**
  * JUnit tests for PastMeetingImpl. 
  * 

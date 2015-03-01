@@ -32,12 +32,12 @@ public class MeetingImpl implements Meeting {
 	 * @throws IllegalArgumentException
 	 *             if supplied with an empty set of contacts
 	 */
-	MeetingImpl(Set<Contact> contacts, Calendar date) {
+	public MeetingImpl(Set<Contact> contacts, Calendar date) {
 		// call the 3 argument constructor with a new unique ID
 		this( IdGenerator.MEETING.nextID(),  contacts, date);
 	}
 	
-	MeetingImpl(int id, Set<Contact> contacts, Calendar date) {
+	public MeetingImpl(int id, Set<Contact> contacts, Calendar date) {
 		if (contacts == null || date == null)
 			throw new NullPointerException(
 					"null contacts or dates not allowed.");
