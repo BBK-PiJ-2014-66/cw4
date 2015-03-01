@@ -1,3 +1,5 @@
+package cw4;
+
 /**
  * A meeting that was held in the past.
  *
