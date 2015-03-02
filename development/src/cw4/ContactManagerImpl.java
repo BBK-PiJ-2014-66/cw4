@@ -133,8 +133,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		// I would prevent two meetings being added at the same (+/- 5 minutes)
 		// but we have to implement what is on the spec.
 
-		// TODO check that contact is legit
-
+		// check the contact is legit if not throws IllegalArgumentException
+		checkContacts(contact);
+		
 		// use lambda expression to select all meeting in futureMeetings that
 		// involves the contact
 		List<Meeting> matchingMs = futureMeetings.stream()
