@@ -36,12 +36,12 @@ import cw4.Meeting;
  */
 public class ContactManagerImplTest {
 
-	/** 
-	 * ContactManager for the tests that can use 
+	/**
+	 * ContactManager for the tests that can use
 	 */
 	private ContactManager testCM;
 	/**
-	 * ContactManagerPlus for the tests that need the extra methods 
+	 * ContactManagerPlus for the tests that need the extra methods
 	 */
 	private ContactManagerPlus testCMP;
 	/**
@@ -54,7 +54,7 @@ public class ContactManagerImplTest {
 	private Calendar past = new GregorianCalendar(2014, 2, 10);
 	private String testName = "Test Name";
 	String testNotes = "Test Contact Notes";
-	
+
 	/**
 	 * initialise the common test ContactManager*
 	 */
@@ -66,12 +66,13 @@ public class ContactManagerImplTest {
 		// (only works for ContactManagerPlus)
 		testCMP.overrideDateNow(new GregorianCalendar(2014, 2, 13));
 	}
+
 	/**
 	 * Test adding a future meeting
 	 */
 	@Test
 	public void testaddFutureMeeting() {
-		testCMP.addNewContact(testName,testNotes);
+		testCMP.addNewContact(testName, testNotes);
 		Set<Contact> testContacts = testCMP.getContacts(testName);
 		int meetingID = testCMP.addFutureMeeting(testContacts, future);
 		// to check this has worked now need to get the meeting back.
@@ -151,18 +152,21 @@ public class ContactManagerImplTest {
 				futureMeets.size(), is(3));
 		// meeting should have been sorted chronologically
 		Date futureMeetsDates[] = new Date[] {
-				futureMeets.get(0).getDate().getTime(), futureMeets.get(1).getDate().getTime(),
+				futureMeets.get(0).getDate().getTime(),
+				futureMeets.get(1).getDate().getTime(),
 				futureMeets.get(2).getDate().getTime() };
-		Date expected[] = new Date[] { futureB.getTime(), futureC.getTime(), futureA.getTime()};
-		assertThat(".getFutureMeetingList(Contact) should return meetings sorted chronologically",
+		Date expected[] = new Date[] { futureB.getTime(), futureC.getTime(),
+				futureA.getTime() };
+		assertThat(
+				".getFutureMeetingList(Contact) should return meetings sorted chronologically",
 				futureMeetsDates, is(expected));
 	}
 
-//	@Test(expected = IllegalArgumentException.class)
-//	public void testGetFutureMeetingList_UnknownContact(){
-//		
-//	}
-	
+	// @Test(expected = IllegalArgumentException.class)
+	// public void testGetFutureMeetingList_UnknownContact(){
+	//
+	// }
+
 	/**
 	 * test for a contact when contacts are empty
 	 */
@@ -183,7 +187,7 @@ public class ContactManagerImplTest {
 	@Test
 	public void testAddNewContactGetContactCheckName() {
 		// first add a decoy to make things a bit harder
-		testCM.addNewContact("Jane Decoy", "a decoy"); 
+		testCM.addNewContact("Jane Decoy", "a decoy");
 		testCM.addNewContact(testName, testNotes);
 		// to retrieve contact search of name
 		Set<Contact> retrieveContacts = testCM.getContacts(testName);
