@@ -150,9 +150,10 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		 * 
 		 * Collections.sort(matchingMs, byDate);
 		 */
-		// but split off Comparator to a static function for neatness and unit
-		// testing
-		Collections.sort(matchingMs, MeetingImpl::orderByDateThenID);
+		// but split off Comparator to a static functions for neatness and unit
+		// testing. First sort byID and then by again by Date.
+		Collections.sort(matchingMs, MeetingImpl::orderByID);
+		Collections.sort(matchingMs, MeetingImpl::orderByDate);
 		return matchingMs;
 	}
 
