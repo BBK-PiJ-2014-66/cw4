@@ -84,26 +84,6 @@ public class MeetingImpl implements Meeting {
 
 	/**
 	 * Compares two meetings and returns a value compatible with
-	 * {@link java.lang.Comparable#compareTo(java.lang.Object)} to order the
-	 * meetings by date first and then if the two dates are equal by ID (Used
-	 * because we cannot make Meeting Comparable)
-	 * 
-	 * @param first
-	 *            a meeting
-	 * @param second
-	 *            a meeting
-	 * @return positive number if first is earlier than second or in the case of
-	 *         equal dates if firsts id is lower than second
-	 */
-	public static int orderByDateThenID(Meeting first, Meeting second) {
-		int retval = first.getDate().compareTo(second.getDate());
-		if (retval == 0)
-			retval = first.getId() - second.getId();
-		return retval;
-	}
-
-	/**
-	 * Compares two meetings and returns a value compatible with
 	 * {@link java.util.Comparator} to order the meetings by date (Used because
 	 * we cannot make Meeting Comparable)
 	 * 
