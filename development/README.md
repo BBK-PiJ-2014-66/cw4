@@ -47,8 +47,8 @@ Write code explicitly dump to a custom text format. Done too much of this in the
 Use a decent human and other readable exchange format. XML is a good idea. JSON is another good (better like betamax). But once again I have waste a lot of time maintaining/extending DIY XML writer.
 
 ### Possibility four **use XSTREAM to read/write XML**
-There are many many ways of writing XML in java. Looking through these the easiest for a newbie is XSTREAM.
-Got this working easily. *But introducing a 3rd party Jar into the project* **So it is probably forbidden** May carry on and then strip back to **Possibility one Java Serialisation**
+There are many many ways of writing XML in java. Looking through these the easiest for a newbie is XSTREAM that uses reflection.
+Got this working easily - amazingly simple to produce a meaningful XML file that could be easily transfered/read by other programs. *But it introduces a 3rd party Jar into the project* **So it is probably forbidden** May carry on and then strip back to **Possibility one Java Serialisation**
 
 ### Possibility five **use Java SE methods to read/write XML**
 Useful [StackOverFlow contribution](http://stackoverflow.com/questions/9256669/java-built-in-data-parser-for-json-or-xml-or-else#9296657). Of the four possibilities [XMLStreamWriter](http://tutorials.jenkov.com/java-xml/stax-xmlstreamwriter.html) looks simplest to you (but one would end up with DIY writer that used XML mark-up).
