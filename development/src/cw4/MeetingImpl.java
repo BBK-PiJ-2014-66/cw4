@@ -14,7 +14,7 @@ import java.util.Set;
  * @since 28 February 2015
  *
  */
-public class MeetingImpl implements Meeting, Comparable<Meeting> {
+public class MeetingImpl implements Meeting {
 
 	private int id; // unique ID
 	private Calendar date;
@@ -34,9 +34,9 @@ public class MeetingImpl implements Meeting, Comparable<Meeting> {
 	 */
 	public MeetingImpl(Set<Contact> contacts, Calendar date) {
 		// call the 3 argument constructor with a new unique ID
-		this( IdGenerator.MEETING.nextID(),  contacts, date);
+		this(IdGenerator.MEETING.nextID(), contacts, date);
 	}
-	
+
 	public MeetingImpl(int id, Set<Contact> contacts, Calendar date) {
 		if (contacts == null || date == null)
 			throw new NullPointerException(
@@ -83,20 +83,25 @@ public class MeetingImpl implements Meeting, Comparable<Meeting> {
 	}
 
 	
-	/* 
-	 * Order meetings according to their date. If dates are exactly the
-	 * same order by id number.
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	/*
+	 * NOTE: would be nice to make Meeting Comparable but we cannot alter the
+	 * interface can make MeetingImpl Comparable but to use this in practice
+	 * involves nasty casting issues. Keep commented out Comparable stuff for the
+	 * record:
 	 */
-	@Override
-	public int compareTo(Meeting other) {
-		int retval = this.getDate().compareTo(other.getDate());
-		if (retval == 0)
-			retval = this.getId()-other.getId(); 
-		return retval;
-	}
-	
-	
+// public class MeetingImpl implements Meeting, Comparable<Meeting> {
+//	/*
+//	 * Order meetings according to their date. If dates are exactly the same
+//	 * order by id number.
+//	 * 
+//	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+//	 */
+//	@Override
+//	public int compareTo(Meeting other) {
+//		int retval = this.getDate().compareTo(other.getDate());
+//		if (retval == 0)
+//			retval = this.getId() - other.getId();
+//		return retval;
+//	}
 
 }
