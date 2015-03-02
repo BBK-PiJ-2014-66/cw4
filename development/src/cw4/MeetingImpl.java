@@ -117,6 +117,20 @@ public class MeetingImpl implements Meeting {
 	public static int orderByDate(Meeting first, Meeting second) {
 		return first.getDate().compareTo(second.getDate());
 	}
+	/**
+	 * Compares two meetings and returns a value compatible with
+	 * {@link java.util.Comparator} to order the meetings by ID number.
+	 * 
+	 * @param first
+	 *            a meeting
+	 * @param second
+	 *            a meeting
+	 * @return "a negative integer, zero, or a positive integer as the first
+	 *         argument is less than, equal to, or greater than the second."
+	 */
+	public static int orderByID(Meeting first, Meeting second) {
+		return 0; // TODO replace stub zero
+	}
 
 	/*
 	 * NOTE: would be nice to make Meeting Comparable but we cannot alter the

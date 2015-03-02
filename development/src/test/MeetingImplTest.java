@@ -14,6 +14,7 @@ import cw4.MeetingImpl;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+
 /**
  * JUnit tests for MeetingImpl. A pretty simple class single constructor, 3
  * getters.
@@ -71,16 +72,35 @@ public class MeetingImplTest {
 		Calendar cal01Feb2015 = new GregorianCalendar(2015, 1, 01);
 		Meeting testMeetA = new MeetingImpl(testContacts, cal01Jan2015);
 		Meeting testMeetB = new MeetingImpl(testContacts, cal01Feb2015);
-		assertThat(
-				"orderByDate(meetA,meetA) should give zero",
+		assertThat("orderByDate(meetA,meetA) should give zero",
 				MeetingImpl.orderByDate(testMeetA, testMeetA), is(0));
 		assertThat(
 				"orderByDate(meetA,meetB) should give -ve as meetA is before meetB",
-				(MeetingImpl.orderByDate(testMeetA,testMeetB)<0), is(true));
-	
+				(MeetingImpl.orderByDate(testMeetA, testMeetB) < 0), is(true));
+
 		assertThat(
 				"orderByDate(meetB,meetA) should give +ve as meetA is before meetB",
-				(MeetingImpl.orderByDate(testMeetB,testMeetA)>0), is(true));
+				(MeetingImpl.orderByDate(testMeetB, testMeetA) > 0), is(true));
+	}
+
+	/**
+	 * test method orderByID
+	 */
+	@Test
+	public void testOrderByID() {
+		Contact testContact = new ContactImpl("Test User");
+		Set<Contact> testContacts = new HashSet<>();
+		testContacts.add(testContact);
+		Calendar cal01Jan2015 = new GregorianCalendar(2015, 0, 01);
+		Calendar cal01Feb2015 = new GregorianCalendar(2015, 1, 01);
+		Meeting testMeetA = new MeetingImpl(testContacts, cal01Jan2015);
+		Meeting testMeetB = new MeetingImpl(testContacts, cal01Feb2015);
+		assertThat("orderByID(meetA,meetA) should give zero",
+				MeetingImpl.orderByID(testMeetA, testMeetA), is(0));
+		assertThat(
+				"orderByID(meetA,meetB) should give -ve as meetA is before meetB",
+				(MeetingImpl.orderByID(testMeetA, testMeetB) < 0),
+				is(testMeetA.getId() < testMeetB.getId()));
 	}
 
 	/**
