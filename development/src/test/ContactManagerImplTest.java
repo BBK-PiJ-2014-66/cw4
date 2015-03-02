@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import cw4.Contact;
@@ -35,22 +36,46 @@ import cw4.Meeting;
  */
 public class ContactManagerImplTest {
 
+	/** 
+	 * ContactManager for the tests that can use 
+	 */
+	private ContactManager testCM;
+	/**
+	 * ContactManagerPlus for the tests that need the extra methods 
+	 */
+	private ContactManagerPlus testCMP;
+	/**
+	 * future date for tests (as "now" is 13th March 2014)
+	 */
+	private Calendar future = new GregorianCalendar(2014, 2, 15);
+	/**
+	 * past date for tests (as "now" is 13th March 2014)
+	 */
+	private Calendar past = new GregorianCalendar(2014, 2, 10);
+	private String testName = "Test Name";
+	String testNotes = "Test Contact Notes";
+	
+	/**
+	 * initialise the common test 
+	 */
+	@Before
+	public void init() {
+		testCM = new ContactManagerImpl();
+		testCMP = new ContactManagerImpl();
+		// for tests override the current date time "now" to 13th March 2014
+		// (only works for ContactManagerPlus)
+		testCMP.overrideDateNow(new GregorianCalendar(2014, 2, 13));
+	}
 	/**
 	 * Test adding a future meeting
 	 */
 	@Test
 	public void testaddFutureMeeting() {
-		ContactManagerPlus testCM = new ContactManagerImpl();
-		// for test override the current date time "now" to 13th March 2014
-		testCM.overrideDateNow(new GregorianCalendar(2014, 2, 13));
-		// so 15th March 2014 will be in the future
-		Calendar future = new GregorianCalendar(2014, 2, 15);
-		String testName = "Test Name";
-		testCM.addNewContact(testName, "Test Notes");
-		Set<Contact> testContacts = testCM.getContacts(testName);
-		int meetingID = testCM.addFutureMeeting(testContacts, future);
+		testCMP.addNewContact(testName,testNotes);
+		Set<Contact> testContacts = testCMP.getContacts(testName);
+		int meetingID = testCMP.addFutureMeeting(testContacts, future);
 		// to check this has worked now need to get the meeting back.
-		FutureMeeting futureMeeting = testCM.getFutureMeeting(meetingID);
+		FutureMeeting futureMeeting = testCMP.getFutureMeeting(meetingID);
 		assertNotNull(
 				"Added a future meeting: .getFutureMeeting(ID) should not return null.",
 				futureMeeting);
@@ -58,29 +83,36 @@ public class ContactManagerImplTest {
 				"Added a future meeting: date of the meeting should be same as supplied.",
 				futureMeeting.getDate(), is(future));
 		// additional test that getMeetings(id) returns the same meeting
-		Meeting baseMeeting = testCM.getMeeting(meetingID);
+		Meeting baseMeeting = testCMP.getMeeting(meetingID);
 		assertNotNull(
 				"Added a future meeting: .getMeeting(ID) should not return null.",
 				baseMeeting);
 		assertThat(
 				".getFutureMeetings(ID) and .getMeeting(ID) should return same meeting ",
 				baseMeeting.toString(), is(futureMeeting.toString()));
-
 	}
 
 	/**
-	 * Test addFutureMeeting() in the past (1066) produces the required
+	 * Test addFutureMeeting() with past date produces the required
 	 * IllegalArgumentException
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testaddFutureMeetingWithPastDate() {
-		ContactManager testCM = new ContactManagerImpl();
-		// Battle of Hastings 14 October 1066 - in the past!
-		Calendar future = new GregorianCalendar(1066, 9, 14);
-		String testName = "Test Name";
-		testCM.addNewContact(testName, "Test Notes");
+		testCMP.addNewContact(testName, testNotes);
 		Set<Contact> testContacts = testCM.getContacts(testName);
-		testCM.addFutureMeeting(testContacts, future);
+		testCMP.addFutureMeeting(testContacts, past);
+	}
+
+	/**
+	 * Test addFutureMeeting() with a contact that has not been added with
+	 * addNewContact so is "unknown/non-existent". Interface requires this to
+	 * produce an IllegalArgumentException.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testaddFutureMeetingUnknownContact() {
+		Contact unknown = new ContactImpl("Mr X");
+		Set<Contact> testContacts = new HashSet<>(Arrays.asList(unknown));
+		testCMP.addFutureMeeting(testContacts, future);
 	}
 
 	/**
@@ -88,9 +120,7 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testGetFutureMeetingList_Contact() {
-		ContactManagerPlus testCMP = new ContactManagerImpl();
-		String testName = "Test Name";
-		testCMP.addNewContact(testName, "Test Notes");
+		testCMP.addNewContact(testName, testNotes);
 		// need to get the contact created by this back
 		// for search: use getAllContacts() for this
 		assertThat(testCMP.getAllContacts().size(), is(1));
@@ -105,8 +135,6 @@ public class ContactManagerImplTest {
 				".getFutureMeetingList(Contact) should return empty list if there are no meetings",
 				futureMeets.size(), is(0));
 
-		// for test override the current date time "now" to 13th March 2014
-		testCMP.overrideDateNow(new GregorianCalendar(2014, 2, 13));
 		// add meetings on 20th March, 17th March, 18th March
 		Calendar futureA = new GregorianCalendar(2014, 2, 20);
 		Calendar futureB = new GregorianCalendar(2014, 2, 17);
@@ -130,21 +158,11 @@ public class ContactManagerImplTest {
 				futureMeetsDates, is(expected));
 	}
 
-	/**
-	 * Test addFutureMeeting() with a contact that has not been added with
-	 * addNewContact so is "unknown/non-existent". Interface requires this to
-	 * produce an IllegalArgumentException.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testaddFutureMeetingUnknownContact() {
-		ContactManagerPlus testCM = new ContactManagerImpl();
-		testCM.overrideDateNow(new GregorianCalendar(2014, 2, 13));
-		Calendar future = new GregorianCalendar(2014, 2, 15);
-		Contact unknown = new ContactImpl("Mr X");
-		Set<Contact> testContacts = new HashSet<>(Arrays.asList(unknown));
-		testCM.addFutureMeeting(testContacts, future);
-	}
-
+//	@Test(expected = IllegalArgumentException.class)
+//	public void testGetFutureMeetingList_UnknownContact(){
+//		
+//	}
+	
 	/**
 	 * test for a contact when contacts are empty
 	 */
