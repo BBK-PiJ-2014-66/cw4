@@ -14,7 +14,7 @@ import java.util.Set;
  * @since 28 February 2015
  *
  */
-public class MeetingImpl implements Meeting {
+public class MeetingImpl implements Meeting, Comparable<Meeting> {
 
 	private int id; // unique ID
 	private Calendar date;
@@ -80,6 +80,21 @@ public class MeetingImpl implements Meeting {
 	public String toString() {
 		return "id=" + id + ", date=" + date.getTime() + ", contacts="
 				+ contacts;
+	}
+
+	
+	/* 
+	 * Order meetings according to their date. If dates are exactly the
+	 * same order by id number.
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Meeting other) {
+		int retval = this.getDate().compareTo(other.getDate());
+		if (retval == 0)
+			retval = this.getId()-other.getId(); 
+		return retval;
 	}
 	
 	
