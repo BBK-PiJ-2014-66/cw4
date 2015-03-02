@@ -81,5 +81,7 @@ public class MeetingImplTest {
 		Meeting testMeeting = new MeetingImpl(testContacts, testDate);
 	}
 	
+	// TODO unit test method orderByDateThenID!
+	
 
 }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -142,11 +141,18 @@ public class ContactManagerImpl implements ContactManagerPlus {
 				.filter(fm -> fm.getContacts().contains(contact))
 				.collect(Collectors.toList());
 
-		//  sort matchingMs chronologically.
-		Comparator<Meeting> byDate = (m1, m2) -> {
-			return m1.getDate().compareTo(m2.getDate());
-		};
-		Collections.sort(matchingMs, byDate);
+		// sort matchingMs chronologically.
+		/*
+		 * First coded here
+		 * 
+		 * Comparator<Meeting> byDate = (m1, m2) -> { return
+		 * m1.getDate().compareTo(m2.getDate()); };
+		 * 
+		 * Collections.sort(matchingMs, byDate);
+		 */
+		// but split off Comparator to a static function for neatness and unit
+		// testing
+		Collections.sort(matchingMs, MeetingImpl::orderByDateThenID);
 		return matchingMs;
 	}
 

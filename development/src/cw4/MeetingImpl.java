@@ -82,26 +82,45 @@ public class MeetingImpl implements Meeting {
 				+ contacts;
 	}
 
-	
+	/**
+	 * Compares two meetings and returns a value compatible with
+	 * {@link java.lang.Comparable#compareTo(java.lang.Object)} to order the
+	 * meetings by date first and then if the two dates are equal by ID (Used
+	 * because we cannot make Meeting Comparable)
+	 * 
+	 * @param first
+	 *            a meeting
+	 * @param second
+	 *            a meeting
+	 * @return positive number if first is earlier than second or in the case of
+	 *         equal dates if firsts id is lower than second
+	 */
+	public static int orderByDateThenID(Meeting first, Meeting second) {
+		int retval = first.getDate().compareTo(second.getDate());
+		if (retval == 0)
+			retval = first.getId() - second.getId();
+		return retval;
+	} 
+
 	/*
 	 * NOTE: would be nice to make Meeting Comparable but we cannot alter the
 	 * interface can make MeetingImpl Comparable but to use this in practice
-	 * involves nasty casting issues. Keep commented out Comparable stuff for the
-	 * record:
+	 * involves nasty casting issues. Keep commented out Comparable stuff for
+	 * the record:
 	 */
-// public class MeetingImpl implements Meeting, Comparable<Meeting> {
-//	/*
-//	 * Order meetings according to their date. If dates are exactly the same
-//	 * order by id number.
-//	 * 
-//	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-//	 */
-//	@Override
-//	public int compareTo(Meeting other) {
-//		int retval = this.getDate().compareTo(other.getDate());
-//		if (retval == 0)
-//			retval = this.getId() - other.getId();
-//		return retval;
-//	}
+	// public class MeetingImpl implements Meeting, Comparable<Meeting> {
+	// /*
+	// * Order meetings according to their date. If dates are exactly the same
+	// * order by id number.
+	// *
+	// * @see java.lang.Comparable#compareTo(java.lang.Object)
+	// */
+	// @Override
+	// public int compareTo(Meeting other) {
+	// int retval = this.getDate().compareTo(other.getDate());
+	// if (retval == 0)
+	// retval = this.getId() - other.getId();
+	// return retval;
+	// }
 
 }
