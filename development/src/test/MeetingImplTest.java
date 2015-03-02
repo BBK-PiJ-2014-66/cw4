@@ -19,7 +19,7 @@ import static org.hamcrest.CoreMatchers.not;
  * JUnit tests for MeetingImpl. A pretty simple class single constructor, 3
  * getters.
  * 
- * Passes all tests.
+ * Passes all tests..
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 28 February 2015

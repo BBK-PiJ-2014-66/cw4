@@ -129,7 +129,7 @@ public class MeetingImpl implements Meeting {
 	 *         argument is less than, equal to, or greater than the second."
 	 */
 	public static int orderByID(Meeting first, Meeting second) {
-		return 0; // TODO replace stub zero
+		return first.getId() - second.getId();
 	}
 
 	/*
