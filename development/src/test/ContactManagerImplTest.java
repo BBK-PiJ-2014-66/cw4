@@ -56,7 +56,7 @@ public class ContactManagerImplTest {
 	String testNotes = "Test Contact Notes";
 	
 	/**
-	 * initialise the common test 
+	 * initialise the common test ContactManager*
 	 */
 	@Before
 	public void init() {
@@ -168,7 +168,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testGetContactOnEmpty() {
-		ContactManager testCM = new ContactManagerImpl();
 		Set<Contact> retrieveContacts = testCM.getContacts(" ");
 		// should not be null
 		assertNotNull("retrieving contacts set should not return null",
@@ -183,11 +182,8 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testAddNewContactGetContactCheckName() {
-		ContactManager testCM = new ContactManagerImpl();
-		testCM.addNewContact("Jane Decoy", "a decoy"); // add a decoy to make
-														// things harder
-		String testName = "Joe Bloggs";
-		String testNotes = "test notes";
+		// first add a decoy to make things a bit harder
+		testCM.addNewContact("Jane Decoy", "a decoy"); 
 		testCM.addNewContact(testName, testNotes);
 		// to retrieve contact search of name
 		Set<Contact> retrieveContacts = testCM.getContacts(testName);
@@ -211,7 +207,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testGetContactContains() {
-		ContactManager testCM = new ContactManagerImpl();
 		List<String> names = Arrays.asList("John Smith", "Jane Doe",
 				"Adam Ant", "Jason Hippo");
 		for (String name : names) {
@@ -239,7 +234,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testGetContactsById() {
-		ContactManager testCM = new ContactManagerImpl();
 		String testNames[] = { "Joe Bloggs", "Jane Doe", "Joseph Something",
 				"Fred Flint" };
 		int nNames = testNames.length;
@@ -274,7 +268,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testAddewContactNullName() {
-		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact(null, "notes");
 	}
 
@@ -284,7 +277,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testAddewContactNullNotes() {
-		ContactManager testCM = new ContactManagerImpl();
 		testCM.addNewContact("name", null);
 	}
 
@@ -295,7 +287,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetContactsInvalidID() {
-		ContactManager testCM = new ContactManagerImpl();
 		testCM.getContacts(-10000);
 	}
 
@@ -305,7 +296,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testGetContactsNullName() {
-		ContactManager testCM = new ContactManagerImpl();
 		String strNull = null;
 		testCM.getContacts(strNull);
 	}
