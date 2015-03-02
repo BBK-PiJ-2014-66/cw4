@@ -100,7 +100,22 @@ public class MeetingImpl implements Meeting {
 		if (retval == 0)
 			retval = first.getId() - second.getId();
 		return retval;
-	} 
+	}
+
+	/**
+	 * Compares two meetings and returns a value compatible with
+	 * {@link java.lang.Comparable#compareTo(java.lang.Object)} to order the
+	 * meetings by date (Used because we cannot make Meeting Comparable)
+	 * 
+	 * @param first
+	 *            a meeting
+	 * @param second
+	 *            a meeting
+	 * @return positive number if first is earlier than second, 0 if equal, negative otherwise
+	 */
+	public static int orderByDate(Meeting first, Meeting second) {
+		return 0; // TODO replace this stub
+	}
 
 	/*
 	 * NOTE: would be nice to make Meeting Comparable but we cannot alter the

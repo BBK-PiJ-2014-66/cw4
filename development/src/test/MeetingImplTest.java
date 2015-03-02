@@ -14,7 +14,6 @@ import cw4.MeetingImpl;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-
 /**
  * JUnit tests for MeetingImpl. A pretty simple class single constructor, 3
  * getters.
@@ -28,15 +27,16 @@ import static org.hamcrest.CoreMatchers.not;
 public class MeetingImplTest {
 
 	/**
-	 * Use constructor to produce a simple Meeting object and check we can
-	 * get back the supplied data correctly.
+	 * Use constructor to produce a simple Meeting object and check we can get
+	 * back the supplied data correctly.
 	 */
 	@Test
 	public void testConstructAndGetters() {
 		Contact testContact = new ContactImpl("Test User");
 		Set<Contact> testContacts = new HashSet<>();
 		testContacts.add(testContact);
-		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January 2015
+		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January
+																// 2015
 		Meeting testMeeting = new MeetingImpl(testContacts, testDate);
 		assertThat("Get back the same date as provided to constructor?",
 				testMeeting.getDate(), is(testDate));
@@ -58,30 +58,52 @@ public class MeetingImplTest {
 		assertThat("Two meetings have distinct ID's", testMeetA.getId(),
 				not(testMeetB.getId()));
 	}
-	
+
 	/**
-	 * error testing: supply null contacts and calendar
-	 * must get a NullPointerException to pass test
+	 * test method orderByDate
+	 */
+	@Test
+	public void testOrderByDate() {
+		Contact testContact = new ContactImpl("Test User");
+		Set<Contact> testContacts = new HashSet<>();
+		testContacts.add(testContact);
+		Calendar cal01Jan2015 = new GregorianCalendar(2015, 0, 01);
+		Calendar cal01Feb2015 = new GregorianCalendar(2015, 1, 01);
+		Meeting testMeetA = new MeetingImpl(testContacts, cal01Jan2015);
+		Meeting testMeetB = new MeetingImpl(testContacts, cal01Feb2015);
+		assertThat(
+				"orderByDate(meetA,meetA) should give zero",
+				MeetingImpl.orderByDate(testMeetA, testMeetA), is(0));
+		assertThat(
+				"orderByDate(meetA,meetB) should give +ve as meetA is before meetB",
+				(MeetingImpl.orderByDate(testMeetA,testMeetB)>0), is(true));
+	
+		assertThat(
+				"orderByDate(meetB,meetA) should give -ve as meetA is before meetB",
+				(MeetingImpl.orderByDate(testMeetB,testMeetA)>0), is(true));
+	}
+
+	/**
+	 * error testing: supply null contacts and calendar must get a
+	 * NullPointerException to pass test
 	 */
 	@SuppressWarnings("unused")
 	@Test(expected = NullPointerException.class)
 	public void SupplyNullArgumentsToConstructor() {
-		Meeting testCM = new MeetingImpl( null, null);
+		Meeting testCM = new MeetingImpl(null, null);
 	}
-	
+
 	/**
-	 * error testing: supply empty set of contacts
-	 * must get a NullPointerException to pass test
+	 * error testing: supply empty set of contacts must get a
+	 * NullPointerException to pass test
 	 */
 	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
 	public void SupplyEmptyContactsToConstructor() {
 		Set<Contact> testContacts = new HashSet<>();
-		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January 2015
+		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January
+																// 2015
 		Meeting testMeeting = new MeetingImpl(testContacts, testDate);
 	}
-	
-	// TODO unit test method orderByDateThenID!
-	
 
 }
