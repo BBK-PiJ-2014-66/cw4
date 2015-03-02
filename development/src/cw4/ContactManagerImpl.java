@@ -135,7 +135,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 		// check the contact is legit if not throws IllegalArgumentException
 		checkContacts(contact);
-		
+
 		// use lambda expression to select all meeting in futureMeetings that
 		// involves the contact
 		List<Meeting> matchingMs = futureMeetings.stream()
@@ -160,7 +160,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
-		// TODO Auto-generated method stub
+		// TODO need to select meetings:
+		// "that are scheduled for, or that took place on, the specified date"
+		// this presumably means that we need to be able to compare dates
+		// ignoring the time of day. Write a static method
+		// sameDate(Calendar,Calendar) 
 		return null;
 	}
 
