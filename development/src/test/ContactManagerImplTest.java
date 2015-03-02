@@ -54,6 +54,7 @@ public class ContactManagerImplTest {
 	private Calendar past = new GregorianCalendar(2014, 2, 10);
 	private String testName = "Test Name";
 	String testNotes = "Test Contact Notes";
+	private Contact unknown = new ContactImpl("Mr X");
 
 	/**
 	 * initialise the common test ContactManager*
@@ -111,7 +112,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testaddFutureMeetingUnknownContact() {
-		Contact unknown = new ContactImpl("Mr X");
 		Set<Contact> testContacts = new HashSet<>(Arrays.asList(unknown));
 		testCMP.addFutureMeeting(testContacts, future);
 	}
@@ -162,10 +162,14 @@ public class ContactManagerImplTest {
 				futureMeetsDates, is(expected));
 	}
 
-	// @Test(expected = IllegalArgumentException.class)
-	// public void testGetFutureMeetingList_UnknownContact(){
-	//
-	// }
+	/**
+	 * check that we get interface required IllegalArgumentException
+	 * if getFutureMeetingList is called with an unknown contact
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetFutureMeetingList_UnknownContact() {
+		testCMP.getFutureMeetingList(unknown);
+	}
 
 	/**
 	 * test for a contact when contacts are empty
