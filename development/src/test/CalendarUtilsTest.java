@@ -9,10 +9,19 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 
 import static cw4.CalendarUtils.sameDate;
-
+/**
+ * Unit tests of CalendarUtils
+ * 
+ * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
+ * @since 02 March 2015
+ * 
+ */
 public class CalendarUtilsTest {
 
 
+	/**
+	 * test sameDate(Calendar,Calendar) - passes
+	 */
 	@Test
 	public void testSameDate() {
 		// dates to test
