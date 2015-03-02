@@ -75,11 +75,11 @@ public class MeetingImplTest {
 				"orderByDate(meetA,meetA) should give zero",
 				MeetingImpl.orderByDate(testMeetA, testMeetA), is(0));
 		assertThat(
-				"orderByDate(meetA,meetB) should give +ve as meetA is before meetB",
-				(MeetingImpl.orderByDate(testMeetA,testMeetB)>0), is(true));
+				"orderByDate(meetA,meetB) should give -ve as meetA is before meetB",
+				(MeetingImpl.orderByDate(testMeetA,testMeetB)<0), is(true));
 	
 		assertThat(
-				"orderByDate(meetB,meetA) should give -ve as meetA is before meetB",
+				"orderByDate(meetB,meetA) should give +ve as meetA is before meetB",
 				(MeetingImpl.orderByDate(testMeetB,testMeetA)>0), is(true));
 	}
 
