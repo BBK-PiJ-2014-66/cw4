@@ -4,6 +4,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -28,7 +29,7 @@ import cw4.Meeting;
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
  * often use ContactManagerPlus interface to use simple getters.
  * 
- * All tests pass ...
+ *  ...
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -48,7 +49,7 @@ public class ContactManagerImplTest {
 	/**
 	 * a ContactManagerPlus initialised with contact, future meetings ...
 	 */
-	private ContactManagerPlus standardFilledCMP;
+	private ContactManagerPlus standardCMP;
 
 	/**
 	 * for most tests override the current date time "now" to 10am 13th March
@@ -78,7 +79,7 @@ public class ContactManagerImplTest {
 		testCM = new ContactManagerImpl();
 		testCMP = new ContactManagerImpl();
 		testCMP.overrideDateNow(nowCal);
-		standardFilledCMP = standardFilledCMP();
+		standardCMP = standardFilledCMP();
 	}
 
 	/**
@@ -185,23 +186,22 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * Test getFutureMeetingList(Contact) normal behaviour
+	 * Test getFutureMeetingList(Contact)
 	 */
 	@Test
 	public void testGetFutureMeetingList_Calendar() {
 		// use standard test
-		List<Meeting> futureMeets = standardFilledCMP
-				.getFutureMeetingList(futureCal);
+		List<Meeting> meets = standardCMP.getFutureMeetingList(futureCal);
 		assertNotNull(
 				".getFutureMeetingList(Calendar) should never return null!",
-				futureMeets);
+				meets);
 		// there are 3 meetings on that day
-		assertThat("There are 3 meetings on day in question!",
-				futureMeets.size(), is(3));
+		assertThat("There are 3 meetings on day in question!", meets.size(),
+				is(3));
 		// they should have been returned in chronological order.
-		Calendar cal0 = futureMeets.get(0).getDate();
-		Calendar cal1 = futureMeets.get(1).getDate();
-		Calendar cal2 = futureMeets.get(2).getDate();
+		Calendar cal0 = meets.get(0).getDate();
+		Calendar cal1 = meets.get(1).getDate();
+		Calendar cal2 = meets.get(2).getDate();
 		assertTrue(
 				".getFutureMeetingList(Calendar) returned\n"
 						+ "meetings must be sorted in time order\n"
@@ -214,6 +214,32 @@ public class ContactManagerImplTest {
 						+ "but first= " + cal1.getTime() + "\n"
 						+ "is later than second= " + cal2.getTime(),
 				cal1.before(cal2));
+	}
+
+	/**
+	 * Test getAllFutureMeetings - similar to last test except that it returns
+	 * FutureMeetings
+	 */
+	@Test
+	public void testGetAllFutureMeetings() {
+		// use standard test
+		List<FutureMeeting> futureMeets = standardCMP.getAllFutureMeetings();
+		assertNotNull(".testGetAllFutureMeetings() should never return null!",
+				futureMeets);
+		// there are some future meetings in standardCMP
+		assertThat("There are some future meetings in standardCMP",
+				futureMeets.size(), not(0));
+		// now check they are in chronological order
+		for (int fc = 0; fc < futureMeets.size() - 1; fc++) {
+			Calendar thisCal = futureMeets.get(fc).getDate();
+			Calendar nextCal = futureMeets.get(fc + 1).getDate();
+			assertTrue("for Contact Manager: " + standardCMP
+					+ "\n PROBLEM .testGetAllFutureMeetings() returned\n"
+					+ "meetings not sorted in time order\n" + "but item "
+					+ fc + " = " + thisCal.getTime() + "\n"
+					+ "is later than next= " + nextCal.getTime(),
+					thisCal.before(nextCal));
+		}
 	}
 
 	/**
