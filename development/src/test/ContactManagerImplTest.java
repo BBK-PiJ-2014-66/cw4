@@ -24,12 +24,13 @@ import cw4.ContactManagerImpl;
 import cw4.ContactManagerPlus;
 import cw4.FutureMeeting;
 import cw4.Meeting;
+import cw4.PastMeeting;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
  * often use ContactManagerPlus interface to use simple getters.
  * 
- *  All tests pass ...
+ * 
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -217,6 +218,80 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * test addMeetingNotes normal behaviour:
+	 * 
+	 * "This method is used when a future meeting takes place, and is then
+	 * converted to a past meeting (with notes)."
+	 * 
+	 * So need to
+	 */
+	@Test
+	public void testaddMeetingNotesOnHeldFutureMeeting() {
+		// use standard test case
+		// first get the number of future meetings
+		List<FutureMeeting> futureMeets = standardCMP.getAllFutureMeetings();
+		assertNotNull(".testGetAllFutureMeetings() should never return null!",
+				futureMeets);
+		assertThat("There are some future meetings in standardCMP",
+				futureMeets.size(), not(0));
+		List<PastMeeting> pastMeets = standardCMP.getAllPastMeetings();
+		assertNotNull("\n.testGetAllPastMeetings() should never return null!",
+				pastMeets);
+		// lets record the number of future and past meetings before adding
+		// notes
+		int beforeNFuture = futureMeets.size();
+		int beforeNPast = pastMeets.size();
+		// get the id of the first (oldest) future meeting
+		int id = futureMeets.get(0).getId();
+		// get the Meeting Object of this meeting before we add notes
+		Meeting meetBefore = standardCMP.getMeeting(id);
+		// adjust "now" the mock current date time so we can addNotes
+		standardCMP.overrideDateNow(futureCal);
+
+		// add the notes
+		String meetingNotes = "Some notes about the meeting";
+		standardCMP.addMeetingNotes(id, meetingNotes);
+
+		// there should be one more pastMeeting
+		pastMeets = standardCMP.getAllPastMeetings();
+		assertThat("\nAfter adding notes to a held 'future' meeting."
+				+ " there should be an additional past meeting,"
+				+ " number past meetings ", pastMeets.size(),
+				is(beforeNPast + 1));
+		// and one fewer future
+		futureMeets = standardCMP.getAllFutureMeetings();
+		assertThat(
+				"\nAfter adding notes to a held 'future' meeting.\n"
+						+ " there should one fewer future meeting (as it becomes past),\n"
+						+ " number future meetings ", futureMeets.size(),
+				is(beforeNFuture - 1));
+
+		// check we can get back the meeting as a Past meeting
+		PastMeeting backPast = standardCMP.getPastMeeting(id);
+		assertNotNull(
+				"After adding notes to a held 'future' meeting.\n"
+						+ ".getPastMeeting(id) should return the now PastMeeting but get null!",
+				backPast);
+		// check that backPast has the correct meeting notes
+		assertThat("\nAfter adding notes to a held 'future' meeting."
+				+ " .getPastMeeting(id) should have the correct notes\n",
+				backPast.getNotes(), is(meetingNotes));
+
+		// and check that we can the meeting back through non-specific
+		// getMeeting
+		Meeting meetAfter = standardCMP.getMeeting(id);
+		assertNotNull(
+				"After adding notes to a held 'future' meeting.\n"
+						+ ".getMeeting(id) should return the same Meeting as before but get null!",
+				meetAfter);
+		assertThat(
+				"\nAfter adding notes to a held 'future' meeting."
+						+ " .getMeeting(id) should should return the same Meeting as before\n",
+				meetAfter, is(meetBefore));
+
+	}
+
+	/**
 	 * Test getAllFutureMeetings - similar to last test except that it returns
 	 * FutureMeetings
 	 */
@@ -235,10 +310,9 @@ public class ContactManagerImplTest {
 			Calendar nextCal = futureMeets.get(fc + 1).getDate();
 			assertTrue("for Contact Manager: " + standardCMP
 					+ "\n PROBLEM .testGetAllFutureMeetings() returned\n"
-					+ "meetings not sorted in time order\n" + "but item "
-					+ fc + " = " + thisCal.getTime() + "\n"
-					+ "is later than next= " + nextCal.getTime(),
-					thisCal.before(nextCal));
+					+ "meetings not sorted in time order\n" + "but item " + fc
+					+ " = " + thisCal.getTime() + "\n" + "is later than next= "
+					+ nextCal.getTime(), thisCal.before(nextCal));
 		}
 	}
 
