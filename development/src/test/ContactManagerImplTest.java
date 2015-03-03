@@ -30,7 +30,7 @@ import cw4.PastMeeting;
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
  * often use ContactManagerPlus interface to use simple getters.
  * 
- * All tests pass..
+ * 
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -116,7 +116,7 @@ public class ContactManagerImplTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testaddFutureMeetingWithPastDate() {
 		testCMP.addNewContact(testName, testNotes);
-		Set<Contact> testContacts = testCM.getContacts(testName);
+		Set<Contact> testContacts = testCMP.getContacts(testName);
 		testCMP.addFutureMeeting(testContacts, pastCal);
 	}
 
@@ -215,6 +215,18 @@ public class ContactManagerImplTest {
 						+ "but first= " + cal1.getTime() + "\n"
 						+ "is later than second= " + cal2.getTime(),
 				cal1.before(cal2));
+	}
+	
+	/**
+	 * addNewPastMeeting normal behaviour. 
+	 */
+	@Test
+	public void addNewPastMeetingNormalBehaviour() {
+		int beforeNPast = standardCMP.getAllPastMeetings().size();
+		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName), pastCal, testName);
+		int afterNPast = standardCMP.getAllPastMeetings().size();
+		assertThat("\nUse .addNewPastMeeting to add a new past meeting\n"
+				+ "test there is one more past meeting fails:", afterNPast,is(beforeNPast+1));
 	}
 
 	/**
