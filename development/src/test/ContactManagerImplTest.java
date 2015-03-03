@@ -244,7 +244,7 @@ public class ContactManagerImplTest {
 		int id = futureMeets.get(0).getId();
 		// get the Meeting Object of this meeting before we add notes
 		Meeting meetBefore = standardCMP.getMeeting(id);
-		// adjust "now" the mock current date time so we can addNotes
+		// adjust "now" the mock current date time so date will be ok
 		standardCMP.overrideDateNow(futureCal);
 
 		// add the notes
@@ -291,6 +291,18 @@ public class ContactManagerImplTest {
 						+ " .getMeeting(id) should should return the same Meeting data as before\n",
 				meetAfter.toString(), is(meetBefore.toString()));
 
+	}
+	
+	/**
+	 * test addMeetingNotes with null notes 
+	 */
+	@Test(expected = NullPointerException.class)
+	public void testAddMeetingNotesWithNullNotes() {
+		// adjust "now" the mock current date time so date will be ok
+		standardCMP.overrideDateNow(futureCal);
+		// need a valid id as only want one error 
+		int id = standardCMP.getAllFutureMeetings().get(0).getId();
+		standardCMP.addMeetingNotes(id, null);
 	}
 
 	/**

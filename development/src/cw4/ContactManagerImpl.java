@@ -134,7 +134,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		// TODO if supplied with a past id getFuture meeting will
 		// TODO throw an exception (not yet though).
 		Meeting retMeet = (Meeting) getFutureMeeting(id);
-		if (retMeet== null) { // TODO will need to be changed
+		if (retMeet == null) { // TODO will need to be changed
 			retMeet = (Meeting) getPastMeeting(id);
 		}
 		return retMeet;
@@ -227,7 +227,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
-		// TODO if text null throw NullPointerException
 
 		if (getMeeting(id) == null)
 			throw new IllegalArgumentException("No meeting with id " + id);
@@ -238,8 +237,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 				// TODO check the date of the meeting itFM is not in the future
 				// TODO and if so throw IllegalStateException
 
-				// create a new past meeting with data from itFM and the
-				// supplied text
+				/*
+				 * create a new past meeting with data from itFM and the
+				 * supplied text. N.B. if 'text' is null the constructor throws
+				 * NullPointerException as required.
+				 */
 				PastMeeting pastM = new PastMeetingImpl(id, itFM.getContacts(),
 						itFM.getDate(), text);
 				pastMeetings.add(pastM);
@@ -250,6 +252,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			}
 
 		}
+
+		// TODO It can be used to add notes to a past meeting at a later date
 
 	}
 
