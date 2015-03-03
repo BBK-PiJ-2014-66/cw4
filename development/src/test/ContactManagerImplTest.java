@@ -30,7 +30,7 @@ import cw4.PastMeeting;
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
  * often use ContactManagerPlus interface to use simple getters.
  * 
- * All tests pass.
+ * All tests pass..
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -308,9 +308,9 @@ public class ContactManagerImplTest {
 	/**
 	 * test addMeetingNotes with meeting in the future
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void testAddMeetingWithMeetingInTheFuture() {
-		// need a valid id as only want one error 
+		// do not adjust "now" so meeting is in the future
 		int id = standardCMP.getAllFutureMeetings().get(0).getId();
 		standardCMP.addMeetingNotes(id, "notes");
 	}

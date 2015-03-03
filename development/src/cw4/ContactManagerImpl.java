@@ -234,9 +234,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		// search for id in future meetings
 		for (FutureMeeting itFM : futureMeetings) {
 			if (itFM.getId() == id) {
-				// TODO check the date of the meeting itFM is not in the future
-				// TODO and if so throw IllegalStateException
-
+				// check the date of the meeting itFM is not in the future
+				if (checkDateIsFuture(itFM.getDate()))
+					throw new IllegalStateException("Cannot add notes to a meeting in the future.");
 				/*
 				 * create a new past meeting with data from itFM and the
 				 * supplied text. N.B. if 'text' is null the constructor throws
