@@ -28,7 +28,7 @@ Nice thing as same code can provide separate ID's for Contacts and Meetings.
 * [MeetingImpl](src/cw4/MeetingImpl.java) tested by [MeetingImplTest](src/test/MeetingImplTest.java).
 * [PastMeetingImpl](src/cw4/PastMeetingImpl.java) tested by [PastMeetingImplTest](src/test/PastMeetingImplTest.java).
 * [FutureMeetingImpl](src/cw4/FutureMeetingImpl.java) tested by [FutureMeetingImplTest](src/test/FutureMeetingImplTest.java).
-
+* [CalendarUtils](src/cw4/CalendarUtils.java) utility functions tested by [CalendarUtilsTest](src/test/CalendarUtilsTest.java)
 
 
 ## Storing data to file
