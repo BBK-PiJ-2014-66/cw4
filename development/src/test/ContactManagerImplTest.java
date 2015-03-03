@@ -292,7 +292,29 @@ public class ContactManagerImplTest {
 				meetAfter.toString(), is(meetBefore.toString()));
 
 	}
+
 	
+
+	/**
+	 * test addMeetingNotes with non-existent id
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddMeetingNotesWithBadId() {
+		// adjust "now" the mock current date time so date will be ok
+		standardCMP.overrideDateNow(futureCal);
+		standardCMP.addMeetingNotes(Integer.MIN_VALUE, "notes");
+	}
+
+	/**
+	 * test addMeetingNotes with meeting in the future
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddMeetingWithMeetingInTheFuture() {
+		// need a valid id as only want one error 
+		int id = standardCMP.getAllFutureMeetings().get(0).getId();
+		standardCMP.addMeetingNotes(id, "notes");
+	}
+
 	/**
 	 * test addMeetingNotes with null notes 
 	 */
@@ -304,16 +326,9 @@ public class ContactManagerImplTest {
 		int id = standardCMP.getAllFutureMeetings().get(0).getId();
 		standardCMP.addMeetingNotes(id, null);
 	}
-
-	/**
-	 * test addMeetingNotes with non-existent id
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testAddMeetingNotesWithBadId() {
-		// adjust "now" the mock current date time so date will be ok
-		standardCMP.overrideDateNow(futureCal);
-		standardCMP.addMeetingNotes(Integer.MIN_VALUE, "notes");
-	}
+	
+	
+	
 	/**
 	 * Test getAllFutureMeetings - similar to last test except that it returns
 	 * FutureMeetings
