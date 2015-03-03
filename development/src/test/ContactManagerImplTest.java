@@ -281,7 +281,7 @@ public class ContactManagerImplTest {
 		// getMeeting
 		Meeting meetAfter = standardCMP.getMeeting(id);
 		assertNotNull(
-				"After adding notes to a held 'future' meeting.\n"
+				"\nAfter adding notes to a held 'future' meeting.\n"
 						+ ".getMeeting(id) should return the same Meeting as before but get null!",
 				meetAfter);
 		assertThat(

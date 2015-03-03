@@ -131,8 +131,12 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	@Override
 	public Meeting getMeeting(int id) {
 		// use the other methods and cast result
+		// TODO if supplied with a past id getFuture meeting will
+		// TODO throw an exception (not yet though).
 		Meeting retMeet = (Meeting) getFutureMeeting(id);
-		// TODO if null look in past meetings....
+		if (retMeet== null) { // TODO will need to be changed
+			retMeet = (Meeting) getPastMeeting(id);
+		}
 		return retMeet;
 	}
 
