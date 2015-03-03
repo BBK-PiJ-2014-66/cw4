@@ -223,11 +223,21 @@ public class ContactManagerImplTest {
 	@Test
 	public void addNewPastMeetingNormalBehaviour() {
 		int beforeNPast = standardCMP.getAllPastMeetings().size();
-		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName), pastCal, testName);
+		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName), pastCal, "some notes");
 		int afterNPast = standardCMP.getAllPastMeetings().size();
 		assertThat("\nUse .addNewPastMeeting to add a new past meeting\n"
 				+ "test there is one more past meeting fails:", afterNPast,is(beforeNPast+1));
 	}
+	
+	/**
+	 * addNewPastMeeting with not unknown contact
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void addNewPastMeetingUnknownContact() {
+		Set<Contact> testContacts = new HashSet<>(Arrays.asList(unknown));
+		testCMP.addNewPastMeeting(testContacts, pastCal, "some notes");
+	}
+
 
 	/**
 	 * test addMeetingNotes normal behaviour:
