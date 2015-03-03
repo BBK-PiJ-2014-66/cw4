@@ -160,16 +160,20 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
-		// TODO need to select meetings:
-		// "that are scheduled for, or that took place on, the specified date"
-		// this presumably means that we need to be able to compare dates
-		// ignoring the time of day. Write a static method
-		// sameDate(Calendar,Calendar)
+		/*
+		 * Must select meetings:
+		 * "that are scheduled for, or that took place on, the specified date"
+		 * this presumably means that we need to be able to compare dates
+		 * ignoring the time of date do so in CalendarUtils.sameDate()
+		 */
+
+		// select meetings on required date
 		List<Meeting> matchingMs = futureMeetings.stream()
-				.filter(fm -> CalendarUtils.sameDate(date,fm.getDate()))
+				.filter(fm -> CalendarUtils.sameDate(date, fm.getDate()))
 				.collect(Collectors.toList());
-		
-		
+		// First sort byID and then by again by "Date" in this case time of day
+		Collections.sort(matchingMs, MeetingImpl::orderByID);
+		Collections.sort(matchingMs, MeetingImpl::orderByDate);
 		return matchingMs;
 	}
 
