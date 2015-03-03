@@ -184,13 +184,35 @@ public class ContactManagerImplTest {
 		testCMP.getFutureMeetingList(unknown);
 	}
 
-	// /**
-	// * Test getFutureMeetingList(Contact) normal behaviour
-	// */
-	// @Test
-	// public void testGetFutureMeetingList_Calendar() {
-	// // TODO write the test
-	// }
+	/**
+	 * Test getFutureMeetingList(Contact) normal behaviour
+	 */
+	@Test
+	public void testGetFutureMeetingList_Calendar() {
+		// use standard test
+		List<Meeting> futureMeets = standardFilledCMP
+				.getFutureMeetingList(futureCal);
+		assertNotNull(
+				".getFutureMeetingList(Calendar) should never return null!",
+				futureMeets);
+		// there are 3 meetings on that day
+		assertThat("There are 3 meetings on day in question!",
+				futureMeets.size(), is(3));
+		// they should have been returned in chronological order.
+		Calendar cal0 = futureMeets.get(0).getDate();
+		Calendar cal1 = futureMeets.get(1).getDate();
+		Calendar cal2 = futureMeets.get(2).getDate();
+		assertTrue(
+				".getFutureMeetingList(Calendar) returned meetings should be"
+						+ " sorted in time order but first= " + cal0.getTime()
+						+ " is later than second= " + cal1.getTime(),
+				cal0.before(cal1));
+		assertTrue(
+				".getFutureMeetingList(Calendar) returned meetings should be"
+						+ " sorted in time order but second= " + cal1.getTime()
+						+ " is later than third= " + cal2.getTime(),
+				cal1.before(cal2));
+	}
 
 	/**
 	 * test for a contact when contacts are empty
@@ -353,7 +375,7 @@ public class ContactManagerImplTest {
 		filledCMP.addFutureMeeting(testContacts, cal7am);
 
 		// to keep track of everything print to console
-		System.out.println("standardFilledCMP:" + filledCMP);
+		// System.out.println("standardFilledCMP:" + filledCMP);
 		return filledCMP;
 	}
 }
