@@ -331,7 +331,7 @@ public class ContactManagerImplTest {
 				// informative failure message.
 				"\nAfter adding notes to a held 'future' meeting."
 						+ " .getMeeting(id) should should return the same Meeting data as before\n",
-				meetAfter.toString(), is(meetBefore.toString()));
+				meetAfter.toString(), is(meetBefore.toString())); // problem here
 
 	}
 
