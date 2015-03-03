@@ -273,7 +273,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	@Override
 	public List<FutureMeeting> getAllFutureMeetings() {
-		// TODO sort chronologically;
+		// must be sorted chronologically (pre-sort by id)
+		Collections.sort(futureMeetings, MeetingImpl::orderByID);  
+		Collections.sort(futureMeetings, MeetingImpl::orderByDate);
 		return futureMeetings;
 	}
 
