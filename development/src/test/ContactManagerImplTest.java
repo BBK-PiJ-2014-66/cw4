@@ -37,21 +37,35 @@ import cw4.Meeting;
 public class ContactManagerImplTest {
 
 	/**
-	 * ContactManager for the tests that can use
+	 * empty ContactManager for the tests that can use
 	 */
 	private ContactManager testCM;
 	/**
-	 * ContactManagerPlus for the tests that need the extra methods
+	 * empty ContactManagerPlus for the tests that need the extra methods
 	 */
 	private ContactManagerPlus testCMP;
+
 	/**
-	 * future date for tests (as "now" is 13th March 2014)
+	 * a ContactManagerPlus initialised with contact, future meetings ...
 	 */
-	private Calendar future = new GregorianCalendar(2014, 2, 15);
+	private ContactManagerPlus standardFilledCMP;
+
 	/**
-	 * past date for tests (as "now" is 13th March 2014)
+	 * for most tests override the current date time "now" to 10am 13th March
+	 * 2014 (only works for ContactManagerPlus)
 	 */
-	private Calendar past = new GregorianCalendar(2014, 2, 10);
+	private Calendar nowCal = new GregorianCalendar(2014, Calendar.MARCH, 13,
+			10, 00);
+	/**
+	 * future date 10am 15th March 2014
+	 */
+	private Calendar futureCal = new GregorianCalendar(2014, Calendar.MARCH,
+			15, 10, 00);
+	/**
+	 * past date 10am 11th March 2014
+	 */
+	private Calendar pastCal = new GregorianCalendar(2014, Calendar.MARCH, 11,
+			10, 00);
 	private String testName = "Test Name";
 	String testNotes = "Test Contact Notes";
 	private Contact unknown = new ContactImpl("Mr X");
@@ -63,9 +77,8 @@ public class ContactManagerImplTest {
 	public void init() {
 		testCM = new ContactManagerImpl();
 		testCMP = new ContactManagerImpl();
-		// for tests override the current date time "now" to 13th March 2014
-		// (only works for ContactManagerPlus)
-		testCMP.overrideDateNow(new GregorianCalendar(2014, 2, 13));
+		testCMP.overrideDateNow(nowCal);
+		standardFilledCMP = standardFilledCMP();
 	}
 
 	/**
@@ -75,7 +88,7 @@ public class ContactManagerImplTest {
 	public void testaddFutureMeeting() {
 		testCMP.addNewContact(testName, testNotes);
 		Set<Contact> testContacts = testCMP.getContacts(testName);
-		int meetingID = testCMP.addFutureMeeting(testContacts, future);
+		int meetingID = testCMP.addFutureMeeting(testContacts, futureCal);
 		// to check this has worked now need to get the meeting back.
 		FutureMeeting futureMeeting = testCMP.getFutureMeeting(meetingID);
 		assertNotNull(
@@ -83,7 +96,7 @@ public class ContactManagerImplTest {
 				futureMeeting);
 		assertThat(
 				"Added a future meeting: date of the meeting should be same as supplied.",
-				futureMeeting.getDate(), is(future));
+				futureMeeting.getDate(), is(futureCal));
 		// additional test that getMeetings(id) returns the same meeting
 		Meeting baseMeeting = testCMP.getMeeting(meetingID);
 		assertNotNull(
@@ -102,7 +115,7 @@ public class ContactManagerImplTest {
 	public void testaddFutureMeetingWithPastDate() {
 		testCMP.addNewContact(testName, testNotes);
 		Set<Contact> testContacts = testCM.getContacts(testName);
-		testCMP.addFutureMeeting(testContacts, past);
+		testCMP.addFutureMeeting(testContacts, pastCal);
 	}
 
 	/**
@@ -113,7 +126,7 @@ public class ContactManagerImplTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testaddFutureMeetingUnknownContact() {
 		Set<Contact> testContacts = new HashSet<>(Arrays.asList(unknown));
-		testCMP.addFutureMeeting(testContacts, future);
+		testCMP.addFutureMeeting(testContacts, futureCal);
 	}
 
 	/**
@@ -163,13 +176,21 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * check that we get interface required IllegalArgumentException
-	 * if getFutureMeetingList is called with an unknown contact
+	 * check that we get interface required IllegalArgumentException if
+	 * getFutureMeetingList is called with an unknown contact
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetFutureMeetingList_UnknownContact() {
 		testCMP.getFutureMeetingList(unknown);
 	}
+
+	// /**
+	// * Test getFutureMeetingList(Contact) normal behaviour
+	// */
+	// @Test
+	// public void testGetFutureMeetingList_Calendar() {
+	// // TODO write the test
+	// }
 
 	/**
 	 * test for a contact when contacts are empty
@@ -306,5 +327,33 @@ public class ContactManagerImplTest {
 	public void testGetContactsNullName() {
 		String strNull = null;
 		testCM.getContacts(strNull);
+	}
+
+	/**
+	 * Provides a standard test filled CMP for unit tests.
+	 * 
+	 * @return a Contact manager with contact, future Meetings
+	 */
+	public ContactManagerPlus standardFilledCMP() {
+		ContactManagerPlus filledCMP = new ContactManagerImpl();
+		filledCMP.overrideDateNow(nowCal);
+		filledCMP.addNewContact(testName, testNotes);
+		// to add contacts have to provide set
+		Set<Contact> testContacts = filledCMP.getContacts(testName);
+		assertThat(
+				"standardFilledCMP(): check that testContacts set has 1 contact.",
+				testContacts.size(), is(1));
+		// make 3 meetings with this user on futureCal: 10 am 9am 7am
+		filledCMP.addFutureMeeting(testContacts, futureCal);
+		Calendar cal9am = (Calendar) futureCal.clone();
+		cal9am.set(Calendar.HOUR_OF_DAY, 9);
+		filledCMP.addFutureMeeting(testContacts, cal9am);
+		Calendar cal7am = (Calendar) futureCal.clone();
+		cal7am.set(Calendar.HOUR_OF_DAY, 7);
+		filledCMP.addFutureMeeting(testContacts, cal7am);
+
+		// to keep track of everything print to console
+		System.out.println("standardFilledCMP:" + filledCMP);
+		return filledCMP;
 	}
 }
