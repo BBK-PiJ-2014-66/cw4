@@ -132,6 +132,16 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * TODO test getFutureMeeting(id) with unknown id
+	 */
+	 
+	/**
+	 * TODO test getFutureMeeting(id) with past id
+	 */
+	
+	
+	
+	/**
 	 * Test getFutureMeetingList(Contact) normal behaviour
 	 */
 	@Test
@@ -546,7 +556,7 @@ public class ContactManagerImplTest {
 		filledCMP.addNewPastMeeting(testContacts, pastCal, "the meeting was..");
 
 		// to keep track of everything print to console
-		 System.out.println("debug standardFilledCMP:" + filledCMP);
+		//System.out.println("debug standardFilledCMP:" + filledCMP);
 		return filledCMP;
 	}
 }

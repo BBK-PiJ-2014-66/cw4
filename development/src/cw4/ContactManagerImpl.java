@@ -196,9 +196,13 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		List<Meeting> matchingMs = futureMeetings.stream()
 				.filter(fm -> CalendarUtils.sameDate(date, fm.getDate()))
 				.collect(Collectors.toList());
+
+		// TODO append meetings from past (could have meetings from both) 
+
 		// First sort byID and then by again by "Date" in this case time of day
 		Collections.sort(matchingMs, MeetingImpl::orderByID);
 		Collections.sort(matchingMs, MeetingImpl::orderByDate);
+		
 		return matchingMs;
 	}
 
@@ -334,9 +338,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return retContacts;
 	}
 
-	/*
-	 * extra methods from interface ContactManagerPlus follow:
-	 */
+	
 
 	/**
 	 * {@inheritDoc}
@@ -353,6 +355,21 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return retContacts;
 	}
 
+	@Override
+	public void flush() {
+		try {
+			FileSaveRetrieve.saveToFile("contacts.txt", this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	/*
+	 * extra methods from interface ContactManagerPlus follow:
+	 */
+	
 	@Override
 	public List<Contact> getAllContacts() {
 		return contacts;
@@ -388,16 +405,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		this.pretendNow = pretendNow;
 	}
 
-	@Override
-	public void flush() {
-		try {
-			FileSaveRetrieve.saveToFile("contacts.txt", this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 	/*
 	 * private methods
