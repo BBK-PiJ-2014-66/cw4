@@ -269,7 +269,7 @@ public class ContactManagerImplTest {
 		// check we can get back the meeting as a Past meeting
 		PastMeeting backPast = standardCMP.getPastMeeting(id);
 		assertNotNull(
-				"After adding notes to a held 'future' meeting.\n"
+				"\nAfter adding notes to a held 'future' meeting.\n"
 						+ ".getPastMeeting(id) should return the now PastMeeting but get null!",
 				backPast);
 		// check that backPast has the correct meeting notes

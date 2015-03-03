@@ -207,7 +207,29 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
-		// TODO Auto-generated method stub
+		// TODO if text null throw NullPointerException
+
+		if (getMeeting(id) == null)
+			throw new IllegalArgumentException("No meeting with id " + id);
+
+		// search for id in future meetings
+		for (FutureMeeting itFM : futureMeetings) {
+			if (itFM.getId() == id) {
+				// TODO check the date of the meeting itFM is not in the future
+				// TODO and if so throw IllegalStateException
+				
+				// create a new past meeting with data from itFM and the
+				// supplied text
+				PastMeeting pastM = new PastMeetingImpl(id, itFM.getContacts(),
+						itFM.getDate(), text);
+				pastMeetings.add(pastM);
+				
+				// remove meeting from futureMeetings
+				futureMeetings.remove(itFM);
+				return; // done job
+			}
+
+		}
 
 	}
 
