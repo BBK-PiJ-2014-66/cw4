@@ -230,7 +230,7 @@ public class ContactManagerImplTest {
 	}
 	
 	/**
-	 * addNewPastMeeting with not unknown contact
+	 * addNewPastMeeting with unknown contact
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void addNewPastMeetingUnknownContact() {
@@ -238,6 +238,14 @@ public class ContactManagerImplTest {
 		testCMP.addNewPastMeeting(testContacts, pastCal, "some notes");
 	}
 
+
+	/**
+	 * addNewPastMeeting with date in the future
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void addNewPastMeetingFutureDate() {
+		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName), futureCal, "some notes");
+	}
 
 	/**
 	 * test addMeetingNotes normal behaviour:
