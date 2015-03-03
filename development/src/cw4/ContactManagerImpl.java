@@ -221,6 +221,12 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
 			String text) {
+		
+		// check that all supplied contacts are legitimate appearing in
+		// this.contacts, throws a IllegalArgumentException if there is a
+		// problem.
+		checkContacts(contacts.toArray(new Contact[0]));
+
 		// N.B. constructor throws required NullPointerException exception
 		PastMeeting pastM = new PastMeetingImpl( contacts, date, text);
 		pastMeetings.add(pastM);
