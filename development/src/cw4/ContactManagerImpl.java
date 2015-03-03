@@ -165,7 +165,12 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		// this presumably means that we need to be able to compare dates
 		// ignoring the time of day. Write a static method
 		// sameDate(Calendar,Calendar)
-		return null;
+		List<Meeting> matchingMs = futureMeetings.stream()
+				.filter(fm -> CalendarUtils.sameDate(date,fm.getDate()))
+				.collect(Collectors.toList());
+		
+		
+		return matchingMs;
 	}
 
 	@Override

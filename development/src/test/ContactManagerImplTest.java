@@ -28,7 +28,7 @@ import cw4.Meeting;
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
  * often use ContactManagerPlus interface to use simple getters.
  * 
- * All tests now pass....
+ * ...
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -203,14 +203,16 @@ public class ContactManagerImplTest {
 		Calendar cal1 = futureMeets.get(1).getDate();
 		Calendar cal2 = futureMeets.get(2).getDate();
 		assertTrue(
-				".getFutureMeetingList(Calendar) returned meetings should be"
-						+ " sorted in time order but first= " + cal0.getTime()
-						+ " is later than second= " + cal1.getTime(),
+				".getFutureMeetingList(Calendar) returned\n"
+						+ "meetings must be sorted in time order\n"
+						+ "but first= " + cal0.getTime() + "\n"
+						+ "is later than second= " + cal1.getTime(),
 				cal0.before(cal1));
 		assertTrue(
-				".getFutureMeetingList(Calendar) returned meetings should be"
-						+ " sorted in time order but second= " + cal1.getTime()
-						+ " is later than third= " + cal2.getTime(),
+				".getFutureMeetingList(Calendar) returned\n"
+						+ "meetings must be sorted in time order\n"
+						+ "but first= " + cal1.getTime() + "\n"
+						+ "is later than second= " + cal2.getTime(),
 				cal1.before(cal2));
 	}
 
