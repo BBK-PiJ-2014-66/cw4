@@ -285,9 +285,12 @@ public class ContactManagerImplTest {
 						+ ".getMeeting(id) should return the same Meeting as before but get null!",
 				meetAfter);
 		assertThat(
+				// n.b. toString() produces a text representation with all
+				// meeting data. Better to use than .equals method as more
+				// informative failure message.
 				"\nAfter adding notes to a held 'future' meeting."
-						+ " .getMeeting(id) should should return the same Meeting as before\n",
-				meetAfter, is(meetBefore));
+						+ " .getMeeting(id) should should return the same Meeting data as before\n",
+				meetAfter.toString(), is(meetBefore.toString()));
 
 	}
 
