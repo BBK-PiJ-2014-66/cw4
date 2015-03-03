@@ -78,10 +78,26 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return thisFM.getId(); // the ID of the meeting
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 *             "if there is a meeting with that ID happening in the future"
+	 *             (i.e. stored as a future meeting)
+	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		// simple crib of future version!
+		// TODO check future meetings for that ID - throw an exception on match
+
+		List<PastMeeting> matchingPMs = pastMeetings.stream()
+				.filter(fm -> fm.getId() == id).collect(Collectors.toList());
+		if (matchingPMs.size() > 1) // belt and braces
+			throw new RuntimeException("Programming Error. "
+					+ "Have two past meetings with matching ids: "
+					+ matchingPMs);
+		return (matchingPMs.size() == 1) ? matchingPMs.get(0) : null;
+
 	}
 
 	/**
@@ -102,7 +118,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 				.filter(fm -> fm.getId() == id).collect(Collectors.toList());
 		if (matchingFMs.size() > 1) // belt and braces
 			throw new RuntimeException("Programming Error. "
-					+ "Have two future meeting with matching ids: "
+					+ "Have two future meetings with matching ids: "
 					+ matchingFMs);
 		// if there is one matching future meeting return it otherwise return
 		// null
@@ -217,13 +233,13 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			if (itFM.getId() == id) {
 				// TODO check the date of the meeting itFM is not in the future
 				// TODO and if so throw IllegalStateException
-				
+
 				// create a new past meeting with data from itFM and the
 				// supplied text
 				PastMeeting pastM = new PastMeetingImpl(id, itFM.getContacts(),
 						itFM.getDate(), text);
 				pastMeetings.add(pastM);
-				
+
 				// remove meeting from futureMeetings
 				futureMeetings.remove(itFM);
 				return; // done job
