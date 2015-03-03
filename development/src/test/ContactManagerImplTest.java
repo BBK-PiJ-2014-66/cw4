@@ -254,8 +254,8 @@ public class ContactManagerImplTest {
 
 		// there should be one more pastMeeting
 		pastMeets = standardCMP.getAllPastMeetings();
-		assertThat("\nAfter adding notes to a held 'future' meeting."
-				+ " there should be an additional past meeting,"
+		assertThat("\nAfter adding notes to a held 'future' meeting.\n"
+				+ " there should be an additional past meeting,\n"
 				+ " number past meetings ", pastMeets.size(),
 				is(beforeNPast + 1));
 		// and one fewer future

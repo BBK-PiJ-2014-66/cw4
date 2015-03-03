@@ -23,6 +23,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	List<Contact> contacts;
 	List<FutureMeeting> futureMeetings;
+	List<PastMeeting> pastMeetings;
 	Calendar pretendNow = null;
 
 	/**
@@ -31,6 +32,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public ContactManagerImpl() {
 		contacts = new ArrayList<>();
 		futureMeetings = new ArrayList<>();
+		pastMeetings = new ArrayList<>();
 	}
 
 	ContactManagerImpl(String fileName) {
@@ -284,6 +286,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return contacts;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<FutureMeeting> getAllFutureMeetings() {
 		// must be sorted chronologically (pre-sort by id)
@@ -292,9 +297,15 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return futureMeetings;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<PastMeeting> getAllPastMeetings() {
-		return null; // TODO write method
+		// treat exactly the same as the future version
+		Collections.sort(pastMeetings, MeetingImpl::orderByID);
+		Collections.sort(pastMeetings, MeetingImpl::orderByDate);
+		return pastMeetings;
 	}
 
 	/**
