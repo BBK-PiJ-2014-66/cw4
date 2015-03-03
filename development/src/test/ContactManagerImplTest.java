@@ -30,7 +30,7 @@ import cw4.PastMeeting;
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
  * often use ContactManagerPlus interface to use simple getters.
  * 
- * 
+ * All tests pass.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015
@@ -223,7 +223,6 @@ public class ContactManagerImplTest {
 	 * "This method is used when a future meeting takes place, and is then
 	 * converted to a past meeting (with notes)."
 	 * 
-	 * So need to
 	 */
 	@Test
 	public void testaddMeetingNotesOnHeldFutureMeeting() {
