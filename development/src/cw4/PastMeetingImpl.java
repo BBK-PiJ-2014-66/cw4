@@ -58,5 +58,10 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 			throw new NullPointerException("null notes is not allowed.");
 		this.notes = notes;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", meeting_notes= '" + notes + "'";
+	}
 
 }

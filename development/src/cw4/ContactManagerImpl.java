@@ -446,6 +446,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		StringBuffer ret = new StringBuffer("\n\tcontacts: \n");
 		for (Contact itCon : contacts)
 			ret.append("\t\t" + itCon + "\n");
+		
+		ret.append("\n\tpast meetings: \n");
+		for (PastMeeting itFM : pastMeetings)
+			ret.append("\t\t" + itFM + "\n");
+		
 		ret.append("\n\tfuture meetings: \n");
 		for (FutureMeeting itFM : futureMeetings)
 			ret.append("\t\t" + itFM + "\n");

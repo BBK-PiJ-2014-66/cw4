@@ -216,19 +216,21 @@ public class ContactManagerImplTest {
 						+ "is later than second= " + cal2.getTime(),
 				cal1.before(cal2));
 	}
-	
+
 	/**
-	 * addNewPastMeeting normal behaviour. 
+	 * addNewPastMeeting normal behaviour.
 	 */
 	@Test
 	public void addNewPastMeetingNormalBehaviour() {
 		int beforeNPast = standardCMP.getAllPastMeetings().size();
-		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName), pastCal, "some notes");
+		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName),
+				pastCal, "some notes");
 		int afterNPast = standardCMP.getAllPastMeetings().size();
 		assertThat("\nUse .addNewPastMeeting to add a new past meeting\n"
-				+ "test there is one more past meeting fails:", afterNPast,is(beforeNPast+1));
+				+ "test there is one more past meeting fails:", afterNPast,
+				is(beforeNPast + 1));
 	}
-	
+
 	/**
 	 * addNewPastMeeting with unknown contact
 	 */
@@ -238,13 +240,13 @@ public class ContactManagerImplTest {
 		testCMP.addNewPastMeeting(testContacts, pastCal, "some notes");
 	}
 
-
 	/**
 	 * addNewPastMeeting with date in the future
 	 */
 	@Test(expected = IllegalStateException.class)
 	public void addNewPastMeetingFutureDate() {
-		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName), futureCal, "some notes");
+		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName),
+				futureCal, "some notes");
 	}
 
 	/**
@@ -323,8 +325,6 @@ public class ContactManagerImplTest {
 
 	}
 
-	
-
 	/**
 	 * test addMeetingNotes with non-existent id
 	 */
@@ -346,19 +346,17 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * test addMeetingNotes with null notes 
+	 * test addMeetingNotes with null notes
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testAddMeetingNotesWithNullNotes() {
 		// adjust "now" the mock current date time so date will be ok
 		standardCMP.overrideDateNow(futureCal);
-		// need a valid id as only want one error 
+		// need a valid id as only want one error
 		int id = standardCMP.getAllFutureMeetings().get(0).getId();
 		standardCMP.addMeetingNotes(id, null);
 	}
-	
-	
-	
+
 	/**
 	 * Test getAllFutureMeetings - similar to last test except that it returns
 	 * FutureMeetings
@@ -544,8 +542,11 @@ public class ContactManagerImplTest {
 		cal7am.set(Calendar.HOUR_OF_DAY, 7);
 		filledCMP.addFutureMeeting(testContacts, cal7am);
 
+		// and a past meeting
+		filledCMP.addNewPastMeeting(testContacts, pastCal, "the meeting was..");
+
 		// to keep track of everything print to console
-		// System.out.println("standardFilledCMP:" + filledCMP);
+		 System.out.println("debug standardFilledCMP:" + filledCMP);
 		return filledCMP;
 	}
 }
