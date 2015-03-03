@@ -164,7 +164,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		// "that are scheduled for, or that took place on, the specified date"
 		// this presumably means that we need to be able to compare dates
 		// ignoring the time of day. Write a static method
-		// sameDate(Calendar,Calendar) 
+		// sameDate(Calendar,Calendar)
 		return null;
 	}
 
@@ -342,7 +342,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		ret.append("\n\tfuture meetings: \n");
 		for (FutureMeeting itFM : futureMeetings)
 			ret.append("\t\t" + itFM + "\n");
-
+		if (pretendNow != null)
+			ret.append("\n\tN.B. Overriding current date/time ('now') to: "
+					+ pretendNow.getTime() + "\n");
 		return ret.toString();
 	}
 
