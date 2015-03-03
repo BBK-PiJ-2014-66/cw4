@@ -14,8 +14,9 @@ import cw4.Contact;
 import cw4.ContactImpl;
 import cw4.PastMeeting;
 import cw4.PastMeetingImpl;
+
 /**
- * JUnit tests for PastMeetingImpl. 
+ * JUnit tests for PastMeetingImpl.
  * 
  * Need to be able to convert a future meeting to a past one.
  * 
@@ -69,17 +70,13 @@ public class PastMeetingImplTest {
 	 * error testing: supply null parameters must get a NullPointerException to
 	 * pass test
 	 */
-	@SuppressWarnings("unused")
 	@Test(expected = NullPointerException.class)
 	public void supplyNullNotesToConstructor() {
 		Contact testContact = new ContactImpl("Test User");
 		Set<Contact> testContacts = new HashSet<>();
 		testContacts.add(testContact);
-		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January
-																// 2015
-		String testNotes = "Test notes";
-		PastMeeting testMeeting = new PastMeetingImpl(testContacts, testDate,
-				null);
+		Calendar testDate = new GregorianCalendar(2015, Calendar.JANUARY, 01);
+		new PastMeetingImpl(testContacts, testDate, null);
 	}
 
 }
