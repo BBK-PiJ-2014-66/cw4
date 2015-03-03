@@ -306,6 +306,15 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * test addMeetingNotes with non-existent id
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddMeetingNotesWithBadId() {
+		// adjust "now" the mock current date time so date will be ok
+		standardCMP.overrideDateNow(futureCal);
+		standardCMP.addMeetingNotes(Integer.MIN_VALUE, "notes");
+	}
+	/**
 	 * Test getAllFutureMeetings - similar to last test except that it returns
 	 * FutureMeetings
 	 */
