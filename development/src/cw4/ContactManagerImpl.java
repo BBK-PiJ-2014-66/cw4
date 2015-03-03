@@ -208,11 +208,22 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if the list of contacts is empty, or any of the contacts does
+	 *             not exist
+	 * @throws NullPointerException
+	 *             if any of the arguments is null
+	 *             
+	 */
 	@Override
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
 			String text) {
-		// TODO Auto-generated method stub
-
+		// N.B. constructor throws required NullPointerException exception
+		PastMeeting pastM = new PastMeetingImpl( contacts, date, text);
+		pastMeetings.add(pastM);
 	}
 
 	/**
@@ -236,7 +247,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			if (itFM.getId() == id) {
 				// check the date of the meeting itFM is not in the future
 				if (checkDateIsFuture(itFM.getDate()))
-					throw new IllegalStateException("Cannot add notes to a meeting in the future.");
+					throw new IllegalStateException(
+							"Cannot add notes to a meeting in the future.");
 				/*
 				 * create a new past meeting with data from itFM and the
 				 * supplied text. N.B. if 'text' is null the constructor throws
