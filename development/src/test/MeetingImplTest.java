@@ -107,23 +107,21 @@ public class MeetingImplTest {
 	 * error testing: supply null contacts and calendar must get a
 	 * NullPointerException to pass test
 	 */
-	@SuppressWarnings("unused")
 	@Test(expected = NullPointerException.class)
-	public void SupplyNullArgumentsToConstructor() {
-		Meeting testCM = new MeetingImpl(null, null);
+	public void supplyNullArgumentsToConstructor() {
+		new MeetingImpl(null, null);
 	}
 
 	/**
 	 * error testing: supply empty set of contacts must get a
 	 * NullPointerException to pass test
 	 */
-	@SuppressWarnings("unused")
 	@Test(expected = IllegalArgumentException.class)
-	public void SupplyEmptyContactsToConstructor() {
+	public void supplyEmptyContactsToConstructor() {
 		Set<Contact> testContacts = new HashSet<>();
 		Calendar testDate = new GregorianCalendar(2015, 0, 01); // 1st January
 																// 2015
-		Meeting testMeeting = new MeetingImpl(testContacts, testDate);
+		new MeetingImpl(testContacts, testDate);
 	}
 
 }
