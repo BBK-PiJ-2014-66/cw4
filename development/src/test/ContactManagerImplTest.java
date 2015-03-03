@@ -242,7 +242,7 @@ public class ContactManagerImplTest {
 	/**
 	 * addNewPastMeeting with date in the future
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void addNewPastMeetingFutureDate() {
 		standardCMP.addNewPastMeeting(standardCMP.getContacts(testName), futureCal, "some notes");
 	}

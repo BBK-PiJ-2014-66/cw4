@@ -216,7 +216,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 *             not exist
 	 * @throws NullPointerException
 	 *             if any of the arguments is null
-	 * @throws IllegalArgumentException
+	 * @throws IllegalStateException
 	 *             if meeting is set for the future (N.B. this is missing from
 	 *             Interface specification but needs to be done for
 	 *             consistency).
@@ -226,13 +226,17 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date,
 			String text) {
 
+		// N.B. constructor throws required NullPointerException exception
+		PastMeeting pastM = new PastMeetingImpl(contacts, date, text);
+
 		// check that all supplied contacts are legitimate appearing in
 		// this.contacts, throws a IllegalArgumentException if there is a
 		// problem.
 		checkContacts(contacts.toArray(new Contact[0]));
+		if (checkDateIsFuture(date))
+			throw new IllegalStateException(
+					"Cannot add  a past meeting with a future date.");
 
-		// N.B. constructor throws required NullPointerException exception
-		PastMeeting pastM = new PastMeetingImpl(contacts, date, text);
 		pastMeetings.add(pastM);
 	}
 
