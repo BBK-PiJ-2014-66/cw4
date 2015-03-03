@@ -158,6 +158,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return matchingMs;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
 		/*
@@ -190,6 +193,16 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if the meeting does not exist
+	 * @throws IllegalStateException
+	 *             if the meeting is set for a date in the future
+	 * @throws NullPointerException
+	 *             if the notes are null
+	 */
 	@Override
 	public void addMeetingNotes(int id, String text) {
 		// TODO Auto-generated method stub
@@ -274,7 +287,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	@Override
 	public List<FutureMeeting> getAllFutureMeetings() {
 		// must be sorted chronologically (pre-sort by id)
-		Collections.sort(futureMeetings, MeetingImpl::orderByID);  
+		Collections.sort(futureMeetings, MeetingImpl::orderByID);
 		Collections.sort(futureMeetings, MeetingImpl::orderByDate);
 		return futureMeetings;
 	}
