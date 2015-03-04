@@ -180,11 +180,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 				.filter(fm -> CalendarUtils.sameDate(date, fm.getDate()))
 				.collect(Collectors.toList());
 
-		// select meetings from past 
+		// select meetings from past
 		List<Meeting> matchingPasts = pastMeetings.stream()
 				.filter(fm -> CalendarUtils.sameDate(date, fm.getDate()))
 				.collect(Collectors.toList());
-		
+
 		// make joint list (could have meetings from both)
 		matchingMs.addAll(matchingPasts);
 
@@ -235,6 +235,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * N.B. if used to add notes to a past meeting, the new notes replace the
+	 * existing ones (rather than being appended).
 	 * 
 	 * @throws IllegalArgumentException
 	 *             if the meeting does not exist
