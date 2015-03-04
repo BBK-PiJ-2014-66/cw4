@@ -138,12 +138,21 @@ public class ContactManagerImplTest {
 	@Test
 	public void testGetFutureMeeting_IdWithUnknown() {
 		FutureMeeting retFM = testCM.getFutureMeeting(Integer.MIN_VALUE);
-		assertNull("\ntestGetFutureMeeting(id) should return null for unknown meeting id", retFM);
+		assertNull(
+				"\ntestGetFutureMeeting(id) should return null for unknown meeting id",
+				retFM);
 	}
 
 	/**
-	 * TODO test getFutureMeeting(id) with past id
+	 * test getFutureMeeting(id) with past id - this is required to produce
+	 * exception
 	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetFutureMeeting_PastID() {
+		// get past ID of the past meeting in standardCMP
+		int pastID = standardCMP.getAllPastMeetings().get(0).getId();
+		testCM.getFutureMeeting(pastID); // should throw an exception
+	}
 
 	/**
 	 * Test getFutureMeetingList(Contact) normal behaviour
@@ -332,11 +341,12 @@ public class ContactManagerImplTest {
 		assertThat(
 				"\nAfter adding notes to a held 'future' meeting."
 						+ " .getMeeting(id) should should return the same date as before\n",
-				(meetAfter.getDate().equals(meetBefore.getDate())), is(true)); 
+				(meetAfter.getDate().equals(meetBefore.getDate())), is(true));
 		assertThat(
 				"\nAfter adding notes to a held 'future' meeting."
 						+ " .getMeeting(id) should should return the same contacts as before\n",
-				(meetAfter.getContacts().equals(meetBefore.getContacts())), is(true)); 
+				(meetAfter.getContacts().equals(meetBefore.getContacts())),
+				is(true));
 	}
 
 	/**
