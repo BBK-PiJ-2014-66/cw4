@@ -175,12 +175,18 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		 * ignoring the time of date do so in CalendarUtils.sameDate()
 		 */
 
-		// select meetings on required date
+		// select future meetings on required date
 		List<Meeting> matchingMs = futureMeetings.stream()
 				.filter(fm -> CalendarUtils.sameDate(date, fm.getDate()))
 				.collect(Collectors.toList());
 
-		// TODO append meetings from past (could have meetings from both)
+		// select meetings from past 
+		List<Meeting> matchingPasts = pastMeetings.stream()
+				.filter(fm -> CalendarUtils.sameDate(date, fm.getDate()))
+				.collect(Collectors.toList());
+		
+		// make joint list (could have meetings from both)
+		matchingMs.addAll(matchingPasts);
 
 		// First sort byID and then by again by "Date" in this case time of day
 		Collections.sort(matchingMs, MeetingImpl::orderByID);
