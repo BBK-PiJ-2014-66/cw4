@@ -87,17 +87,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public PastMeeting getPastMeeting(int id) {
-		// simple crib of future version!
-		// TODO check future meetings for that ID - throw an exception on match
-
-		List<PastMeeting> matchingPMs = pastMeetings.stream()
-				.filter(fm -> fm.getId() == id).collect(Collectors.toList());
-		if (matchingPMs.size() > 1) // belt and braces
-			throw new RuntimeException("Programming Error. "
-					+ "Have two past meetings with matching ids: "
-					+ matchingPMs);
-		return (matchingPMs.size() == 1) ? matchingPMs.get(0) : null;
-
+		// check whether there is a past meeting
+		if (getFutureMeetingNoThrow(id) != null)
+			throw new IllegalArgumentException(
+					"Check for past meeting with id of a future= " + id);
+		return getPastMeetingNoThrow(id);
 	}
 
 	/**
@@ -109,20 +103,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public FutureMeeting getFutureMeeting(int id) {
-		// TODO check past meetings for that ID - throw an exception on match
-
-		// Select meetings that matches the id
-		// use a stream lambda expression rather than for loop
-		// http://stackoverflow.com/questions/22694884/filter-java-stream-to-1-and-only-1-element
-		List<FutureMeeting> matchingFMs = futureMeetings.stream()
-				.filter(fm -> fm.getId() == id).collect(Collectors.toList());
-		if (matchingFMs.size() > 1) // belt and braces
-			throw new RuntimeException("Programming Error. "
-					+ "Have two future meetings with matching ids: "
-					+ matchingFMs);
-		// if there is one matching future meeting return it otherwise return
-		// null
-		return (matchingFMs.size() == 1) ? matchingFMs.get(0) : null;
+		// check whether there is a past meeting
+		if (getPastMeetingNoThrow(id) != null)
+			throw new IllegalArgumentException(
+					"Check for future meeting with id of a past= " + id);
+		return getFutureMeetingNoThrow(id);
 	}
 
 	/**
@@ -130,12 +115,10 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public Meeting getMeeting(int id) {
-		// use the other methods and cast result
-		// TODO if supplied with a past id getFuture meeting will
-		// TODO throw an exception (not yet though).
-		Meeting retMeet = (Meeting) getFutureMeeting(id);
-		if (retMeet == null) { // TODO will need to be changed
-			retMeet = (Meeting) getPastMeeting(id);
+		// use the other "NoThrow" methods (to avoid exceptions) and cast result
+		Meeting retMeet = (Meeting) getFutureMeetingNoThrow(id);
+		if (retMeet == null) {
+			retMeet = (Meeting) getPastMeetingNoThrow(id);
 		}
 		return retMeet;
 	}
@@ -197,12 +180,12 @@ public class ContactManagerImpl implements ContactManagerPlus {
 				.filter(fm -> CalendarUtils.sameDate(date, fm.getDate()))
 				.collect(Collectors.toList());
 
-		// TODO append meetings from past (could have meetings from both) 
+		// TODO append meetings from past (could have meetings from both)
 
 		// First sort byID and then by again by "Date" in this case time of day
 		Collections.sort(matchingMs, MeetingImpl::orderByID);
 		Collections.sort(matchingMs, MeetingImpl::orderByDate);
-		
+
 		return matchingMs;
 	}
 
@@ -338,8 +321,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return retContacts;
 	}
 
-	
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -365,11 +346,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		}
 
 	}
-	
+
 	/*
 	 * extra methods from interface ContactManagerPlus follow:
 	 */
-	
+
 	@Override
 	public List<Contact> getAllContacts() {
 		return contacts;
@@ -405,15 +386,14 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		this.pretendNow = pretendNow;
 	}
 
-
 	/*
 	 * private methods
 	 */
 
 	/**
 	 * check whether a date is in the future N.B. checks against current
-	 * date/time unless {@link overrideDateNow} has been used to set a
-	 * "pretendNow"
+	 * date/time unless {@link #overrideDateNow(Calendar) overrideDateNow} has
+	 * been used to set a "pretendNow"
 	 * 
 	 * @param date
 	 *            the date to check
@@ -445,6 +425,50 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
+	 * Returns the PAST meeting with the requested ID, or null if it there is
+	 * none. Like {@link #getPastMeeting(int) getPastMeeting} except does not
+	 * throw an exception if supplied with id of future meeting.
+	 *
+	 * @param id
+	 *            the ID for the meeting
+	 * @return the meeting with the requested ID, or null if it there is none.
+	 */
+	private PastMeeting getPastMeetingNoThrow(int id) {
+		// simple crib of future version!
+		List<PastMeeting> matchingPMs = pastMeetings.stream()
+				.filter(fm -> fm.getId() == id).collect(Collectors.toList());
+		if (matchingPMs.size() > 1) // belt and braces
+			throw new RuntimeException("Programming Error. "
+					+ "Have two past meetings with matching ids: "
+					+ matchingPMs);
+		return (matchingPMs.size() == 1) ? matchingPMs.get(0) : null;
+	}
+
+	/**
+	 * Returns the FUTURE meeting with the requested ID, or null if there is
+	 * none. Like {@link #getFutureMeeting(int) getFutureMeeting} except that
+	 * does not throw exception if supplied with id of a past meeting.
+	 *
+	 * @param id
+	 *            the ID for the meeting
+	 * @return the meeting with the requested ID, or null if it there is none.
+	 */
+	private FutureMeeting getFutureMeetingNoThrow(int id) {
+		// Select meetings that matches the id
+		// use a stream lambda expression rather than for loop
+		// http://stackoverflow.com/questions/22694884/filter-java-stream-to-1-and-only-1-element
+		List<FutureMeeting> matchingFMs = futureMeetings.stream()
+				.filter(fm -> fm.getId() == id).collect(Collectors.toList());
+		if (matchingFMs.size() > 1) // belt and braces
+			throw new RuntimeException("Programming Error. "
+					+ "Have two future meetings with matching ids: "
+					+ matchingFMs);
+		// if there is one matching future meeting return it otherwise return
+		// null
+		return (matchingFMs.size() == 1) ? matchingFMs.get(0) : null;
+	}
+
+	/**
 	 * Customised toString() N.B. produces output on multiple lines as this is
 	 * useful in debugging.
 	 */
@@ -453,11 +477,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		StringBuffer ret = new StringBuffer("\n\tcontacts: \n");
 		for (Contact itCon : contacts)
 			ret.append("\t\t" + itCon + "\n");
-		
+
 		ret.append("\n\tpast meetings: \n");
 		for (PastMeeting itFM : pastMeetings)
 			ret.append("\t\t" + itFM + "\n");
-		
+
 		ret.append("\n\tfuture meetings: \n");
 		for (FutureMeeting itFM : futureMeetings)
 			ret.append("\t\t" + itFM + "\n");
@@ -467,7 +491,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return ret.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -485,7 +511,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -520,5 +548,4 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return true;
 	}
 
-	
 }
