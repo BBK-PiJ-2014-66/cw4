@@ -151,7 +151,7 @@ public class ContactManagerImplTest {
 	public void testGetFutureMeeting_PastID() {
 		// get past ID of the past meeting in standardCMP
 		int pastID = standardCMP.getAllPastMeetings().get(0).getId();
-		testCM.getFutureMeeting(pastID); // should throw an exception
+		standardCMP.getFutureMeeting(pastID); // should throw an exception
 	}
 
 	/**
