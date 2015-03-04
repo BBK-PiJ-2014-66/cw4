@@ -368,6 +368,28 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * test addMeetingNotes normal behaviour: #2
+	 * 
+	 * "It can be also used to add notes to a past meeting at a later date."
+	 * 
+	 * And OSS: "N.B. if used to add notes to a past meeting, the new notes
+	 * replace the existing ones (rather than being appended)."
+	 * 
+	 */
+	@Test
+	public void testaddMeetingNotesOnPastMeeting() {
+		// get id of the one past meeting in standardCMP
+		int id = standardCMP.getAllPastMeetings().get(0).getId();
+		String newNotes = "Some new meeting notes";
+		standardCMP.addMeetingNotes(id, newNotes);
+		// get the notes back
+		String backNotes = standardCMP.getPastMeeting(id).getNotes();
+		assertThat("\nAfter .addMeetingNotes() on a past meeting the \n"
+				+ "notes should have been updated! But check fails:",
+				backNotes, is(newNotes));
+	}
+
+	/**
 	 * test addMeetingNotes with non-existent id
 	 */
 	@Test(expected = IllegalArgumentException.class)
