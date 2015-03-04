@@ -35,19 +35,20 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		pastMeetings = new ArrayList<>();
 	}
 
-	ContactManagerImpl(String fileName) {
-		ContactManagerImpl readCM = null;
-		try {
-			readCM = FileSaveRetrieve.retrieveFromFile(fileName);
-			contacts = readCM.contacts;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	// TODO rethinking file save / retrieve
+//	ContactManagerImpl(String fileName) {
+//		ContactManagerImpl readCM = null;
+//		try {
+//			readCM = FileSaveRetrieve.retrieveFromFile(fileName);
+//			contacts = readCM.contacts;
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * {@inheritDoc}
@@ -367,13 +368,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	@Override
 	public void flush() {
-		try {
-			FileSaveRetrieve.saveToFile("contacts.txt", this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		// TODO rethinkingg file/save retrieve.
 	}
 
 	/*
