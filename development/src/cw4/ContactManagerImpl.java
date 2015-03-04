@@ -274,9 +274,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			}
 
 		}
-
-		// TODO It can be used to add notes to a past meeting at a later date
-
+		//  add notes to a past meeting at a later date
+		PastMeetingImpl pastMI = (PastMeetingImpl) getPastMeeting(id);
+		// have to cast to PastMeetingImpl because addNotes is not an interface method
+		pastMI.addNotes(text);
+		
 	}
 
 	/**
