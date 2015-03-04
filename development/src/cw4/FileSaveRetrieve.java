@@ -1,77 +1,56 @@
 package cw4;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 /**
  * 
- * Deals with saving {@link ContactManagerImpl} state to an external file.
- * Although this functionality could be included in ContactManagerImpl the
- * interface has 13 public methods so structure programming considerations make
- * separation really desirable.
- * 
+ * Deals with saving {@link ContactManagerImpl} state to a string and or an
+ * external text file.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 25 February 2015
  * 
  */
-public class FileSaveRetrieve { 
+public class FileSaveRetrieve {
 
-	private FileSaveRetrieve() {
-		throw new UnsupportedOperationException("Uninstantiable class");
+	private FileSaveRetrieveMethod method = FileSaveRetrieveMethod.SERIALIZATION;
+
+	// private String saveFileName = "contacts.txt";
+
+	/**
+	 * Sets the
+	 * 
+	 * @param method
+	 *            the method to save to string/file
+	 */
+	public void setMode(FileSaveRetrieveMethod method) {
+		this.method = method;
 	}
 
 	/**
-	 * writes the ContactManagerImpl information to a file (so that than it
-	 * be read back in by {@link retrieveFromfile})
+	 * Converts the supplied contactManager to string so that its data can be
+	 * recovered by {@link #retrieveFromString(String)}.
 	 * 
-	 * @param fileName
-	 *            name of the file to save to
 	 * @param contactManager
-	 *            the contactManager to save
-	 * @throws IOException
-	 *             if there is an error opening or writing to the file
+	 *            the contactManager to encode
+	 * @return encoded form of the contactManager object
 	 */
-	public static void saveToFile(String fileName,
-			ContactManagerImpl contactManager) throws IOException {
-		// use XML format (for now)
-		String xml = saveToString(contactManager);
-		System.out.println("Debug need to write to file " + fileName
-				+ " xml=\n" + xml);
-		// TODO writing to file
-	}
-	
-	/**
-	 * reads ContactManagerImpl state information from a file (written by
-	 * {@link saveTofile})
-	 * 
-	 * @param fileName
-	 *            the name of the input file (must already exist).
-	 * @return a new ContactManagerImpl object based on the information from
-	 *         file
-	 * @throws FileNotFoundException
-	 *             if file cannot be opened
-	 * @throws IOException
-	 *             if there is an error reading the file
-	 */
-	public static ContactManagerImpl retrieveFromFile(String fileName)
-			throws FileNotFoundException, IOException {
-		// TODO write method
-		return null;
+	public String saveToString(ContactManagerImpl contactManager) {
+		if (method == FileSaveRetrieveMethod.XML)
+			return saveToStringXML(contactManager);
+		return null; // TODO implement serialization
 	}
 
 	/**
-	 * Converts the supplied contactManager to a single XML format string using
+	 * Converts the supplied contactManager to a string in XML format using
 	 * XStream
 	 * 
 	 * @param contactManager
 	 *            the contactManager to encode
 	 * @return XML encoding of the contactManager object
 	 */
-	public static String saveToString(ContactManagerImpl contactManager) {
+	private String saveToStringXML(ContactManagerImpl contactManager) {
 		XStream xstream = new XStream(new StaxDriver());
 		String xml = xstream.toXML(contactManager);
 		return xml;
@@ -84,20 +63,26 @@ public class FileSaveRetrieve {
 	 * @param xml
 	 *            the XML string
 	 * @return the contactManagerImpl encoded
-	 * @throws someexception???? on error???? //TODO
+	 * @throws someexception
+	 *             ???? on error???? //TODO
 	 */
-	public static ContactManagerImpl retrieveFromString(String xml) {
+	public ContactManagerImpl retrieveFromString(String string) {
+		if (method == FileSaveRetrieveMethod.XML)
+			return retrieveFromStringXML(string);
+		return null; // TODO implement serialization
+
+	}
+
+	private ContactManagerImpl retrieveFromStringXML(String xml) {
 		XStream xstream = new XStream(new StaxDriver());
 		ContactManagerImpl restore = (ContactManagerImpl) xstream.fromXML(xml);
 		// TODO ensure that ID's are unique
 		// register all id's read so they will not be reissued.
-		for (Contact itCon: restore.getAllContacts()) {
+		for (Contact itCon : restore.getAllContacts()) {
 			int id = itCon.getId();
 			IdGenerator.CONTACT.registerExistingID(id);
 		}
 		return restore;
 	}
-
-
 
 }
