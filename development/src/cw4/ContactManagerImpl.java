@@ -195,10 +195,27 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return matchingMs;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @param contact
+	 *            one of the user’s contacts
+	 * @return the list of past meeting(s) scheduled with this contact (maybe
+	 *         empty).
+	 * @throws IllegalArgumentException
+	 *             if the contact does not exist
+	 */
 	@Override
 	public List<PastMeeting> getPastMeetingList(Contact contact) {
-		// TODO Auto-generated method stub
-		return null;
+		// simply crib procedure from getFutureMeetingList(Contact)
+		// and alter futureMeetings to pastMeetings...
+		checkContacts(contact);
+		List<PastMeeting> matchingMs = pastMeetings.stream()
+				.filter(fm -> fm.getContacts().contains(contact))
+				.collect(Collectors.toList());
+		Collections.sort(matchingMs, MeetingImpl::orderByID);
+		Collections.sort(matchingMs, MeetingImpl::orderByDate);
+		return matchingMs;
 	}
 
 	/**
@@ -274,11 +291,12 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			}
 
 		}
-		//  add notes to a past meeting at a later date
+		// add notes to a past meeting at a later date
 		PastMeetingImpl pastMI = (PastMeetingImpl) getPastMeeting(id);
-		// have to cast to PastMeetingImpl because addNotes is not an interface method
+		// have to cast to PastMeetingImpl because addNotes is not an interface
+		// method
 		pastMI.addNotes(text);
-		
+
 	}
 
 	/**
