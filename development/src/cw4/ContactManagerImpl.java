@@ -38,7 +38,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	ContactManagerImpl(String fileName) {
 		ContactManagerImpl readCM = null;
 		try {
-			readCM = FileSaveRetrieve.retrieveFromfile(fileName);
+			readCM = FileSaveRetrieve.retrieveFromFile(fileName);
 			contacts = readCM.contacts;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

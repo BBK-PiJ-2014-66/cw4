@@ -31,7 +31,7 @@ public class FileSaveRetrieveTest {
 		 * FileSaveRetrieve.toXMLSting(getXML));
 		 */
 		String xml = "<?xml version=\"1.0\" ?><ContactManagerImpl><contacts><ContactImpl><name>A</name><notes>B</notes><id>1</id></ContactImpl></contacts></ContactManagerImpl>";
-		ContactManagerImpl testCM = FileSaveRetrieve.fromXMLString(xml);
+		ContactManagerImpl testCM = FileSaveRetrieve.retrieveFromString(xml);
 		// addNewContact now checks whether the new ID conflicts with any existing
 		// and raises an RuntimeException if this happens.
 		testCM.addNewContact("New Person", "new notes"); 
@@ -59,9 +59,9 @@ public class FileSaveRetrieveTest {
 		for (String name : names) {
 			origCM.addNewContact(name, "<email>");
 		}
-		String xml = FileSaveRetrieve.toXMLSting(origCM);
-
-		ContactManagerImpl restoreCM = FileSaveRetrieve.fromXMLString(xml);
+		String xml = FileSaveRetrieve.saveToString(origCM);
+		System.out.println(xml);
+		ContactManagerImpl restoreCM = FileSaveRetrieve.retrieveFromString(xml);
 
 		assertThat("Restored ContactManager equals original", restoreCM,
 				is(origCM));

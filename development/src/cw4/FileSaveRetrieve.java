@@ -38,7 +38,7 @@ public class FileSaveRetrieve {
 	public static void saveToFile(String fileName,
 			ContactManagerImpl contactManager) throws IOException {
 		// use XML format (for now)
-		String xml = toXMLSting(contactManager);
+		String xml = saveToString(contactManager);
 		System.out.println("Debug need to write to file " + fileName
 				+ " xml=\n" + xml);
 		// TODO writing to file
@@ -57,7 +57,7 @@ public class FileSaveRetrieve {
 	 * @throws IOException
 	 *             if there is an error reading the file
 	 */
-	public static ContactManagerImpl retrieveFromfile(String fileName)
+	public static ContactManagerImpl retrieveFromFile(String fileName)
 			throws FileNotFoundException, IOException {
 		// TODO write method
 		return null;
@@ -71,7 +71,7 @@ public class FileSaveRetrieve {
 	 *            the contactManager to encode
 	 * @return XML encoding of the contactManager object
 	 */
-	public static String toXMLSting(ContactManagerImpl contactManager) {
+	public static String saveToString(ContactManagerImpl contactManager) {
 		XStream xstream = new XStream(new StaxDriver());
 		String xml = xstream.toXML(contactManager);
 		return xml;
@@ -86,7 +86,7 @@ public class FileSaveRetrieve {
 	 * @return the contactManagerImpl encoded
 	 * @throws someexception???? on error???? //TODO
 	 */
-	public static ContactManagerImpl fromXMLString(String xml) {
+	public static ContactManagerImpl retrieveFromString(String xml) {
 		XStream xstream = new XStream(new StaxDriver());
 		ContactManagerImpl restore = (ContactManagerImpl) xstream.fromXML(xml);
 		// TODO ensure that ID's are unique
