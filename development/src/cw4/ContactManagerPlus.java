@@ -4,8 +4,9 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Class to Manage contacts and Meetings including methods that are missing from 
- * {@link ContactManager} needed for both JUnit testing and a functional program.
+ * Class to Manage contacts and Meetings including methods that are missing from
+ * {@link ContactManager} needed for both JUnit testing and a functional
+ * program.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 28 February 2015
@@ -14,8 +15,8 @@ import java.util.List;
 public interface ContactManagerPlus extends ContactManager {
 
 	/**
-	 * A simple getter for all contacts. Not an interface method but I would add
-	 * it because it would be really useful in actually writing a program!
+	 * A simple getter for all contacts. Added it because it would be really
+	 * useful in actually writing a program!
 	 * 
 	 * @return list of all the contacts
 	 */
@@ -34,12 +35,13 @@ public interface ContactManagerPlus extends ContactManager {
 	 * @return a list of meetings that is chronologically sorted.
 	 */
 	List<PastMeeting> getAllPastMeetings();
-	
+
 	/**
 	 * Used to set a false current date in place of the real actual date/time
-	 * "now". Useful for testing.
+	 * "now". Useful for testing and may be for the program.
 	 * 
-	 * @param pretendNow the date/time to treat as now.
+	 * @param pretendNow
+	 *            the date/time to treat as "now".
 	 */
 	void overrideDateNow(Calendar pretendNow);
 
