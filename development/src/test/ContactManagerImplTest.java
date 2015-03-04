@@ -134,13 +134,11 @@ public class ContactManagerImplTest {
 	/**
 	 * TODO test getFutureMeeting(id) with unknown id
 	 */
-	 
+
 	/**
 	 * TODO test getFutureMeeting(id) with past id
 	 */
-	
-	
-	
+
 	/**
 	 * Test getFutureMeetingList(Contact) normal behaviour
 	 */
@@ -326,13 +324,13 @@ public class ContactManagerImplTest {
 						+ ".getMeeting(id) should return the same Meeting as before but get null!",
 				meetAfter);
 		assertThat(
-				// n.b. toString() produces a text representation with all
-				// meeting data. Better to use than .equals method as more
-				// informative failure message.
 				"\nAfter adding notes to a held 'future' meeting."
-						+ " .getMeeting(id) should should return the same Meeting data as before\n",
-				meetAfter.toString(), is(meetBefore.toString())); // problem here
-
+						+ " .getMeeting(id) should should return the same date as before\n",
+				(meetAfter.getDate().equals(meetBefore.getDate())), is(true)); 
+		assertThat(
+				"\nAfter adding notes to a held 'future' meeting."
+						+ " .getMeeting(id) should should return the same contacts as before\n",
+				(meetAfter.getContacts().equals(meetBefore.getContacts())), is(true)); 
 	}
 
 	/**
@@ -556,7 +554,7 @@ public class ContactManagerImplTest {
 		filledCMP.addNewPastMeeting(testContacts, pastCal, "the meeting was..");
 
 		// to keep track of everything print to console
-		//System.out.println("debug standardFilledCMP:" + filledCMP);
+		// System.out.println("debug standardFilledCMP:" + filledCMP);
 		return filledCMP;
 	}
 }
