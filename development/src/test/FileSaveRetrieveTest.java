@@ -52,16 +52,16 @@ public class FileSaveRetrieveTest {
 	 * that object (now passes).
 	 */
 	@Test
-	public void testSaveToXmlStringAndRestore() {
+	public void testSaveToStringAndRestore() {
 		ContactManagerImpl origCM = new ContactManagerImpl();
 		List<String> names = Arrays.asList("John Smith", "Jane Doe",
 				"Adam Ant", "Jason Hippo");
 		for (String name : names) {
 			origCM.addNewContact(name, "<email>");
 		}
-		String xml = FileSaveRetrieve.saveToString(origCM);
-		System.out.println(xml);
-		ContactManagerImpl restoreCM = FileSaveRetrieve.retrieveFromString(xml);
+		String str = FileSaveRetrieve.saveToString(origCM);
+		System.out.println(str);
+		ContactManagerImpl restoreCM = FileSaveRetrieve.retrieveFromString(str);
 
 		assertThat("Restored ContactManager equals original", restoreCM,
 				is(origCM));
