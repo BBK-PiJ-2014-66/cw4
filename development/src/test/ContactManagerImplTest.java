@@ -210,6 +210,27 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * test getPastMeetingList(Contact) normal behaviour
+	 */
+	@Test
+	public void getPastMeetingList_Contact() {
+		// get the contact for testName
+		Contact testContact = standardCMP.getAllContacts().get(0);
+		List<PastMeeting> pastMeets = standardCMP
+				.getPastMeetingList(testContact);
+		assertNotNull(
+				"\n.getPastMeetingList(Contact) should never return null!",
+				pastMeets);
+		// should be one past meeting
+		assertThat("\n.getPastMeetingList(Contact) should have returned\n"
+				+ "returned one past meeting", pastMeets.size(), is(1));
+		// it involves testContact
+		assertThat("\n.getPastMeetingList(Contact) should have returned\n"
+				+ "meeting involving the input contact.", pastMeets.get(0)
+				.getContacts().contains(testContact), is(true));
+	}
+
+	/**
 	 * Test getFutureMeetingList(Calendar) including test for past meetings.
 	 * Sergio says method should have been called getMeetingListOn(Calendar)!
 	 */
