@@ -210,7 +210,8 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * Test getFutureMeetingList(Contact)
+	 * Test getFutureMeetingList(Calendar) including test for past meetings.
+	 * Sergio says method should have been called getMeetingListOn(Calendar)!
 	 */
 	@Test
 	public void testGetFutureMeetingList_Calendar() {
@@ -238,6 +239,23 @@ public class ContactManagerImplTest {
 						+ "but first= " + cal1.getTime() + "\n"
 						+ "is later than second= " + cal2.getTime(),
 				cal1.before(cal2));
+
+		/*
+		 * extend test to check that getFutureMeetingList(Calendar) can return a
+		 * mixture of future and past meetings by converting first meeting from
+		 * future to past.
+		 */
+
+		// change "now" so conversion will work
+		standardCMP.overrideDateNow(futureCal);
+		// convert it
+		standardCMP.addMeetingNotes(meets.get(0).getId(), "some meeting notes");
+		meets = standardCMP.getFutureMeetingList(futureCal);
+		// if there are still 3 meetings then method works.
+		assertThat(
+				"\nThere should be 3 meetings after one has been converted to past.",
+				meets.size(), is(3));
+
 	}
 
 	/**
