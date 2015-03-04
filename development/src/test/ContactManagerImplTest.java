@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -132,8 +133,13 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * TODO test getFutureMeeting(id) with unknown id
+	 * test getFutureMeeting(id) with unknown meeting id - should return null.
 	 */
+	@Test
+	public void testGetFutureMeeting_IdWithUnknown() {
+		FutureMeeting retFM = testCM.getFutureMeeting(Integer.MIN_VALUE);
+		assertNull("\ntestGetFutureMeeting(id) should return null for unknown meeting id", retFM);
+	}
 
 	/**
 	 * TODO test getFutureMeeting(id) with past id
