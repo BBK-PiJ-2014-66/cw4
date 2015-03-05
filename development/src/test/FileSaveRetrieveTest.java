@@ -2,7 +2,7 @@ package test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import java.util.Calendar;
@@ -32,9 +32,9 @@ public class FileSaveRetrieveTest {
 
 	@Before
 	public void init() {
-		// for now set mode to XML
+		// for now set mode to XML or
 		fileSaveRetrieve = new FileSaveRetrieve();
-		fileSaveRetrieve.setMode(FileSaveRetrieveMethod.XML);
+		fileSaveRetrieve.setMode(FileSaveRetrieveMethod.SERIALIZATION);
 		// provide a decent contact manager to save/retrieve
 		ContactManagerImplTest cmpit = new ContactManagerImplTest();
 		testCMP = cmpit.standardFilledCMP(); // one contact 4 meetings
@@ -51,8 +51,9 @@ public class FileSaveRetrieveTest {
 
 	/**
 	 * Test saving state to a string and creating a new ContactManagerPlus from
-	 * that string compare data returned with the original. See last commented out test for possible bug
-	 * in {@link cw4.PastMeetingImpl#equals(Object obj)}
+	 * that string compare data returned with the original. See last commented
+	 * out test for possible bug in
+	 * {@link cw4.PastMeetingImpl#equals(Object obj)}
 	 */
 	@Test
 	public void saveToStringAndRestore() {
@@ -61,6 +62,10 @@ public class FileSaveRetrieveTest {
 
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
 				.retrieveFromString(str);
+
+		assertNotNull(
+				"\n.retrieveFromString( String) failed as it returned null,",
+				restoreCMP);
 
 		// N.B. the comparison will use the .equals method of ContactImpl
 		assertThat("\nRestored ContactManagerPlus has same contacts?",
