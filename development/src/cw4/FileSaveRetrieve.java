@@ -1,5 +1,10 @@
 package cw4;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
@@ -35,6 +40,8 @@ public class FileSaveRetrieve {
 	 * @param contactManager
 	 *            the contactManager to encode
 	 * @return encoded form of the contactManager object
+	 * @throws RuntimeException
+	 *             if there is a problem encoding the contactManager
 	 */
 	public String saveToString(ContactManagerPlus contactManager) {
 		String retStr = null;
@@ -65,15 +72,30 @@ public class FileSaveRetrieve {
 	 * @param contactManager
 	 *            the contactManager to encode
 	 * @return serialized encoding of the contactManager object
+	 * @throws RuntimeException
+	 *             if there is a problem serializing the contactManager
 	 */
-
 	private String saveToStringSerialization(ContactManagerPlus contactManager) {
 		/*
 		 * method adapted from
 		 * http://stackoverflow.com/questions/8887197/reliably
 		 * -convert-any-object-to-string-and-then-back-again
 		 */
-		return null;
+		String serializedObject = "";
+		// serialize the object
+		try {
+			ByteArrayOutputStream bo = new ByteArrayOutputStream();
+			ObjectOutputStream so = new ObjectOutputStream(bo);
+			so.writeObject(contactManager);
+			so.flush();
+			serializedObject = bo.toString();
+		} catch (IOException ex) {
+			// recast Exception to Runtime.
+			throw new RuntimeException(
+					"Error in serialization of contactManager to a String: "
+							+ ex);
+		}
+		return serializedObject;
 	}
 
 	/**
@@ -93,7 +115,7 @@ public class FileSaveRetrieve {
 		else if (method == FileSaveRetrieveMethod.SERIALIZATION)
 			restore = retrieveFromStringSerialization(string);
 		// tidy up after restoration //TODO
-		return restore; // TODO implement serialization
+		return restore; 
 
 	}
 
