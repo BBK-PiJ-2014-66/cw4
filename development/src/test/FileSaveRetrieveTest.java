@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cw4.Contact;
-import cw4.ContactManagerImpl;
 import cw4.ContactManagerPlus;
 import cw4.FileSaveRetrieve;
 import cw4.FileSaveRetrieveMethod;
@@ -55,9 +54,9 @@ public class FileSaveRetrieveTest {
 	 * that string compare data returned with the original
 	 */
 	@Test
-	public void testSaveToStringAndRestore() {
+	public void saveToStringAndRestore() {
 		String str = fileSaveRetrieve.saveToString(testCMP);
-		System.out.println("debug testCMP saveToString=\n" + str + "\n");
+		//System.out.println("debug testCMP saveToString=\n" + str + "\n");
 		
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
 				.retrieveFromString(str);
