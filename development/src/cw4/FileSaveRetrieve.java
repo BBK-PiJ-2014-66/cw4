@@ -76,12 +76,12 @@ public class FileSaveRetrieve {
 	private ContactManagerPlus retrieveFromStringXML(String xml) {
 		XStream xstream = new XStream(new StaxDriver());
 		ContactManagerPlus restore = (ContactManagerPlus) xstream.fromXML(xml);
-		// TODO ensure that ID's are unique
 		// register all id's read so they will not be reissued.
 		for (Contact itCon : restore.getAllContacts()) {
 			int id = itCon.getId();
 			IdGenerator.CONTACT.registerExistingID(id);
 		}
+		// TODO need to register meeting id's as well. 
 		return restore;
 	}
 
