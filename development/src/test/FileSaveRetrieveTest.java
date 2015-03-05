@@ -51,7 +51,8 @@ public class FileSaveRetrieveTest {
 
 	/**
 	 * Test saving state to a string and creating a new ContactManagerPlus from
-	 * that string compare data returned with the original
+	 * that string compare data returned with the original. See last commented out test for possible bug
+	 * in {@link cw4.PastMeetingImpl#equals(Object obj)}
 	 */
 	@Test
 	public void saveToStringAndRestore() {
