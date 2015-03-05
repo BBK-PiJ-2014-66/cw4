@@ -37,9 +37,12 @@ public class FileSaveRetrieve {
 	 * @return encoded form of the contactManager object
 	 */
 	public String saveToString(ContactManagerPlus contactManager) {
+		String retStr = null;
 		if (method == FileSaveRetrieveMethod.XML)
-			return saveToStringXML(contactManager);
-		return null; // TODO implement serialization
+			retStr = saveToStringXML(contactManager);
+		else if (method == FileSaveRetrieveMethod.SERIALIZATION)
+			retStr = saveToStringSerialization(contactManager);
+		return retStr; // TODO implement serialization
 	}
 
 	/**
@@ -57,6 +60,23 @@ public class FileSaveRetrieve {
 	}
 
 	/**
+	 * Converts the supplied contactManager to a string using serialization
+	 * 
+	 * @param contactManager
+	 *            the contactManager to encode
+	 * @return serialized encoding of the contactManager object
+	 */
+
+	private String saveToStringSerialization(ContactManagerPlus contactManager) {
+		/*
+		 * method adapted from
+		 * http://stackoverflow.com/questions/8887197/reliably
+		 * -convert-any-object-to-string-and-then-back-again
+		 */
+		return null;
+	}
+
+	/**
 	 * reads ContactManagerPlus from an XML string written by
 	 * {@link toXMLString}
 	 * 
@@ -67,9 +87,13 @@ public class FileSaveRetrieve {
 	 *             ???? on error???? //TODO
 	 */
 	public ContactManagerPlus retrieveFromString(String string) {
+		ContactManagerPlus restore = null;
 		if (method == FileSaveRetrieveMethod.XML)
-			return retrieveFromStringXML(string);
-		return null; // TODO implement serialization
+			restore = retrieveFromStringXML(string);
+		else if (method == FileSaveRetrieveMethod.SERIALIZATION)
+			restore = retrieveFromStringSerialization(string);
+		// tidy up after restoration //TODO
+		return restore; // TODO implement serialization
 
 	}
 
@@ -81,8 +105,12 @@ public class FileSaveRetrieve {
 			int id = itCon.getId();
 			IdGenerator.CONTACT.registerExistingID(id);
 		}
-		// TODO need to register meeting id's as well. 
+		// TODO need to register meeting id's as well.
 		return restore;
+	}
+
+	private ContactManagerPlus retrieveFromStringSerialization(String string) {
+		return null; // TODO write method
 	}
 
 }

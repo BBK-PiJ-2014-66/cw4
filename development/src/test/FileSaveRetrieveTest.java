@@ -32,9 +32,10 @@ public class FileSaveRetrieveTest {
 
 	@Before
 	public void init() {
-		// for now set mode to XML or
+		// for now set mode to XML or serialization
 		fileSaveRetrieve = new FileSaveRetrieve();
 		fileSaveRetrieve.setMode(FileSaveRetrieveMethod.SERIALIZATION);
+		//fileSaveRetrieve.setMode(FileSaveRetrieveMethod.XML);
 		// provide a decent contact manager to save/retrieve
 		ContactManagerImplTest cmpit = new ContactManagerImplTest();
 		testCMP = cmpit.standardFilledCMP(); // one contact 4 meetings
@@ -58,6 +59,12 @@ public class FileSaveRetrieveTest {
 	@Test
 	public void saveToStringAndRestore() {
 		String str = fileSaveRetrieve.saveToString(testCMP);
+
+
+		assertNotNull(
+				"\n.saveToString( ContactManagerPlus) failed as it returned null,",
+				str);
+		
 		// System.out.println("debug testCMP saveToString=\n" + str + "\n");
 
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
