@@ -3,76 +3,75 @@ package test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import cw4.Contact;
 import cw4.ContactManagerImpl;
+import cw4.ContactManagerPlus;
 import cw4.FileSaveRetrieve;
 import cw4.FileSaveRetrieveMethod;
 
+/**
+ * 
+ * Unit tests for {@link FileSaveRetrieve}
+ * 
+ * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
+ * @since 25 February 2015
+ * 
+ */
 public class FileSaveRetrieveTest {
 
 	private FileSaveRetrieve fileSaveRetrieve;
-	
+	private ContactManagerPlus testCMP;
+
 	@Before
-	public void init(){
+	public void init() {
+		// for now set mode to XML
 		fileSaveRetrieve = new FileSaveRetrieve();
 		fileSaveRetrieve.setMode(FileSaveRetrieveMethod.XML);
+		// provide a decent contact manager to save/retrieve
+		ContactManagerImplTest cmpit = new ContactManagerImplTest();
+		testCMP = cmpit.standardFilledCMP(); // one contact 4 meetings
+		// want to check how new lines and <> are encoded in the XML
+		testCMP.addNewContact("John Smith",
+				"email: <j.smith@somecompany.com>\n" + "tel: 0123 456789.");
+		testCMP.addNewContact("Jane Doe",
+				"email: <jane@someorganization.org>\n");
+		// add a new past meeting involving everyone
+		Set<Contact> everyone = testCMP.getContacts(" ");
+		testCMP.addNewPastMeeting(everyone, new GregorianCalendar(1805,
+				Calendar.OCTOBER, 21), "Battle of Trafalgar");
+		//System.out.println("debug testCMP= " + testCMP);
 	}
-	
-	/**
-	 * Test restoring state from a a hard coded string this is like a program
-	 * starting up. Add a new contact and check whether there is a conflict.
-	 * 
-	 * Make this the first test to avoid altering state first.
-	 */
-//	@Test
-//	public void restoreFromXmlStringAddNewContact() {		// TODO test fails!
-//		// hard coded XML string for a single contact "A" with notes "B"
-//		// Obtained from using following code and cut/paste:
-//		/*
-//		 * ContactManagerImpl getXML = new ContactManagerImpl();
-//		 * getXML.addNewContact("A","B"); System.out.println("Get xml=\n" +
-//		 * FileSaveRetrieve.toXMLSting(getXML));
-//		 */
-//		String xml = "<?xml version=\"1.0\" ?><ContactManagerImpl><contacts><ContactImpl><name>A</name><notes>B</notes><id>1</id></ContactImpl></contacts></ContactManagerImpl>";
-//		ContactManagerImpl testCM = FileSaveRetrieve.retrieveFromString(xml);
-//		// addNewContact now checks whether the new ID conflicts with any existing
-//		// and raises an RuntimeException if this happens.
-//		testCM.addNewContact("New Person", "new notes"); 
-//
-//		// there should be two contacts
-//		List<Contact> contacts = testCM.getAllContacts();
-//		assertThat("Get one contact from initial XML and adding another,"
-//				+ " so there should be two contacts.", contacts.size(), is(2));
-//		// check id's are distinct
-//		int id0 = contacts.get(0).getId();
-//		int id1 = contacts.get(1).getId();
-//		assertThat("Get one contact from initial XML and adding another,"
-//				+ " IDs must not be the same.", id0, not(id1));
-//	}
+
 
 	/**
-	 * Test saving state to a string and creating a new ContactManagerImpl from
-	 * that object (now passes).
+	 * Test saving state to a string and creating a new ContactManagerPlus from
+	 * that string compare data returned with the original
 	 */
 	@Test
 	public void testSaveToStringAndRestore() {
-		ContactManagerImpl origCM = new ContactManagerImpl();
-		List<String> names = Arrays.asList("John Smith", "Jane Doe",
-				"Adam Ant", "Jason Hippo");
-		for (String name : names) {
-			origCM.addNewContact(name, "<email>");
-		}
-		String str = fileSaveRetrieve.saveToString(origCM);
-		System.out.println(str);
-		ContactManagerImpl restoreCM = fileSaveRetrieve.retrieveFromString(str);
+		String str = fileSaveRetrieve.saveToString(testCMP);
+		System.out.println("debug testCMP saveToString=\n" + str + "\n");
+		
+		ContactManagerPlus restoreCMP = fileSaveRetrieve
+				.retrieveFromString(str);
+		
+		// N.B. the comparison will use the .equals method of ContactImpl
+		assertThat("\nRestored ContactManagerPlus has same contacts?",
+				restoreCMP.getAllContacts(), is(testCMP.getAllContacts()));
 
-		assertThat("Restored ContactManager equals original", restoreCM,
-				is(origCM));
+		assertThat("\nRestored ContactManagerPlus has same future meetings?",
+				restoreCMP.getAllFutureMeetings(), is(testCMP.getAllFutureMeetings()));
+
+		assertThat("\nRestored ContactManagerPlus has same past meetings?",
+				restoreCMP.getAllPastMeetings(), is(testCMP.getAllPastMeetings()));
+
 	}
 
 }
