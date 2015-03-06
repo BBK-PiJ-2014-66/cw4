@@ -5,12 +5,18 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 import cw4.Contact;
 import cw4.ContactManagerPlus;
@@ -25,17 +31,44 @@ import cw4.FileSaveRetrieveMethod;
  * @since 25 February 2015
  * 
  */
+@RunWith(Parameterized.class)
 public class FileSaveRetrieveTest {
 
+	/*
+	 * Want to run the same tests using FileSaveRetrieveMethod.XML and
+	 * FileSaveRetrieveMethod.SERIALIZATION do so using parameterized tests
+	 * following
+	 * 
+	 * http://www.vogella.com/tutorials/JUnit/article.html#
+	 * junitadvanced_parameterizedtests
+	 * 
+	 * https://github.com/junit-team/junit/wiki/Parameterized-tests
+	 */
+
+	// creates the test data
+	  @Parameters
+	  public static Collection<Object[]> data() {
+
+		 
+		Object[][] data = new Object[][] { { FileSaveRetrieveMethod.XML },
+				{ FileSaveRetrieveMethod.SERIALIZATION } };
+
+	    return Arrays.asList(data);
+
+	  }
+
+
+	  @Parameter
+	  public FileSaveRetrieveMethod method;
+
+	
 	private FileSaveRetrieve fileSaveRetrieve;
 	private ContactManagerPlus testCMP;
 
 	@Before
 	public void init() {
-		// for now set mode to XML or serialization
 		fileSaveRetrieve = new FileSaveRetrieve();
-		fileSaveRetrieve.setMode(FileSaveRetrieveMethod.SERIALIZATION);
-		//fileSaveRetrieve.setMode(FileSaveRetrieveMethod.XML);
+		fileSaveRetrieve.setMode(method);
 		// provide a decent contact manager to save/retrieve
 		ContactManagerImplTest cmpit = new ContactManagerImplTest();
 		testCMP = cmpit.standardFilledCMP(); // one contact 4 meetings
@@ -60,11 +93,10 @@ public class FileSaveRetrieveTest {
 	public void saveToStringAndRestore() {
 		String str = fileSaveRetrieve.saveToString(testCMP);
 
-
 		assertNotNull(
 				"\n.saveToString( ContactManagerPlus) failed as it returned null,",
 				str);
-		
+
 		System.out.println("debug testCMP saveToString=\n" + str + "\n");
 
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
