@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -154,4 +155,26 @@ public class FileSaveRetrieveTest {
 		// is(testCMP.getAllPastMeetings()));
 
 	}
+
+	/**
+	 * Test that we get a RuntimeException after restoring from nonsense string.
+	 * Furthermore it should have a meaningful exception message it should
+	 * contain "string to contactManager" as it should have been recast.
+	 */
+	@Test
+	public void attemptRestoreFromNonsenseString() {
+		String require = "string to contactManager";
+		try {
+			fileSaveRetrieve
+					.retrieveFromString("No ContactManagerPlus in this string!");
+		} catch (RuntimeException ex) {
+			assertTrue(
+					"Attempt to restore ContactManager from nonsense string\n"
+							+ "Failure of test that exception message contains '"
+							+ require + "'\n" + "Exception message is:\n " + ex,
+					ex.toString().contains(require));
+		}
+
+	}
+
 }
