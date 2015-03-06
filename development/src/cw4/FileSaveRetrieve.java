@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Base64;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -79,25 +80,36 @@ public class FileSaveRetrieve {
 	 */
 	private String saveToStringSerialization(ContactManagerPlus contactManager) {
 		/*
-		 * method adapted from
+		 * originally followed:
+		 * 
 		 * http://stackoverflow.com/questions/8887197/reliably
 		 * -convert-any-object-to-string-and-then-back-again
+		 * 
+		 * but this fails. So use base64 encoding as shown by
+		 * 
+		 * http://stackoverflow.com/questions/134492/how-to-serialize-an-object-into
+		 * -a-string
+		 * 
+		 * except use ava8 base64 encoding procedure following
+		 * 
+		 * http://blog.eyallupu.com/2013/11/base64-encoding-in-java-8.html
 		 */
-		String serializedObject = "";
+		String str = "";
 		// serialize the object
 		try {
-			ByteArrayOutputStream bo = new ByteArrayOutputStream();
-			ObjectOutputStream so = new ObjectOutputStream(bo);
-			so.writeObject(contactManager);
-			so.flush();
-			serializedObject = bo.toString();
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(contactManager);
+			oos.close();
+			str = new String(Base64.getEncoder().encodeToString(
+					baos.toByteArray()));
 		} catch (IOException ex) {
 			// recast Exception to Runtime.
 			throw new RuntimeException(
 					"Error in serialization of contactManager to a String: "
 							+ ex);
 		}
-		return serializedObject;
+		return str;
 	}
 
 	/**
@@ -156,17 +168,15 @@ public class FileSaveRetrieve {
 	 */
 	private ContactManagerPlus retrieveFromStringSerialization(String string) {
 		/*
-		 * method adapted from
-		 * http://stackoverflow.com/questions/8887197/reliably
-		 * -convert-any-object-to-string-and-then-back-again
+		 * see saveToStringSerialization for method!
 		 */
 		ContactManagerPlus restore = null;
 
 		try {
-			byte b[] = string.getBytes();
-			ByteArrayInputStream bi = new ByteArrayInputStream(b);
-			ObjectInputStream si =  new ObjectInputStream(bi);
-			restore = (ContactManagerPlus) si.readObject();
+			byte data[] = Base64.getDecoder().decode(string);
+			ByteArrayInputStream bais = new ByteArrayInputStream(data);
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			restore = (ContactManagerPlus) ois.readObject();
 		} catch (ClassNotFoundException | IOException ex) {
 			throw new RuntimeException(
 					"Error in deserialization of string to contactManager. "
