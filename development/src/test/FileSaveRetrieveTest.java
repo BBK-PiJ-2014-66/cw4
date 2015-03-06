@@ -65,7 +65,7 @@ public class FileSaveRetrieveTest {
 				"\n.saveToString( ContactManagerPlus) failed as it returned null,",
 				str);
 		
-		// System.out.println("debug testCMP saveToString=\n" + str + "\n");
+		System.out.println("debug testCMP saveToString=\n" + str + "\n");
 
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
 				.retrieveFromString(str);

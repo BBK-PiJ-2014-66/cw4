@@ -1,5 +1,6 @@
 package cw4;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -10,7 +11,15 @@ import java.util.Set;
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 28 February 2015
  */
-public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
+public class PastMeetingImpl extends MeetingImpl implements PastMeeting,
+		Serializable {
+
+	/**
+	 * Needed for Serializable to throw an error if decoding a previous
+	 * incompatible version. Need to increment if this class is changed so it is
+	 * not backwards compatible with its previous version.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String notes;
 
@@ -34,13 +43,12 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 		super(contacts, date);
 		addNotes(notes);
 	}
-	
-	public PastMeetingImpl(int id, Set<Contact> contacts, Calendar date, String notes) {
+
+	public PastMeetingImpl(int id, Set<Contact> contacts, Calendar date,
+			String notes) {
 		super(id, contacts, date);
 		addNotes(notes);
 	}
-	
-	
 
 	@Override
 	public String getNotes() {
@@ -58,13 +66,15 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 			throw new NullPointerException("null notes is not allowed.");
 		this.notes = notes;
 	}
-	
+
 	@Override
 	public String toString() {
 		return super.toString() + ", meeting_notes= '" + notes + "'";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -75,7 +85,7 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 		return result;
 	}
 
-	/** 
+	/**
 	 * 
 	 * TODO probable bug in this method:
 	 * {@link test.FileSaveRetrieveTest#saveToStringAndRestore()}
@@ -96,7 +106,5 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 			return false;
 		return true;
 	}
-	
-	
 
 }

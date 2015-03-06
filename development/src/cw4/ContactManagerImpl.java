@@ -19,9 +19,30 @@ import java.util.stream.Collectors;
  */
 public class ContactManagerImpl implements ContactManagerPlus {
 
+	/**
+	 * Needed for Serializable to throw an error if decoding a previous
+	 * incompatible version. Need to increment if this class is changed so it is
+	 * not backwards compatible with its previous version.
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * list of Contact 's that have been registered using addNewContact.
+	 */
 	private List<Contact> contacts;
+	/**
+	 * list of future meetings that have been added using addFutureMeetings.
+	 */
 	private List<FutureMeeting> futureMeetings;
+	/**
+	 * list of pastMeetings created by addMeetingNotes on a FutureMeeting or by
+	 * addNewPastMeeting.
+	 */
 	private List<PastMeeting> pastMeetings;
+	/**
+	 * Normally the real system date time will be used to check whether a
+	 * meeting is in the future or past. However if pretendNow is not null then
+	 * this date time will be used instead. Intended for testing.
+	 */
 	private Calendar pretendNow = null;
 
 	/**
@@ -34,19 +55,19 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	// TODO rethinking file save / retrieve
-//	ContactManagerImpl(String fileName) {
-//		ContactManagerImpl readCM = null;
-//		try {
-//			readCM = FileSaveRetrieve.retrieveFromFile(fileName);
-//			contacts = readCM.contacts;
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	// ContactManagerImpl(String fileName) {
+	// ContactManagerImpl readCM = null;
+	// try {
+	// readCM = FileSaveRetrieve.retrieveFromFile(fileName);
+	// contacts = readCM.contacts;
+	// } catch (FileNotFoundException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * {@inheritDoc}

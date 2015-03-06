@@ -1,5 +1,6 @@
 package cw4;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @since 28 February 2015
  * 
  */
-public interface ContactManagerPlus extends ContactManager {
+public interface ContactManagerPlus extends ContactManager, Serializable  {
 
 	/**
 	 * A simple getter for all contacts. Added it because it would be really

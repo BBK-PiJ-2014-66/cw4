@@ -2,7 +2,6 @@ package cw4;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
 
 import com.thoughtworks.xstream.XStream;

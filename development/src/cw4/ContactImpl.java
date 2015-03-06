@@ -1,4 +1,7 @@
 package cw4;
+
+import java.io.Serializable;
+
 /**
  * A contact is a person we are making business with or may do in the future.
  * Contacts have an ID (unique), a name (probably unique, but maybe not), and
@@ -10,8 +13,14 @@ package cw4;
  * @since 24 February 2015
  * 
  */
-public class ContactImpl implements Contact {
+public class ContactImpl implements Contact, Serializable {
 
+	/**
+	 * Needed for Serializable to throw an error if decoding a previous
+	 * incompatible version. Need to increment if this class is changed so it is
+	 * not backwards compatible with its previous version.
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String notes;
 	private int id;
