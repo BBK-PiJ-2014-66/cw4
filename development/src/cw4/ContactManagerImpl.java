@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
  */
 public class ContactManagerImpl implements ContactManagerPlus {
 
-	List<Contact> contacts;
-	List<FutureMeeting> futureMeetings;
-	List<PastMeeting> pastMeetings;
-	Calendar pretendNow = null;
+	private List<Contact> contacts;
+	private List<FutureMeeting> futureMeetings;
+	private List<PastMeeting> pastMeetings;
+	private Calendar pretendNow = null;
 
 	/**
 	 * construct a brand new ContactManager
