@@ -1,5 +1,6 @@
 package cw4;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -14,7 +15,14 @@ import java.util.Set;
  * @since 28 February 2015
  *
  */
-public class MeetingImpl implements Meeting {
+public class MeetingImpl implements Meeting, Serializable {
+
+	/**
+	 * Needed for Serializable to throw an error if decoding a previous
+	 * incompatible version. Need to increment if this class is changed so it is
+	 * not backwards compatible with its previous version.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id; // unique ID
 	private Calendar date;

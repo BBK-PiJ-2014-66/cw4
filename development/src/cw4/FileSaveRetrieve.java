@@ -80,12 +80,12 @@ public class FileSaveRetrieve {
 	 */
 	private String saveToStringSerialization(ContactManagerPlus contactManager) {
 		/*
-		 * originally followed:
+		 * serialize the object, originally followed:
 		 * 
 		 * http://stackoverflow.com/questions/8887197/reliably
 		 * -convert-any-object-to-string-and-then-back-again
 		 * 
-		 * but this fails. So use base64 encoding as shown by
+		 * but this fails. So use base64 encoding instead as shown by
 		 * 
 		 * http://stackoverflow.com/questions/134492/how-to-serialize-an-object-into
 		 * -a-string
@@ -95,7 +95,6 @@ public class FileSaveRetrieve {
 		 * http://blog.eyallupu.com/2013/11/base64-encoding-in-java-8.html
 		 */
 		String str = "";
-		// serialize the object
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
