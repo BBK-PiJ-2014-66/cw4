@@ -1,7 +1,9 @@
 package cw4;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import com.thoughtworks.xstream.XStream;
@@ -106,7 +108,7 @@ public class FileSaveRetrieve {
 	 *            the String
 	 * @return the contactManagerPlus encoded in the input string
 	 * @throws RuntimeException
-	 *             if there is a problem decoding the contactManager
+	 *             if there is a problem decoding the string
 	 */
 	public ContactManagerPlus retrieveFromString(String string) {
 		ContactManagerPlus restore = null;
@@ -128,7 +130,7 @@ public class FileSaveRetrieve {
 	 *            the XML string
 	 * @return the contactManagerPlus encoded in the input string
 	 * @throws RuntimeException
-	 *             if there is a problem decoding the contactManager
+	 *             if there is a problem decoding the string
 	 */
 	private ContactManagerPlus retrieveFromStringXML(String xml) {
 		XStream xstream = new XStream(new StaxDriver());
@@ -150,10 +152,28 @@ public class FileSaveRetrieve {
 	 * @param string written by {@link #saveToStringSerialization(ContactManagerPlus contactManager)
 	 * @return the contactManagerPlus encoded in the input string
 	 * @throws RuntimeException
-	 *             if there is a problem decoding the contactManager
+	 *             if there is a problem decoding the string
 	 */
 	private ContactManagerPlus retrieveFromStringSerialization(String string) {
-		return null; // TODO write method
+		/*
+		 * method adapted from
+		 * http://stackoverflow.com/questions/8887197/reliably
+		 * -convert-any-object-to-string-and-then-back-again
+		 */
+		ContactManagerPlus restore = null;
+
+		try {
+			byte b[] = string.getBytes();
+			ByteArrayInputStream bi = new ByteArrayInputStream(b);
+			ObjectInputStream si =  new ObjectInputStream(bi);
+			restore = (ContactManagerPlus) si.readObject();
+		} catch (ClassNotFoundException | IOException ex) {
+			throw new RuntimeException(
+					"Error in deserialization of string to contactManager. "
+							+ ex);
+		}
+
+		return restore;
 	}
 
 }
