@@ -197,7 +197,6 @@ public class FileSaveRetrieveTest {
 					+ "failed to produce a RuntimeException");
 
 		} catch (RuntimeException ex) {
-			System.out.println("debug truncate exception:\n " + ex);
 			assertTrue(
 					"Attempt to restore ContactManager from truncated string\n"
 							+ "Failure of test that exception message contains '"
