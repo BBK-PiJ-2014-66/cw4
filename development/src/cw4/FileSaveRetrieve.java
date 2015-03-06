@@ -34,7 +34,8 @@ public class FileSaveRetrieve {
 
 	/**
 	 * Converts the supplied contactManager to string so that its data can be
-	 * recovered by {@link #retrieveFromString(String)}.
+	 * subsequently recovered by {@link #retrieveFromString(String)
+	 * retrieveFromString}.
 	 * 
 	 * @param contactManager
 	 *            the contactManager to encode
@@ -53,7 +54,7 @@ public class FileSaveRetrieve {
 
 	/**
 	 * Converts the supplied contactManager to a string in XML format using
-	 * XStream
+	 * XStream.
 	 * 
 	 * @param contactManager
 	 *            the contactManager to encode
@@ -66,7 +67,7 @@ public class FileSaveRetrieve {
 	}
 
 	/**
-	 * Converts the supplied contactManager to a string using serialization
+	 * Converts the supplied contactManager to a string using serialization.
 	 * 
 	 * @param contactManager
 	 *            the contactManager to encode
@@ -98,14 +99,14 @@ public class FileSaveRetrieve {
 	}
 
 	/**
-	 * reads ContactManagerPlus from an XML string written by
-	 * {@link toXMLString}
+	 * decodes ContactManagerPlus from an encoded string written by
+	 * {@link #saveToString(ContactManagerPlus contactManager) saveToString}
 	 * 
-	 * @param xml
-	 *            the XML string
-	 * @return the contactManagerPlus encoded
-	 * @throws someexception
-	 *             ???? on error???? //TODO
+	 * @param string
+	 *            the String
+	 * @return the contactManagerPlus encoded in the input string
+	 * @throws RuntimeException
+	 *             if there is a problem decoding the contactManager
 	 */
 	public ContactManagerPlus retrieveFromString(String string) {
 		ContactManagerPlus restore = null;
@@ -114,10 +115,21 @@ public class FileSaveRetrieve {
 		else if (method == FileSaveRetrieveMethod.SERIALIZATION)
 			restore = retrieveFromStringSerialization(string);
 		// tidy up after restoration //TODO
-		return restore; 
+		return restore;
 
 	}
 
+	/**
+	 * decodes ContactManagerPlus from an XML string written by
+	 * {@link #saveToStringXML(ContactManagerPlus contactManager)
+	 * saveToStringXML}
+	 * 
+	 * @param xml
+	 *            the XML string
+	 * @return the contactManagerPlus encoded in the input string
+	 * @throws RuntimeException
+	 *             if there is a problem decoding the contactManager
+	 */
 	private ContactManagerPlus retrieveFromStringXML(String xml) {
 		XStream xstream = new XStream(new StaxDriver());
 		ContactManagerPlus restore = (ContactManagerPlus) xstream.fromXML(xml);
@@ -130,6 +142,16 @@ public class FileSaveRetrieve {
 		return restore;
 	}
 
+/**
+	 * decodes ContactManagerPlus from an string written by
+	 * {@link #saveToStringSerialization(ContactManagerPlus contactManager)
+	 * saveToStringSerialization}
+	 * 
+	 * @param string written by {@link #saveToStringSerialization(ContactManagerPlus contactManager)
+	 * @return the contactManagerPlus encoded in the input string
+	 * @throws RuntimeException
+	 *             if there is a problem decoding the contactManager
+	 */
 	private ContactManagerPlus retrieveFromStringSerialization(String string) {
 		return null; // TODO write method
 	}
