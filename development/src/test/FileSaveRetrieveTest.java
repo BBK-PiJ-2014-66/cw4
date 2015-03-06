@@ -139,10 +139,6 @@ public class FileSaveRetrieveTest {
 		johnSmith = (Contact) restoreCMP.getContacts("John Smith").toArray()[0];
 		johnSmith.addNotes("alter John's notes");
 
-		System.out
-				.println("debug meeting.toString now should have contacts sorted by id:\n"
-						+ restoreCMP.getAllPastMeetings());
-
 		// if the past meetings are back in sync then restoreCMP is normalised
 		assertThat("\nAfter altering John Smith's notes in the both\n"
 				+ "pastMeetings should match again."
