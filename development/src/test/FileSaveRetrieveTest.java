@@ -46,22 +46,19 @@ public class FileSaveRetrieveTest {
 	 */
 
 	// creates the test data
-	  @Parameters
-	  public static Collection<Object[]> data() {
+	@Parameters
+	public static Collection<Object[]> data() {
 
-		 
 		Object[][] data = new Object[][] { { FileSaveRetrieveMethod.XML },
 				{ FileSaveRetrieveMethod.SERIALIZATION } };
 
-	    return Arrays.asList(data);
+		return Arrays.asList(data);
 
-	  }
+	}
 
+	@Parameter
+	public FileSaveRetrieveMethod method;
 
-	  @Parameter
-	  public FileSaveRetrieveMethod method;
-
-	
 	private FileSaveRetrieve fileSaveRetrieve;
 	private ContactManagerPlus testCMP;
 
@@ -97,7 +94,7 @@ public class FileSaveRetrieveTest {
 				"\n.saveToString( ContactManagerPlus) failed as it returned null,",
 				str);
 
-		System.out.println("debug testCMP saveToString=\n" + str + "\n");
+		// System.out.println("debug testCMP saveToString=\n" + str + "\n");
 
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
 				.retrieveFromString(str);
@@ -141,6 +138,11 @@ public class FileSaveRetrieveTest {
 		// now make the same alteration in the restored version
 		johnSmith = (Contact) restoreCMP.getContacts("John Smith").toArray()[0];
 		johnSmith.addNotes("alter John's notes");
+
+		System.out
+				.println("debug meeting.toString now should have contacts sorted by id:\n"
+						+ restoreCMP.getAllPastMeetings());
+
 		// if the past meetings are back in sync then restoreCMP is normalised
 		assertThat("\nAfter altering John Smith's notes in the both\n"
 				+ "pastMeetings should match again."
@@ -156,5 +158,4 @@ public class FileSaveRetrieveTest {
 		// is(testCMP.getAllPastMeetings()));
 
 	}
-
 }

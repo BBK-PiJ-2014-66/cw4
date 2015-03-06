@@ -97,6 +97,22 @@ public class ContactImpl implements Contact, Serializable {
 	}
 
 	/**
+	 * Compares two contacts and returns a value compatible with
+	 * {@link java.util.Comparator} to order the contacts by ID number.
+	 * 
+	 * @param first
+	 *            a contact
+	 * @param second
+	 *            another contact
+	 * @return "a negative integer, zero, or a positive integer as the first
+	 *         argument is less than, equal to, or greater than the second."
+	 */
+	public static int orderByID(Contact first, Contact second) {
+		return first.getId() - second.getId();
+	}
+
+	
+	/**
 	 * Customised toString 
 	 */
 	@Override
