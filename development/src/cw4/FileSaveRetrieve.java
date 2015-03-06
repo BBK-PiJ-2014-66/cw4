@@ -56,62 +56,6 @@ public class FileSaveRetrieve {
 	}
 
 	/**
-	 * Converts the supplied contactManager to a string in XML format using
-	 * XStream.
-	 * 
-	 * @param contactManager
-	 *            the contactManager to encode
-	 * @return XML encoding of the contactManager object
-	 */
-	private String saveToStringXML(ContactManagerPlus contactManager) {
-		XStream xstream = new XStream(new StaxDriver());
-		String xml = xstream.toXML(contactManager);
-		return xml;
-	}
-
-	/**
-	 * Converts the supplied contactManager to a string using serialization.
-	 * 
-	 * @param contactManager
-	 *            the contactManager to encode
-	 * @return serialized encoding of the contactManager object
-	 * @throws RuntimeException
-	 *             if there is a problem serializing the contactManager
-	 */
-	private String saveToStringSerialization(ContactManagerPlus contactManager) {
-		/*
-		 * serialize the object, originally followed:
-		 * 
-		 * http://stackoverflow.com/questions/8887197/reliably
-		 * -convert-any-object-to-string-and-then-back-again
-		 * 
-		 * but this fails. So use base64 encoding instead as shown by
-		 * 
-		 * http://stackoverflow.com/questions/134492/how-to-serialize-an-object-into
-		 * -a-string
-		 * 
-		 * except use ava8 base64 encoding procedure following
-		 * 
-		 * http://blog.eyallupu.com/2013/11/base64-encoding-in-java-8.html
-		 */
-		String str = "";
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject(contactManager);
-			oos.close();
-			str = new String(Base64.getEncoder().encodeToString(
-					baos.toByteArray()));
-		} catch (IOException ex) {
-			// recast Exception to Runtime.
-			throw new RuntimeException(
-					"Error in serialization of contactManager to a String: "
-							+ ex);
-		}
-		return str;
-	}
-
-	/**
 	 * decodes ContactManagerPlus from an encoded string written by
 	 * {@link #saveToString(ContactManagerPlus contactManager) saveToString}
 	 * 
@@ -129,7 +73,21 @@ public class FileSaveRetrieve {
 			restore = retrieveFromStringSerialization(string);
 		// tidy up after restoration //TODO
 		return restore;
+	
+	}
 
+	/**
+	 * Converts the supplied contactManager to a string in XML format using
+	 * XStream.
+	 * 
+	 * @param contactManager
+	 *            the contactManager to encode
+	 * @return XML encoding of the contactManager object
+	 */
+	private String saveToStringXML(ContactManagerPlus contactManager) {
+		XStream xstream = new XStream(new StaxDriver());
+		String xml = xstream.toXML(contactManager);
+		return xml;
 	}
 
 	/**
@@ -155,7 +113,50 @@ public class FileSaveRetrieve {
 		return restore;
 	}
 
-/**
+	/**
+	 * Converts the supplied contactManager to a string using serialization and
+	 * base64 encoding.
+	 * 
+	 * @param contactManager
+	 *            the contactManager to encode
+	 * @return serialized encoding of the contactManager object
+	 * @throws RuntimeException
+	 *             if there is a problem serializing the contactManager
+	 */
+	private String saveToStringSerialization(ContactManagerPlus contactManager) {
+		/*
+		 * serialize the object, originally followed:
+		 * 
+		 * http://stackoverflow.com/questions/8887197/reliably
+		 * -convert-any-object-to-string-and-then-back-again
+		 * 
+		 * but this fails. So use base64 encoding instead as shown by
+		 * 
+		 * http://stackoverflow.com/questions/134492/how-to-serialize-an-object-into
+		 * -a-string
+		 * 
+		 * except use Java8 base64 encoding procedure following
+		 * 
+		 * http://blog.eyallupu.com/2013/11/base64-encoding-in-java-8.html
+		 */
+		String str = "";
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(contactManager);
+			oos.close();
+			str = new String(Base64.getEncoder().encodeToString(
+					baos.toByteArray()));
+		} catch (IOException ex) {
+			// recast Exception to Runtime.
+			throw new RuntimeException(
+					"Error in serialization of contactManager to a String: "
+							+ ex);
+		}
+		return str;
+	}
+
+	/**
 	 * decodes ContactManagerPlus from an string written by
 	 * {@link #saveToStringSerialization(ContactManagerPlus contactManager)
 	 * saveToStringSerialization}
