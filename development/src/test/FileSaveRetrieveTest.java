@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -167,9 +168,38 @@ public class FileSaveRetrieveTest {
 		try {
 			fileSaveRetrieve
 					.retrieveFromString("No ContactManagerPlus in this string!");
+			fail("Attempt to restore ContactManager from nonsense string\n"
+					+ "failed to produce a RuntimeException");
+
 		} catch (RuntimeException ex) {
 			assertTrue(
 					"Attempt to restore ContactManager from nonsense string\n"
+							+ "Failure of test that exception message contains '"
+							+ require + "'\n" + "Exception message is:\n " + ex,
+					ex.toString().contains(require));
+		}
+
+	}
+
+	/**
+	 * further check that corrupting string by truncation produces reasonable
+	 * exception message
+	 */
+	@Test
+	public void attemptRestoreFromTruncatedString() {
+		String require = "string to contactManager";
+		try {
+			String str = fileSaveRetrieve.saveToString(testCMP);
+			// truncate string by half
+			str = str.substring(0, str.length() / 2);
+			fileSaveRetrieve.retrieveFromString(str);
+			fail("Attempt to restore ContactManager from truncated string\n"
+					+ "failed to produce a RuntimeException");
+
+		} catch (RuntimeException ex) {
+			System.out.println("debug truncate exception:\n " + ex);
+			assertTrue(
+					"Attempt to restore ContactManager from truncated string\n"
 							+ "Failure of test that exception message contains '"
 							+ require + "'\n" + "Exception message is:\n " + ex,
 					ex.toString().contains(require));
