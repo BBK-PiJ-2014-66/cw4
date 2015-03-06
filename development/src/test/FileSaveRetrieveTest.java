@@ -168,6 +168,7 @@ public class FileSaveRetrieveTest {
 			fileSaveRetrieve
 					.retrieveFromString("No ContactManagerPlus in this string!");
 		} catch (RuntimeException ex) {
+			System.out.println("debug exception message:\n" + ex + "\n");
 			assertTrue(
 					"Attempt to restore ContactManager from nonsense string\n"
 							+ "Failure of test that exception message contains '"

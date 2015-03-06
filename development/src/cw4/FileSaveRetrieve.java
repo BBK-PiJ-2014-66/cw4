@@ -2,7 +2,6 @@ package cw4;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Base64;
@@ -52,7 +51,7 @@ public class FileSaveRetrieve {
 			retStr = saveToStringXML(contactManager);
 		else if (method == FileSaveRetrieveMethod.SERIALIZATION)
 			retStr = saveToStringSerialization(contactManager);
-		return retStr; // TODO implement serialization
+		return retStr;
 	}
 
 	/**
@@ -71,9 +70,24 @@ public class FileSaveRetrieve {
 			restore = retrieveFromStringXML(string);
 		else if (method == FileSaveRetrieveMethod.SERIALIZATION)
 			restore = retrieveFromStringSerialization(string);
-		// tidy up after restoration //TODO
+		/*
+		 * tidy up after restoration by register all id's read to make sure they
+		 * will not be issued twice. This is difficult to unit test as it
+		 * depends on the state of the singleton IdGenerator
+		 */
+		for (Contact itCon : restore.getAllContacts()) {
+			int id = itCon.getId();
+			IdGenerator.CONTACT.registerExistingID(id);
+		}
+		for (FutureMeeting itFM : restore.getAllFutureMeetings()) {
+			IdGenerator.MEETING.registerExistingID(itFM.getId());
+		}
+		for (PastMeeting itPM : restore.getAllPastMeetings()) {
+			IdGenerator.MEETING.registerExistingID(itPM.getId());
+		}
+
 		return restore;
-	
+
 	}
 
 	/**
@@ -102,15 +116,19 @@ public class FileSaveRetrieve {
 	 *             if there is a problem decoding the string
 	 */
 	private ContactManagerPlus retrieveFromStringXML(String xml) {
-		XStream xstream = new XStream(new StaxDriver());
-		ContactManagerPlus restore = (ContactManagerPlus) xstream.fromXML(xml);
-		// register all id's read so they will not be reissued.
-		for (Contact itCon : restore.getAllContacts()) {
-			int id = itCon.getId();
-			IdGenerator.CONTACT.registerExistingID(id);
+		try {
+			XStream xstream = new XStream(new StaxDriver());
+			ContactManagerPlus restore = (ContactManagerPlus) xstream
+					.fromXML(xml);
+			return restore;
+		} catch (Exception ex) {
+			// complex procedures! So catch any exception (a bit naughty) and
+			// recast it to Runtime with a meaningful prefix
+			throw new RuntimeException(
+					"Error in decodingXML string to contactManager. Details: "
+							+ ex);
 		}
-		// TODO need to register meeting id's as well.
-		return restore;
+
 	}
 
 	/**
@@ -147,24 +165,28 @@ public class FileSaveRetrieve {
 			oos.close();
 			str = new String(Base64.getEncoder().encodeToString(
 					baos.toByteArray()));
-		} catch (IOException ex) {
-			// recast Exception to Runtime.
+		} catch (Exception ex) {
+			// complex procedures! So catch any exception (a bit naughty) and
+			// recast it to Runtime with a meaningful prefix
 			throw new RuntimeException(
-					"Error in serialization of contactManager to a String: "
+					"Error in serialization of contactManager to a String. Details: "
 							+ ex);
 		}
 		return str;
 	}
 
 	/**
+	 * 
 	 * decodes ContactManagerPlus from an string written by
 	 * {@link #saveToStringSerialization(ContactManagerPlus contactManager)
 	 * saveToStringSerialization}
 	 * 
-	 * @param string written by {@link #saveToStringSerialization(ContactManagerPlus contactManager)
+	 * @param string
+	 *            written by saveToStringSerialization
 	 * @return the contactManagerPlus encoded in the input string
 	 * @throws RuntimeException
 	 *             if there is a problem decoding the string
+	 * 
 	 */
 	private ContactManagerPlus retrieveFromStringSerialization(String string) {
 		/*
@@ -177,10 +199,13 @@ public class FileSaveRetrieve {
 			ByteArrayInputStream bais = new ByteArrayInputStream(data);
 			ObjectInputStream ois = new ObjectInputStream(bais);
 			restore = (ContactManagerPlus) ois.readObject();
-		} catch (ClassNotFoundException | IOException ex) {
+		} catch (Exception ex) {
+			// complex procedures! So catch any exception (a bit naughty) and
+			// recast it to Runtime with a meaningful prefix
 			throw new RuntimeException(
-					"Error in deserialization of string to contactManager. "
+					"Error in deserialization of string to contactManager. Details: "
 							+ ex);
+
 		}
 
 		return restore;
