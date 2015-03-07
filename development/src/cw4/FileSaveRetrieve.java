@@ -30,8 +30,39 @@ public class FileSaveRetrieve {
 	 * @param method
 	 *            the method to save to string/file
 	 */
-	public void setMode(FileSaveRetrieveMethod method) {
+	public void setMethod(FileSaveRetrieveMethod method) {
 		this.method = method;
+	}
+
+	/**
+	 * Setter for the name of the file to read and write contactManager to
+	 * 
+	 * @param fileName
+	 *            the name of the file
+	 */
+	public void setFileName(String fileName) {
+		// TODO write method
+	}
+
+	/**
+	 * Getter for the name of the file to read and write contactManager to
+	 * 
+	 * @return name of the file
+	 */
+	public String getFileName() {
+		return null; // TODO write method
+	}
+
+	/**
+	 * Saves the contactManager to the current fileName
+	 * 
+	 * @param contactManager
+	 *            the ContactManager to save
+	 * @throws FileNotFoundException
+	 *             if there is an error opening the file
+	 */
+	public void saveToFile(ContactManagerPlus contactManager) {
+		// TODO write method
 	}
 
 	/**

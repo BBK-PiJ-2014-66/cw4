@@ -62,12 +62,20 @@ public class FileSaveRetrieveTest {
 	public FileSaveRetrieveMethod method;
 
 	private FileSaveRetrieve fileSaveRetrieve;
+	private String fileName;
 	private ContactManagerPlus testCMP;
 
 	@Before
 	public void init() {
+		// parameterized part
 		fileSaveRetrieve = new FileSaveRetrieve();
-		fileSaveRetrieve.setMode(method);
+		fileSaveRetrieve.setMethod(method);
+		if (method == FileSaveRetrieveMethod.XML)
+			fileName = "fileSaveRetrieveTest.xml";
+		else
+			fileName = "fileSaveRetrieveTest.txt";
+		fileSaveRetrieve.setFileName("fileName");
+
 		// provide a decent contact manager to save/retrieve
 		ContactManagerImplTest cmpit = new ContactManagerImplTest();
 		testCMP = cmpit.standardFilledCMP(); // one contact 4 meetings
@@ -204,6 +212,21 @@ public class FileSaveRetrieveTest {
 					ex.toString().contains(require));
 		}
 
+	}
+
+	/**
+	 * Save state to the file
+	 */
+	@Test
+	public void saveStateToFile() {
+		// First check the setter/getter has worked
+		String backFileName = fileSaveRetrieve.getFileName();
+		assertNotNull(
+				"\nSetter/Getter for fileName failed as .getFileName() returned null",
+				backFileName);
+		assertThat(
+				"\nSetter/Getter for fileName failed to get back supplied name",
+				backFileName, is(fileName));
 	}
 
 }
