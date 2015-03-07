@@ -22,7 +22,11 @@ public class FileSaveRetrieve {
 
 	private FileSaveRetrieveMethod method = FileSaveRetrieveMethod.SERIALIZATION;
 
-	// private String saveFileName = "contacts.txt";
+	/*
+	 * fileName to retrieve-state-from and to save-state-to. The default value
+	 * "contacts.txt" is that quoted on CourseWork assignment.
+	 */
+	private String fileName = "contacts.txt";
 
 	/**
 	 * Sets the
@@ -41,7 +45,7 @@ public class FileSaveRetrieve {
 	 *            the name of the file
 	 */
 	public void setFileName(String fileName) {
-		// TODO write method
+		this.fileName = fileName;
 	}
 
 	/**
@@ -50,7 +54,7 @@ public class FileSaveRetrieve {
 	 * @return name of the file
 	 */
 	public String getFileName() {
-		return null; // TODO write method
+		return fileName;
 	}
 
 	/**

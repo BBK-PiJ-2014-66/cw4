@@ -74,7 +74,7 @@ public class FileSaveRetrieveTest {
 			fileName = "fileSaveRetrieveTest.xml";
 		else
 			fileName = "fileSaveRetrieveTest.txt";
-		fileSaveRetrieve.setFileName("fileName");
+		fileSaveRetrieve.setFileName(fileName);
 
 		// provide a decent contact manager to save/retrieve
 		ContactManagerImplTest cmpit = new ContactManagerImplTest();
