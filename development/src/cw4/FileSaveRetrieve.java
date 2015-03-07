@@ -2,11 +2,13 @@ package cw4;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Base64;
+import java.util.Scanner;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -94,7 +96,34 @@ public class FileSaveRetrieve {
 	 *             decoding the object
 	 */
 	public ContactManagerPlus retrieveFromFile() {
-		return null; // TODO write method
+		String strFromFile = fileContentsToString(fileName);
+		// decode string
+		return retrieveFromString(strFromFile);
+	}
+
+	/**
+	 * Reads complement contents of a file to a string
+	 * 
+	 * @param fileName
+	 *            the file
+	 * @return the contents of the file as a single string
+	 */
+	private static String fileContentsToString(String fileName) {
+		// adapted from sdp cw1 Translator (after bug fix) and Eckle
+		// "Thinking Java" p 927
+		StringBuilder stringBuilder = new StringBuilder();		
+		// try with resources to avoid cleanup close, final stuff.
+		try (Scanner scanner = new Scanner(new File(fileName))) {
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				stringBuilder.append(line);
+				//stringBuilder.append("\n"); // put back new line
+			}
+		} catch (FileNotFoundException ex) {
+			throw new RuntimeException("Error opening file '" + fileName
+					+ "' to read. Exception details: " + ex);
+		}
+		return stringBuilder.toString();
 	}
 
 	/**
