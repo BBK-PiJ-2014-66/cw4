@@ -75,17 +75,8 @@ public class FileSaveRetrieve {
 	 *             opening the file or writing to it.
 	 */
 	public void saveToFile(ContactManagerPlus contactManager) {
-		// Use PrintWriter based on PiJ Day 16 sheet I/O 1.3.2
-		PrintWriter pwout = null;
 		String cmStr = saveToString(contactManager);
-		try {
-			pwout = new PrintWriter(fileName);
-			pwout.write(cmStr);
-			pwout.close();
-		} catch (FileNotFoundException ex) {
-			throw new RuntimeException("Error opening/creating file '"
-					+ fileName + "'. Exception details: " + ex);
-		}
+		stringToFile(cmStr, fileName);
 	}
 
 	/**
@@ -282,14 +273,34 @@ public class FileSaveRetrieve {
 	}
 
 	/**
+	 * writes out the string to a file.
+	 * 
+	 * @param inStr
+	 *            the string to write
+	 * @param outFile
+	 *            the file to write to
+	 * @throws RuntimeException
+	 *             if there is an error creating the file
+	 */
+	private static void stringToFile(String inStr, String outFile) {
+		// Use PrintWriter based on PiJ Day 16 sheet I/O 1.3.2
+		try (PrintWriter pwout = new PrintWriter(outFile)) {
+			pwout.write(inStr);
+		} catch (FileNotFoundException ex) {
+			throw new RuntimeException("Error creating file '" + outFile
+					+ "' to write to. Exception details: " + ex);
+		}
+	}
+
+	/**
 	 * Reads the complete contents of a file to a string - preserving line
 	 * breaks
 	 * 
-	 * @param fileName
+	 * @param inFile
 	 *            the file of the file
 	 * @return the contents of the file as a single string
 	 */
-	private static String fileContentsToString(String fileName) {
+	private static String fileContentsToString(String inFile) {
 		// adapted from sdp cw1 Translator (after bug fix) and Eckle
 		// "Thinking Java" p 927 using scanner but this gives newline strip
 		// problems.
@@ -299,7 +310,7 @@ public class FileSaveRetrieve {
 		// http://stackoverflow.com/questions/811851/how-do-i-read-input-character-by-character-in-java
 		StringBuilder stringBuilder = new StringBuilder();
 		// try with resources to avoid cleanup close, final stuff.
-		try (FileInputStream fis = new FileInputStream(fileName);
+		try (FileInputStream fis = new FileInputStream(inFile);
 				InputStreamReader isr = new InputStreamReader(fis);
 				Reader reader = new BufferedReader(isr)) {
 			int anInt; // an integer
@@ -308,10 +319,10 @@ public class FileSaveRetrieve {
 				stringBuilder.append(asChar);
 			}
 		} catch (FileNotFoundException ex) {
-			throw new RuntimeException("Error opening file '" + fileName
+			throw new RuntimeException("Error opening file '" + inFile
 					+ "' to read. Exception details: " + ex);
 		} catch (IOException ex) {
-			throw new RuntimeException("Error in read from file '" + fileName
+			throw new RuntimeException("Error in read from file '" + inFile
 					+ "'. Exception details: " + ex);
 		}
 		return stringBuilder.toString();
