@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
@@ -229,17 +231,23 @@ public class FileSaveRetrieveTest {
 				"\nSetter/Getter for fileName failed to get back supplied name",
 				backFileName, is(fileName));
 
-		if (new File(fileName).isFile()) { // file already exists
-			// TODO remove the file if it already exists
-			fail("TODO remove the file if it already exists");
+		File file = new File(fileName);
+
+		if (file.isFile()) { // file already exists
+			// remove the file
+			try {
+				Files.delete(file.toPath());
+			} catch (IOException ex) {
+				fail("\nTest failed because could not delete file: " + file
+						+ "\n" + "Exception detail: " + ex);
+			}
 		}
 
 		// save our test contact manage object to the file
 		fileSaveRetrieve.saveToFile(testCMP);
 
 		assertTrue("\n.saveToFile(testCMP) has failed to create\n"
-				+ " the save-state file: '" + fileName + "'",
-				new File(fileName).isFile());
+				+ " the save-state file: '" + fileName + "'", file.isFile());
 
 	}
 

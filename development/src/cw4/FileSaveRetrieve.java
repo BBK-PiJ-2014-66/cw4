@@ -2,8 +2,10 @@ package cw4;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.Base64;
 
 import com.thoughtworks.xstream.XStream;
@@ -62,11 +64,22 @@ public class FileSaveRetrieve {
 	 * 
 	 * @param contactManager
 	 *            the ContactManager to save
-	 * @throws FileNotFoundException
-	 *             if there is an error opening the file
+	 * @throws RuntimeException
+	 *             if there is an error in encoding the contactManager or in
+	 *             opening the file
 	 */
 	public void saveToFile(ContactManagerPlus contactManager) {
-		// TODO write method
+		// Use PrintWriter based on PiJ Day 16 sheet I/O 1.3.2
+		PrintWriter pwout = null;
+		String cmStr = saveToString(contactManager);
+		try {
+			pwout = new PrintWriter(fileName);
+			pwout.write(cmStr);
+			pwout.close();
+		} catch (FileNotFoundException ex) {
+			throw new RuntimeException("Error opening/creating file '"
+					+ fileName + "'. Exception details: " + ex);
+		}
 	}
 
 	/**
