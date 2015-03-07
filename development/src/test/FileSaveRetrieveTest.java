@@ -111,60 +111,7 @@ public class FileSaveRetrieveTest {
 
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
 				.retrieveFromString(str);
-
-		assertNotNull(
-				"\n.retrieveFromString( String) failed as it returned null,",
-				restoreCMP);
-
-		// N.B. the comparison will use the .equals method of ContactImpl
-		assertThat("\nRestored ContactManagerPlus has same contacts?",
-				restoreCMP.getAllContacts(), is(testCMP.getAllContacts()));
-
-		assertThat("\nRestored ContactManagerPlus has same future meetings?",
-				restoreCMP.getAllFutureMeetings(),
-				is(testCMP.getAllFutureMeetings()));
-
-		assertThat("\nRestored ContactManagerPlus has same past meetings?",
-				restoreCMP.getAllPastMeetings(),
-				is(testCMP.getAllPastMeetings()));
-
-		// so complete object should be the same
-		assertThat("\nRestored ContactManagerPlus .equals original",
-				restoreCMP, is(testCMP));
-
-		/*
-		 * Check for denormalisation:
-		 * 
-		 * being paranoid it is possible that the contact objects in the
-		 * MeetingsImpl.contacts are clones rather than references to the
-		 * contacts. Test by altering John Smith's notes in both objects in turn
-		 */
-		Contact johnSmith = (Contact) testCMP.getContacts("John Smith")
-				.toArray()[0];
-		johnSmith.addNotes("alter John's notes");
-		// john is involved in a past meeting so these should no longer match
-		// (This test shows that testCMP is normalised).
-		assertThat("\nAfter altering John Smith's notes in the original\n"
-				+ "pastMeetings should no longer match.",
-				restoreCMP.getAllPastMeetings(),
-				not(testCMP.getAllPastMeetings()));
-		// now make the same alteration in the restored version
-		johnSmith = (Contact) restoreCMP.getContacts("John Smith").toArray()[0];
-		johnSmith.addNotes("alter John's notes");
-
-		// if the past meetings are back in sync then restoreCMP is normalised
-		assertThat("\nAfter altering John Smith's notes in the both\n"
-				+ "pastMeetings should match again."
-				+ "Normalisation problem???",
-				"" + restoreCMP.getAllPastMeetings(),
-				is("" + testCMP.getAllPastMeetings()));
-
-		/*
-		 * TODO: there is probably a bug in pastMeetingImpl.equals as the repeat
-		 * of past test not using .toString fails:
-		 */
-		// assertThat(restoreCMP.getAllPastMeetings(),
-		// is(testCMP.getAllPastMeetings()));
+		checkRestoreCMP(restoreCMP); // run checks
 
 	}
 
@@ -218,10 +165,14 @@ public class FileSaveRetrieveTest {
 	}
 
 	/**
-	 * Save state to the file
+	 * Save state to fileName
+	 * 
+	 * want to be able to run separately from
+	 * {@link #retrieveStateFromFileName()} so that can examine / copy file
+	 * created
 	 */
 	@Test
-	public void saveStateToFile() {
+	public void saveStateToFileName() {
 		// First check the setter/getter has worked
 		String backFileName = fileSaveRetrieve.getFileName();
 		assertNotNull(
@@ -248,6 +199,92 @@ public class FileSaveRetrieveTest {
 
 		assertTrue("\n.saveToFile(testCMP) has failed to create\n"
 				+ " the save-state file: '" + fileName + "'", file.isFile());
+
+	}
+
+	/**
+	 * retrieve state from file fileName
+	 * 
+	 */
+	@Test
+	public void retrieveStateFromFileName() {
+		saveStateToFileName(); // run previous test to create file
+
+		File file = new File(fileName);
+		if (!file.isFile())
+			fail("\nCould not run test because file '"
+					+ file
+					+ "' does not exist\n"
+					+ "This file should have been created in previous test 'saveStateToFileName'?");
+
+		ContactManagerPlus restoreCMP = fileSaveRetrieve.retrieveFromFile();
+		checkRestoreCMP(restoreCMP); // run checks
+
+	}
+
+	/**
+	 * runs a series of checks that the restored version of {@link #testCMP} is
+	 * the same as the original. Used by tests {@link #saveToStringAndRestore()}
+	 * and {@link #retrieveStateFromFileName()}
+	 * 
+	 * @param restoreCMP restored version of testCMP to check.
+	 */
+	private void checkRestoreCMP(ContactManagerPlus restoreCMP) {
+		
+		assertNotNull(
+				"\nRestoration of ContactManagerPlus failed:\n"
+				+ "The restored ContactManagerPlus is null!",
+				restoreCMP);
+
+		// N.B. the comparison will use the .equals method of ContactImpl
+		assertThat("\nRestored ContactManagerPlus has same contacts?",
+				restoreCMP.getAllContacts(), is(testCMP.getAllContacts()));
+
+		assertThat("\nRestored ContactManagerPlus has same future meetings?",
+				restoreCMP.getAllFutureMeetings(),
+				is(testCMP.getAllFutureMeetings()));
+
+		assertThat("\nRestored ContactManagerPlus has same past meetings?",
+				restoreCMP.getAllPastMeetings(),
+				is(testCMP.getAllPastMeetings()));
+
+		// so complete object should be the same
+		assertThat("\nRestored ContactManagerPlus .equals original",
+				restoreCMP, is(testCMP));
+
+		/*
+		 * Check for denormalisation:
+		 * 
+		 * being paranoid it is possible that the contact objects in the
+		 * MeetingsImpl.contacts are clones rather than references to the
+		 * contacts. Test by altering John Smith's notes in both objects in turn
+		 */
+		Contact johnSmith = (Contact) testCMP.getContacts("John Smith")
+				.toArray()[0];
+		johnSmith.addNotes("alter John's notes");
+		// john is involved in a past meeting so these should no longer match
+		// (This test shows that testCMP is normalised).
+		assertThat("\nAfter altering John Smith's notes in the original\n"
+				+ "pastMeetings should no longer match.",
+				restoreCMP.getAllPastMeetings(),
+				not(testCMP.getAllPastMeetings()));
+		// now make the same alteration in the restored version
+		johnSmith = (Contact) restoreCMP.getContacts("John Smith").toArray()[0];
+		johnSmith.addNotes("alter John's notes");
+
+		// if the past meetings are back in sync then restoreCMP is normalised
+		assertThat("\nAfter altering John Smith's notes in the both\n"
+				+ "pastMeetings should match again."
+				+ "Normalisation problem???",
+				"" + restoreCMP.getAllPastMeetings(),
+				is("" + testCMP.getAllPastMeetings()));
+
+		/*
+		 * TODO: there is probably a bug in pastMeetingImpl.equals as the repeat
+		 * of past test not using .toString fails:
+		 */
+		// assertThat(restoreCMP.getAllPastMeetings(),
+		// is(testCMP.getAllPastMeetings()));
 
 	}
 

@@ -24,9 +24,10 @@ public class FileSaveRetrieve {
 
 	private FileSaveRetrieveMethod method = FileSaveRetrieveMethod.SERIALIZATION;
 
-	/*
-	 * fileName to retrieve-state-from and to save-state-to. The default value
-	 * "contacts.txt" is that quoted on CourseWork assignment.
+	/**
+	 * name of the file to retrieve-state-from and to save-state-to. The default
+	 * value "contacts.txt" is that quoted on CourseWork assignment. Set by
+	 * {@link #setFileName(String)}, Get by {@link #getFileName()}.
 	 */
 	private String fileName = "contacts.txt";
 
@@ -41,7 +42,7 @@ public class FileSaveRetrieve {
 	}
 
 	/**
-	 * Setter for the name of the file to read and write contactManager to
+	 * Setter for the name of the file to read and write contactManager to/from.
 	 * 
 	 * @param fileName
 	 *            the name of the file
@@ -60,13 +61,13 @@ public class FileSaveRetrieve {
 	}
 
 	/**
-	 * Saves the contactManager to the current fileName
+	 * Saves the contactManager to the current {@link #fileName}
 	 * 
 	 * @param contactManager
 	 *            the ContactManager to save
 	 * @throws RuntimeException
 	 *             if there is an error in encoding the contactManager or in
-	 *             opening the file
+	 *             opening the file or writing to it.
 	 */
 	public void saveToFile(ContactManagerPlus contactManager) {
 		// Use PrintWriter based on PiJ Day 16 sheet I/O 1.3.2
@@ -80,6 +81,20 @@ public class FileSaveRetrieve {
 			throw new RuntimeException("Error opening/creating file '"
 					+ fileName + "'. Exception details: " + ex);
 		}
+	}
+
+	/**
+	 * decodes ContactManagerPlus from the current {@link #fileName}, that must
+	 * have been written by
+	 * {@link #saveToFile(ContactManagerPlus contactManager) saveToFile}.
+	 * 
+	 * @return the contactManagerPlus encoded in the input string
+	 * @throws RuntimeException
+	 *             if there is a problem in opening the file, reading from it or
+	 *             decoding the object
+	 */
+	public ContactManagerPlus retrieveFromFile() {
+		return null; // TODO write method
 	}
 
 	/**
