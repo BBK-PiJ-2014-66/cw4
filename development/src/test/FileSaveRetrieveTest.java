@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
@@ -227,6 +228,19 @@ public class FileSaveRetrieveTest {
 		assertThat(
 				"\nSetter/Getter for fileName failed to get back supplied name",
 				backFileName, is(fileName));
+
+		if (new File(fileName).isFile()) { // file already exists
+			// TODO remove the file if it already exists
+			fail("TODO remove the file if it already exists");
+		}
+
+		// save our test contact manage object to the file
+		fileSaveRetrieve.saveToFile(testCMP);
+
+		assertTrue("\n.saveToFile(testCMP) has failed to create\n"
+				+ " the save-state file: '" + fileName + "'",
+				new File(fileName).isFile());
+
 	}
 
 }
