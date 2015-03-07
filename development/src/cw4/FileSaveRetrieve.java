@@ -1,14 +1,17 @@
 package cw4;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.Base64;
-import java.util.Scanner;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
@@ -99,31 +102,6 @@ public class FileSaveRetrieve {
 		String strFromFile = fileContentsToString(fileName);
 		// decode string
 		return retrieveFromString(strFromFile);
-	}
-
-	/**
-	 * Reads complement contents of a file to a string
-	 * 
-	 * @param fileName
-	 *            the file
-	 * @return the contents of the file as a single string
-	 */
-	private static String fileContentsToString(String fileName) {
-		// adapted from sdp cw1 Translator (after bug fix) and Eckle
-		// "Thinking Java" p 927
-		StringBuilder stringBuilder = new StringBuilder();		
-		// try with resources to avoid cleanup close, final stuff.
-		try (Scanner scanner = new Scanner(new File(fileName))) {
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				stringBuilder.append(line);
-				//stringBuilder.append("\n"); // put back new line
-			}
-		} catch (FileNotFoundException ex) {
-			throw new RuntimeException("Error opening file '" + fileName
-					+ "' to read. Exception details: " + ex);
-		}
-		return stringBuilder.toString();
 	}
 
 	/**
@@ -301,6 +279,42 @@ public class FileSaveRetrieve {
 		}
 
 		return restore;
+	}
+
+	/**
+	 * Reads the complete contents of a file to a string - preserving line
+	 * breaks
+	 * 
+	 * @param fileName
+	 *            the file of the file
+	 * @return the contents of the file as a single string
+	 */
+	private static String fileContentsToString(String fileName) {
+		// adapted from sdp cw1 Translator (after bug fix) and Eckle
+		// "Thinking Java" p 927 using scanner but this gives newline strip
+		// problems.
+		//
+		// then adapted to use BufferedReader .read()
+		// to read the file character by character from
+		// http://stackoverflow.com/questions/811851/how-do-i-read-input-character-by-character-in-java
+		StringBuilder stringBuilder = new StringBuilder();
+		// try with resources to avoid cleanup close, final stuff.
+		try (FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader isr = new InputStreamReader(fis);
+				Reader reader = new BufferedReader(isr)) {
+			int anInt; // an integer
+			while ((anInt = reader.read()) != -1) { // EOF is -1
+				char asChar = (char) anInt;
+				stringBuilder.append(asChar);
+			}
+		} catch (FileNotFoundException ex) {
+			throw new RuntimeException("Error opening file '" + fileName
+					+ "' to read. Exception details: " + ex);
+		} catch (IOException ex) {
+			throw new RuntimeException("Error in read from file '" + fileName
+					+ "'. Exception details: " + ex);
+		}
+		return stringBuilder.toString();
 	}
 
 }
