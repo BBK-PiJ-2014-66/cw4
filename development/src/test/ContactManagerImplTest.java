@@ -654,7 +654,7 @@ public class ContactManagerImplTest {
 				.getAllPastMeetings().size(), is(2));
 		assertThat("retrieve contact manager from '" + testFile + "\n"
 				+ "This has three future meetings.", retrieveCMP
-				.getAllPastMeetings().size(), is(3));
+				.getAllFutureMeetings().size(), is(3));
 		assertThat("retrieve contact manager from '" + testFile + "\n"
 				+ "This has pretendNow 13 Mar 2014.", retrieveCMP
 				.getPretendNow(), is(futureCal));
