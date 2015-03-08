@@ -644,7 +644,6 @@ public class ContactManagerImplTest {
 	public void testContactManagerFrom_Test_ContactsDotTxt() {
 		String testFile = "testfiles/contacts.txt";
 		ContactManagerPlus retrieveCMP = new ContactManagerImpl(testFile);
-		System.out.println("Debug retrieveCMP=" + retrieveCMP);
 		// just check number of contacts, # meetings and override date
 		assertThat("retrieve contact manager from '" + testFile + "\n"
 				+ "This has three contacts.", retrieveCMP.getAllContacts()
@@ -657,7 +656,6 @@ public class ContactManagerImplTest {
 				.getAllFutureMeetings().size(), is(3));
 		assertThat("retrieve contact manager from '" + testFile + "\n"
 				+ "This has pretendNow 13 Mar 2014.", retrieveCMP
-				.getPretendNow(), is(futureCal));
-
+				.getPretendNow().getTime(), is(nowCal.getTime()));
 	}
 }

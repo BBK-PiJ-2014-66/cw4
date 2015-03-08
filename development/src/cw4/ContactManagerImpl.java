@@ -439,7 +439,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public Calendar getPretendNow() {
-		return null; //TODO write method
+		return pretendNow;
 	}
 
 	/*
