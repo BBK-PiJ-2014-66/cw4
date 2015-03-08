@@ -9,6 +9,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -685,11 +687,45 @@ public class ContactManagerImplTest {
 		}
 
 		standardCMP.flush();
-		if (!file.isFile()) { 
+		if (!file.isFile()) {
 			fail("\nstandardCMP.flush() failed to produce expected\n"
 					+ "output file " + file);
 		}
 
+		// retrieve contents
+		ContactManagerPlus retrieveCMP = new ContactManagerImpl(file + "");
+
+		// clean up removing file ASAP in case of failure
+		if (file.isFile()) { // file already exists
+			// remove the file
+			try {
+				Files.delete(file.toPath());
+			} catch (IOException ex) {
+				fail("\nTest failed because could not delete file: " + file
+						+ "\n" + "Exception detail: " + ex);
+			}
+		}
+		
+		// check that get back data we put in
+		assertThat("\nRetrieved ContactManagerPlus has same contacts?",
+				retrieveCMP.getAllContacts(), is(standardCMP.getAllContacts()));
+
+		assertThat("\nRetrieved ContactManagerPlus has same future meetings?",
+				retrieveCMP.getAllFutureMeetings(),
+				is(standardCMP.getAllFutureMeetings()));
+
+		assertThat("\nRetrieved ContactManagerPlus has same past meetings?",
+				retrieveCMP.getAllPastMeetings(),
+				is(standardCMP.getAllPastMeetings()));
+
+		assertThat("\nRetrieved ContactManagerPlus has pretendNow time?",
+				retrieveCMP.getPretendNow().getTime(),
+				is(standardCMP.getPretendNow().getTime()));
+		
+		
+		
+
+		
 	}
 
 }
