@@ -161,7 +161,7 @@ public class FileSaveRetrieve implements Serializable {
 
 	/**
 	 * Converts the supplied contactManager to a string in XML format using
-	 * XStream.
+	 * <a href="http://xstream.codehaus.org/">XStream</a>
 	 * 
 	 * @param contactManager
 	 *            the contactManager to encode

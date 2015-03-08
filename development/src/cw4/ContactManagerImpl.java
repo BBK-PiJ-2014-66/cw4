@@ -64,13 +64,18 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * Retrieve the contact manager from a SERIALIZATION save state file. N.B.
-	 * this file will be overwritten when {@link #flush flush()} method is later
-	 * called to save the state. Note that the retrieved file name got from the
-	 * file is ignored and the argument fileName will be used.
+	 * Construct the contact manager with data from a SERIALIZATION
+	 * save-state-file. N.B. this file will normally be overwritten when
+	 * {@link #flush flush()} method is later called to save the state. Note
+	 * that the retrieved file name got from the save-state-file is ignored and
+	 * the argument fileName will be used.
 	 * 
 	 * @param fileName
-	 *            the-save state file
+	 *            the-save-state file name
+	 * 
+	 * @throws RuntimeException
+	 *             - if there is a problem in opening the file, reading from it
+	 *             or decoding the object
 	 */
 	public ContactManagerImpl(String fileName) {
 		fileSR.setFileName(fileName);
@@ -81,6 +86,21 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		futureMeetings = retrieve.futureMeetings;
 		pastMeetings = retrieve.pastMeetings;
 		pretendNow = retrieve.pretendNow;
+	}
+
+	/**
+	 * Construct the contact manager with data from a save-state-file. N.B. this
+	 * file will normally be overwritten when {@link #flush flush()} method is
+	 * later called to save the state. Note that the retrieved file name got
+	 * from the file is ignored and the argument fileName will be used instead.
+	 * 
+	 * @param fileName
+	 * @param fSRMethod
+	 */
+	public ContactManagerImpl(String fileName, FileSaveRetrieveMethod fSRMethod) {
+		throw new RuntimeException( // TODO write method
+				"ContactManagerImpl(String fileName, FileSaveRetrieveMethod "
+						+ "fSRMethod) not yet implemented");
 	}
 
 	/**
