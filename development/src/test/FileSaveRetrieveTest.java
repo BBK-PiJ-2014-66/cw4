@@ -74,9 +74,9 @@ public class FileSaveRetrieveTest {
 		fileSaveRetrieve = new FileSaveRetrieve();
 		fileSaveRetrieve.setMethod(method);
 		if (method == FileSaveRetrieveMethod.XML)
-			fileName = "fileSaveRetrieveTest.xml";
+			fileName = "testfiles/fileSaveRetrieveTest.xml";
 		else
-			fileName = "fileSaveRetrieveTest.txt";
+			fileName = "testfiles/fileSaveRetrieveTest.txt";
 		fileSaveRetrieve.setFileName(fileName);
 
 		// provide a decent contact manager to save/retrieve
