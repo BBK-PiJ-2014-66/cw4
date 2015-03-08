@@ -44,6 +44,10 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * this date time will be used instead. Intended for testing.
 	 */
 	private Calendar pretendNow = null;
+	/**
+	 * deals with saving state, fileName, the method, and the methods to do it
+	 */
+	private FileSaveRetrieve fileSR = new FileSaveRetrieve();
 
 	/**
 	 * construct a brand new ContactManager with no attempt to read from a save
@@ -55,6 +59,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		contacts = new ArrayList<>();
 		futureMeetings = new ArrayList<>();
 		pastMeetings = new ArrayList<>();
+		fileSR.setFileName("contacts.txt"); // default save fileName
+		fileSR.setMethod(FileSaveRetrieveMethod.SERIALIZATION);
 	}
 
 	/**
@@ -66,7 +72,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 *            the-save state file
 	 */
 	public ContactManagerImpl(String fileName) {
-		FileSaveRetrieve fileSR = new FileSaveRetrieve();
 		fileSR.setFileName(fileName);
 		fileSR.setMethod(FileSaveRetrieveMethod.SERIALIZATION);
 		ContactManagerImpl retrieve = (ContactManagerImpl) fileSR
