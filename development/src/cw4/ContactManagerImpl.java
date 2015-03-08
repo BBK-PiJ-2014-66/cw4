@@ -78,14 +78,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 *             or decoding the object
 	 */
 	public ContactManagerImpl(String fileName) {
-		fileSR.setFileName(fileName);
-		fileSR.setMethod(FileSaveRetrieveMethod.SERIALIZATION);
-		ContactManagerImpl retrieve = (ContactManagerImpl) fileSR
-				.retrieveFromFile();
-		contacts = retrieve.contacts;
-		futureMeetings = retrieve.futureMeetings;
-		pastMeetings = retrieve.pastMeetings;
-		pretendNow = retrieve.pretendNow;
+		this(fileName, FileSaveRetrieveMethod.SERIALIZATION );
 	}
 
 	/**
@@ -98,9 +91,14 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * @param fSRMethod
 	 */
 	public ContactManagerImpl(String fileName, FileSaveRetrieveMethod fSRMethod) {
-		throw new RuntimeException( // TODO write method
-				"ContactManagerImpl( fileName, FileSaveRetrieveMethod) "
-						+ " not yet implemented");
+		fileSR.setFileName(fileName);
+		fileSR.setMethod(fSRMethod);
+		ContactManagerImpl retrieve = (ContactManagerImpl) fileSR
+				.retrieveFromFile();
+		contacts = retrieve.contacts;
+		futureMeetings = retrieve.futureMeetings;
+		pastMeetings = retrieve.pastMeetings;
+		pretendNow = retrieve.pretendNow;
 	}
 
 	/**
