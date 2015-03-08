@@ -66,7 +66,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	/**
 	 * Retrieve the contact manager from a SERIALIZATION save state file. N.B.
 	 * this file will be overwritten when {@link #flush flush()} method is later
-	 * called to save the state.
+	 * called to save the state. Note that the retrieved file name got from the
+	 * file is ignored and the argument fileName will be used.
 	 * 
 	 * @param fileName
 	 *            the-save state file
@@ -83,7 +84,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * @throws IllegalArgumentException
 	 *             if the meeting is set for a time in the past, or if any
@@ -112,7 +113,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * @throws IllegalArgumentException
 	 *             "if there is a meeting with that ID happening in the future"
@@ -128,7 +129,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * @throws IllegalArgumentException
 	 *             "if there is a meeting with that ID happening in the past"
@@ -157,7 +158,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * @throws IllegalArgumentException
 	 *             if the contact does not exist
@@ -197,7 +198,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 */
 	@Override
 	public List<Meeting> getFutureMeetingList(Calendar date) {
@@ -229,7 +230,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * @param contact
 	 *            one of the user’s contacts
@@ -252,7 +253,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * @throws IllegalArgumentException
 	 *             if the list of contacts is empty, or any of the contacts does
@@ -284,7 +285,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * N.B. if used to add notes to a past meeting, the new notes replace the
 	 * existing ones (rather than being appended).
@@ -333,7 +334,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 * 
 	 * @throws RuntimeException
 	 *             if identical contact ID error occurs (this should be an
@@ -356,7 +357,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * "{@inheritDoc}"
 	 */
 	@Override
 	public Set<Contact> getContacts(int... ids) {
@@ -398,9 +399,20 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return retContacts;
 	}
 
+	/**
+	 * 
+	 * "{@inheritDoc}"
+	 * 
+	 * Note that the file name and method to be saved are set in whatever
+	 * constructor was used and at present cannot be altered.
+	 * 
+	 * @throws RuntimeException
+	 *             - if there is an error in encoding the contactManager or in
+	 *             opening the file or writing to it.
+	 */
 	@Override
 	public void flush() {
-		// TODO rethinkingg file/save retrieve.
+		fileSR.saveToFile(this);
 	}
 
 	/*
