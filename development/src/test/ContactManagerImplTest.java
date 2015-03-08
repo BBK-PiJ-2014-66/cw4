@@ -27,6 +27,7 @@ import cw4.ContactImpl;
 import cw4.ContactManager;
 import cw4.ContactManagerImpl;
 import cw4.ContactManagerPlus;
+import cw4.FileSaveRetrieveMethod;
 import cw4.FutureMeeting;
 import cw4.Meeting;
 import cw4.PastMeeting;
@@ -664,6 +665,26 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * idea test constructor load from "testfiles/contacts.xml" this is a XML
+	 * file written as file "fileSaveRetrieveTest.xml" by the test
+	 * {@link test.FileSaveRetrieveTest#saveStateToFileName()}
+	 * 
+	 */
+	@Test
+	public void testContactManagerFrom_Test_ContactsDotXML() {
+		String testFile = "testfiles/contacts.xml";
+		ContactManagerPlus retrieveCMP = new ContactManagerImpl(testFile,
+				FileSaveRetrieveMethod.XML);
+		// just check number of contacts, # meetings and override date
+		assertThat("retrieve contact manager from '" + testFile + "\n"
+				+ "This has three contacts.", retrieveCMP.getAllContacts()
+				.size(), is(3));
+		assertThat("retrieve contact manager from '" + testFile + "\n"
+				+ "This has pretendNow 13 Mar 2014.", retrieveCMP
+				.getPretendNow().getTime(), is(nowCal.getTime()));
+	}
+
+	/**
 	 * test flush produces a file 'contacts.txt' as per spec and that an
 	 * identical contact manager can read from the file. Simulates the
 	 * Assignment 4 scenario:
@@ -705,7 +726,7 @@ public class ContactManagerImplTest {
 						+ "\n" + "Exception detail: " + ex);
 			}
 		}
-		
+
 		// check that get back data we put in
 		assertThat("\nRetrieved ContactManagerPlus has same contacts?",
 				retrieveCMP.getAllContacts(), is(standardCMP.getAllContacts()));
@@ -719,13 +740,8 @@ public class ContactManagerImplTest {
 				is(standardCMP.getAllPastMeetings()));
 
 		assertThat("\nRetrieved ContactManagerPlus has pretendNow time?",
-				retrieveCMP.getPretendNow().getTime(),
-				is(standardCMP.getPretendNow().getTime()));
-		
-		
-		
-
-		
+				retrieveCMP.getPretendNow().getTime(), is(standardCMP
+						.getPretendNow().getTime()));
 	}
 
 }

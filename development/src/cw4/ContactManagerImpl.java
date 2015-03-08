@@ -99,8 +99,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	public ContactManagerImpl(String fileName, FileSaveRetrieveMethod fSRMethod) {
 		throw new RuntimeException( // TODO write method
-				"ContactManagerImpl(String fileName, FileSaveRetrieveMethod "
-						+ "fSRMethod) not yet implemented");
+				"ContactManagerImpl( fileName, FileSaveRetrieveMethod) "
+						+ " not yet implemented");
 	}
 
 	/**
