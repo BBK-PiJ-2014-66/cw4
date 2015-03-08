@@ -47,7 +47,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	/**
 	 * construct a brand new ContactManager with no attempt to read from a save
-	 * state file.
+	 * state file. Call to {@link #flush flush()} will save state to the default
+	 * filename "contacts.txt" using SERIALIZATION method. Use another
+	 * constructor to override defaults.
 	 */
 	public ContactManagerImpl() {
 		contacts = new ArrayList<>();
@@ -64,14 +66,15 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 *            the-save state file
 	 */
 	public ContactManagerImpl(String fileName) {
-        FileSaveRetrieve fileSR = new FileSaveRetrieve();
-        fileSR.setFileName(fileName);
-        fileSR.setMethod(FileSaveRetrieveMethod.SERIALIZATION);
-        ContactManagerImpl retrieve = (ContactManagerImpl) fileSR.retrieveFromFile();           
-        contacts = retrieve.contacts;
-        futureMeetings = retrieve.futureMeetings;
-        pastMeetings = retrieve.pastMeetings;
-        pretendNow = retrieve.pretendNow;
+		FileSaveRetrieve fileSR = new FileSaveRetrieve();
+		fileSR.setFileName(fileName);
+		fileSR.setMethod(FileSaveRetrieveMethod.SERIALIZATION);
+		ContactManagerImpl retrieve = (ContactManagerImpl) fileSR
+				.retrieveFromFile();
+		contacts = retrieve.contacts;
+		futureMeetings = retrieve.futureMeetings;
+		pastMeetings = retrieve.pastMeetings;
+		pretendNow = retrieve.pretendNow;
 	}
 
 	/**

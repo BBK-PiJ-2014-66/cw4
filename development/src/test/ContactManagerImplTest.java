@@ -4,9 +4,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -658,4 +660,36 @@ public class ContactManagerImplTest {
 				+ "This has pretendNow 13 Mar 2014.", retrieveCMP
 				.getPretendNow().getTime(), is(nowCal.getTime()));
 	}
+
+	/**
+	 * test flush produces a file 'contacts.txt' as per spec and that an
+	 * identical contact manager can read from the file. Simulates the
+	 * Assignment 4 scenario:
+	 * 
+	 * When the application is closed, all data must be stored in a text file
+	 * called "contacts.txt". This file must be read at startup to recover all
+	 * data introduced in a former session.
+	 */
+	@Test
+	public void testFlushToContacts_Txt_and_retrieve() {
+		// standardCMP has been constructed using no argument constructor so
+		// flush should
+		// write to contacts.txt
+
+		// first test that file does not exist already
+		File file = new File("contacts.txt");
+		if (file.isFile()) { // file already exists
+			fail("\nCannot run testFlushToContacts_Txt_and_retrieve\n"
+					+ "because file " + file + " already exists.\n"
+					+ "please remove this file and rerun test.");
+		}
+
+		standardCMP.flush();
+		if (!file.isFile()) { 
+			fail("\nstandardCMP.flush() failed to produce expected\n"
+					+ "output file " + file);
+		}
+
+	}
+
 }
