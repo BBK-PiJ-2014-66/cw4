@@ -46,7 +46,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	private Calendar pretendNow = null;
 
 	/**
-	 * construct a brand new ContactManager
+	 * construct a brand new ContactManager with no attempt to read from a save
+	 * state file.
 	 */
 	public ContactManagerImpl() {
 		contacts = new ArrayList<>();
@@ -54,20 +55,19 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		pastMeetings = new ArrayList<>();
 	}
 
-	// TODO rethinking file save / retrieve
-	// ContactManagerImpl(String fileName) {
-	// ContactManagerImpl readCM = null;
-	// try {
-	// readCM = FileSaveRetrieve.retrieveFromFile(fileName);
-	// contacts = readCM.contacts;
-	// } catch (FileNotFoundException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (IOException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
+	/**
+	 * Retrieve the contact manager from a SERIALIZATION save state file. N.B.
+	 * this file will be overwritten when {@link #flush flush()} method is later
+	 * called to save the state.
+	 * 
+	 * @param fileName
+	 *            the-save state file
+	 */
+	public ContactManagerImpl(String fileName) {
+		// TODO write method
+		throw new RuntimeException(
+				"ContactManagerImpl(String fileName) not yet written");
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -427,6 +427,14 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	@Override
 	public void overrideDateNow(Calendar pretendNow) {
 		this.pretendNow = pretendNow;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Calendar getPretendNow() {
+		return null; //TODO write method
 	}
 
 	/*

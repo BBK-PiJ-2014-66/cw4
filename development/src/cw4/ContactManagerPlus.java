@@ -13,7 +13,7 @@ import java.util.List;
  * @since 28 February 2015
  * 
  */
-public interface ContactManagerPlus extends ContactManager, Serializable  {
+public interface ContactManagerPlus extends ContactManager, Serializable {
 
 	/**
 	 * A simple getter for all contacts. Added it because it would be really
@@ -46,4 +46,11 @@ public interface ContactManagerPlus extends ContactManager, Serializable  {
 	 */
 	void overrideDateNow(Calendar pretendNow);
 
+	/**
+	 * Getter for pretendNow - the overriding date for "now".
+	 * 
+	 * @return the date/time to treat as "now" or null if no pretend is set (so
+	 *         real system time will be used).
+	 */
+	Calendar getPretendNow();
 }
