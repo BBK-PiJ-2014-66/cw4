@@ -64,9 +64,14 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 *            the-save state file
 	 */
 	public ContactManagerImpl(String fileName) {
-		// TODO write method
-		throw new RuntimeException(
-				"ContactManagerImpl(String fileName) not yet written");
+        FileSaveRetrieve fileSR = new FileSaveRetrieve();
+        fileSR.setFileName(fileName);
+        fileSR.setMethod(FileSaveRetrieveMethod.SERIALIZATION);
+        ContactManagerImpl retrieve = (ContactManagerImpl) fileSR.retrieveFromFile();           
+        contacts = retrieve.contacts;
+        futureMeetings = retrieve.futureMeetings;
+        pastMeetings = retrieve.pastMeetings;
+        pretendNow = retrieve.pretendNow;
 	}
 
 	/**
