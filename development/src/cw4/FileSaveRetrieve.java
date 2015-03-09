@@ -1,5 +1,14 @@
 package cw4;
 
+/**
+ * 
+ * Deals with saving {@link ContactManagerImpl} state to a string and or an
+ * external text file.
+ * 
+ * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
+ * @since 09 March 2015
+ * 
+ */
 public interface FileSaveRetrieve {
 	/**
 	 * Setter for FileSaveRetrieveMethod

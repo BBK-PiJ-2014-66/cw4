@@ -29,8 +29,8 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 
 	/**
-	 * Needed for Serializable to throw an error if decoding a previous
-	 * incompatible version. Need to increment if this class is changed so it is
+	 * Needed for Serializable to throw an error if asked to decoded a previous
+	 * incompatible version. Need to increment if this class is changed as it is
 	 * not backwards compatible with its previous version.
 	 */
 	private static final long serialVersionUID = 2L;
