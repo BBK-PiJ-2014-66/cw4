@@ -160,8 +160,8 @@ public class FileSaveRetrieve implements Serializable {
 	}
 
 	/**
-	 * Converts the supplied contactManager to a string in XML format using
-	 * <a href="http://xstream.codehaus.org/">XStream</a>
+	 * Converts the supplied contactManager to a string in XML format using <a
+	 * href="http://xstream.codehaus.org/">XStream</a>
 	 * 
 	 * @param contactManager
 	 *            the contactManager to encode
@@ -232,8 +232,7 @@ public class FileSaveRetrieve implements Serializable {
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
 			oos.writeObject(contactManager);
 			oos.close();
-			str = new String(Base64.getEncoder().encodeToString(
-					baos.toByteArray()));
+			str = Base64.getEncoder().encodeToString(baos.toByteArray());
 		} catch (Exception ex) {
 			// complex procedures! So catch any exception (a bit naughty) and
 			// recast it to Runtime with a meaningful prefix
