@@ -25,6 +25,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import cw4.Contact;
 import cw4.ContactManagerPlus;
+import cw4.FileSaveRetrieve;
 import cw4.FileSaveRetrieveImpl;
 import cw4.FileSaveRetrieveMethod;
 
@@ -64,7 +65,7 @@ public class FileSaveRetrieveTest {
 	@Parameter
 	public FileSaveRetrieveMethod method;
 
-	private FileSaveRetrieveImpl fileSaveRetrieve;
+	private FileSaveRetrieve fileSaveRetrieve;
 	private String fileName;
 	private ContactManagerPlus testCMP;
 
