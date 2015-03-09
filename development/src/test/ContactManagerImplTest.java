@@ -743,7 +743,7 @@ public class ContactManagerImplTest {
 				retrieveCMP.getPretendNow().getTime(), is(standardCMP
 						.getPretendNow().getTime()));
 	}
-	
+
 	/**
 	 * like previous test but use XML to file "temp.xml"
 	 */
@@ -753,11 +753,11 @@ public class ContactManagerImplTest {
 		// standardCMP has been constructed using no argument constructor so
 		// so by default flush with SERIALIZE to contacts.txt.
 		// Use the getter for its FileSaveRetrive object to override defaults
-		standardCMP.getFileSR().setFileName(file+"");
+		standardCMP.getFileSR().setFileName(file + "");
 		standardCMP.getFileSR().setMethod(FileSaveRetrieveMethod.XML);
 
 		// first test that the file does not exist already
-		if (file.isFile()) { 
+		if (file.isFile()) {
 			fail("\nCannot run testFlushToContacts_Txt_and_retrieve\n"
 					+ "because file " + file + " already exists.\n"
 					+ "please remove this file and rerun test.");
@@ -769,8 +769,9 @@ public class ContactManagerImplTest {
 					+ "output file " + file);
 		}
 
-		// retrieve contents
-		ContactManagerPlus retrieveCMP = new ContactManagerImpl(file + "");
+		// retrieve contents as XML
+		ContactManagerPlus retrieveCMP = new ContactManagerImpl(file + "",
+				FileSaveRetrieveMethod.XML);
 
 		// clean up removing file ASAP in case of failure
 		if (file.isFile()) { // file already exists
