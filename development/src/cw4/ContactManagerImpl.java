@@ -479,6 +479,14 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public Calendar getPretendNow() {
 		return pretendNow;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public FileSaveRetrieve getFileSR(){
+		throw new RuntimeException("getFileSR() not yet implemented"); // TODO implement method
+	}
 
 	/*
 	 * private methods

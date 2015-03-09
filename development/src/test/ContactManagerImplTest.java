@@ -743,5 +743,61 @@ public class ContactManagerImplTest {
 				retrieveCMP.getPretendNow().getTime(), is(standardCMP
 						.getPretendNow().getTime()));
 	}
+	
+	/**
+	 * like previous test but use XML to file "temp.xml"
+	 */
+	@Test
+	public void testFlushToTemp_xml_and_retrieve() {
+		File file = new File("temp.xml");
+		// standardCMP has been constructed using no argument constructor so
+		// so by default flush with SERIALIZE to contacts.txt.
+		// Use the getter for its FileSaveRetrive object to override defaults
+		standardCMP.getFileSR().setFileName(file+"");
+		standardCMP.getFileSR().setMethod(FileSaveRetrieveMethod.XML);
+
+		// first test that the file does not exist already
+		if (file.isFile()) { 
+			fail("\nCannot run testFlushToContacts_Txt_and_retrieve\n"
+					+ "because file " + file + " already exists.\n"
+					+ "please remove this file and rerun test.");
+		}
+
+		standardCMP.flush();
+		if (!file.isFile()) {
+			fail("\nstandardCMP.flush() failed to produce expected\n"
+					+ "output file " + file);
+		}
+
+		// retrieve contents
+		ContactManagerPlus retrieveCMP = new ContactManagerImpl(file + "");
+
+		// clean up removing file ASAP in case of failure
+		if (file.isFile()) { // file already exists
+			// remove the file
+			try {
+				Files.delete(file.toPath());
+			} catch (IOException ex) {
+				fail("\nTest failed because could not delete file: " + file
+						+ "\n" + "Exception detail: " + ex);
+			}
+		}
+
+		// check that get back data we put in
+		assertThat("\nRetrieved ContactManagerPlus has same contacts?",
+				retrieveCMP.getAllContacts(), is(standardCMP.getAllContacts()));
+
+		assertThat("\nRetrieved ContactManagerPlus has same future meetings?",
+				retrieveCMP.getAllFutureMeetings(),
+				is(standardCMP.getAllFutureMeetings()));
+
+		assertThat("\nRetrieved ContactManagerPlus has same past meetings?",
+				retrieveCMP.getAllPastMeetings(),
+				is(standardCMP.getAllPastMeetings()));
+
+		assertThat("\nRetrieved ContactManagerPlus has pretendNow time?",
+				retrieveCMP.getPretendNow().getTime(), is(standardCMP
+						.getPretendNow().getTime()));
+	}
 
 }
