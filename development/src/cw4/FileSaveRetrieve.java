@@ -144,15 +144,20 @@ public class FileSaveRetrieve implements Serializable {
 		 * will not be issued twice. This is difficult to unit test as it
 		 * depends on the state of the singleton IdGenerator
 		 */
-		for (Contact itCon : restore.getAllContacts()) {
-			int id = itCon.getId();
-			IdGenerator.CONTACT.registerExistingID(id);
-		}
-		for (FutureMeeting itFM : restore.getAllFutureMeetings()) {
-			IdGenerator.MEETING.registerExistingID(itFM.getId());
-		}
-		for (PastMeeting itPM : restore.getAllPastMeetings()) {
-			IdGenerator.MEETING.registerExistingID(itPM.getId());
+		if (restore == null) {
+			throw new RuntimeException("retrieveFromString resulted in"
+					+ " null ContactManagerPlus.");
+		} else {
+			for (Contact itCon : restore.getAllContacts()) {
+				int id = itCon.getId();
+				IdGenerator.CONTACT.registerExistingID(id);
+			}
+			for (FutureMeeting itFM : restore.getAllFutureMeetings()) {
+				IdGenerator.MEETING.registerExistingID(itFM.getId());
+			}
+			for (PastMeeting itPM : restore.getAllPastMeetings()) {
+				IdGenerator.MEETING.registerExistingID(itPM.getId());
+			}
 		}
 
 		return restore;
