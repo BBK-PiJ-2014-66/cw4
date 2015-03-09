@@ -485,7 +485,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 */
 	@Override
 	public FileSaveRetrieve getFileSR(){
-		throw new RuntimeException("getFileSR() not yet implemented"); // TODO implement method
+		return fileSR;
 	}
 
 	/*
