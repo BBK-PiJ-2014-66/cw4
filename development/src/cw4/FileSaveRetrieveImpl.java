@@ -26,7 +26,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
  * @since 25 February 2015
  * 
  */
-public class FileSaveRetrieveImpl implements Serializable {
+public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 
 	/**
 	 * Needed for Serializable to throw an error if decoding a previous
@@ -45,30 +45,25 @@ public class FileSaveRetrieveImpl implements Serializable {
 	private String fileName = "contacts.txt";
 
 	/**
-	 * Sets the
-	 * 
-	 * @param method
-	 *            the method to save to string/file
+	 * {@inheritDoc}
 	 */
+	@Override
 	public void setMethod(FileSaveRetrieveMethod method) {
 		this.method = method;
 	}
 
 	/**
-	 * Setter for the name of the file to read and write contactManager to/from.
-	 * 
-	 * @param fileName
-	 *            the name of the file
+	 * {@inheritDoc}
 	 */
+	@Override
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
 
 	/**
-	 * Getter for the name of the file to read and write contactManager to
-	 * 
-	 * @return name of the file
+	 * {@inheritDoc}
 	 */
+	@Override
 	public String getFileName() {
 		return fileName;
 	}
@@ -82,6 +77,7 @@ public class FileSaveRetrieveImpl implements Serializable {
 	 *             if there is an error in encoding the contactManager or in
 	 *             opening the file or writing to it.
 	 */
+	@Override
 	public void saveToFile(ContactManagerPlus contactManager) {
 		String cmStr = saveToString(contactManager);
 		stringToFile(cmStr, fileName);
@@ -97,6 +93,7 @@ public class FileSaveRetrieveImpl implements Serializable {
 	 *             if there is a problem in opening the file, reading from it or
 	 *             decoding the object
 	 */
+	@Override
 	public ContactManagerPlus retrieveFromFile() {
 		String strFromFile = fileContentsToString(fileName);
 		// decode string
@@ -114,6 +111,7 @@ public class FileSaveRetrieveImpl implements Serializable {
 	 * @throws RuntimeException
 	 *             if there is a problem encoding the contactManager
 	 */
+	@Override
 	public String saveToString(ContactManagerPlus contactManager) {
 		String retStr = null;
 		if (method == FileSaveRetrieveMethod.XML)
@@ -133,6 +131,7 @@ public class FileSaveRetrieveImpl implements Serializable {
 	 * @throws RuntimeException
 	 *             if there is a problem decoding the string
 	 */
+	@Override
 	public ContactManagerPlus retrieveFromString(String string) {
 		ContactManagerPlus restore = null;
 		if (method == FileSaveRetrieveMethod.XML)
