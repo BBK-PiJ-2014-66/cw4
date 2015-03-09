@@ -35,7 +35,7 @@ public interface ContactManagerPlus extends ContactManager, Serializable {
 	/**
 	 * Getter for fileSR used for saving the ContactManager to file
 	 */
-	FileSaveRetrieveImpl getFileSR();
+	FileSaveRetrieve getFileSR();
 
 	/**
 	 * A simple getter for all contacts. Added it because it would be really

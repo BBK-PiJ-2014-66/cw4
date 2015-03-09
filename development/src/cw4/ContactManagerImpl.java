@@ -47,7 +47,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	/**
 	 * deals with saving state, fileName, the method, and the methods to do it
 	 */
-	private FileSaveRetrieveImpl fileSR = new FileSaveRetrieveImpl();
+	private FileSaveRetrieve fileSR = new FileSaveRetrieveImpl();
 
 	/**
 	 * construct a brand new ContactManager with no attempt to read from a save
@@ -484,7 +484,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public FileSaveRetrieveImpl getFileSR(){
+	public FileSaveRetrieve getFileSR(){
 		return fileSR;
 	}
 
