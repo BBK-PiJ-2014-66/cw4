@@ -90,7 +90,6 @@ public class FileSaveRetrieveTest {
 		Set<Contact> everyone = testCMP.getContacts(" ");
 		testCMP.addNewPastMeeting(everyone, new GregorianCalendar(1805,
 				Calendar.OCTOBER, 21), "Battle of Trafalgar");
-		// System.out.println("debug testCMP= " + testCMP);
 	}
 
 	/**
@@ -107,11 +106,11 @@ public class FileSaveRetrieveTest {
 				"\n.saveToString( ContactManagerPlus) failed as it returned null,",
 				str);
 
-		// System.out.println("debug testCMP saveToString=\n" + str + "\n");
-
 		ContactManagerPlus restoreCMP = fileSaveRetrieve
 				.retrieveFromString(str);
-		checkRestoreCMP(restoreCMP); // run checks
+		
+		// run a set of standard checks that they are the same
+		checkRestoreCMP(testCMP, restoreCMP); 
 
 	}
 
@@ -218,73 +217,81 @@ public class FileSaveRetrieveTest {
 					+ "This file should have been created in previous test 'saveStateToFileName'?");
 
 		ContactManagerPlus restoreCMP = fileSaveRetrieve.retrieveFromFile();
-		checkRestoreCMP(restoreCMP); // run checks
+		checkRestoreCMP(testCMP, restoreCMP); // run checks
 
 	}
 
 	/**
-	 * runs a series of checks that the restored version of {@link #testCMP} is
-	 * the same as the original. Used by tests {@link #saveToStringAndRestore()}
-	 * and {@link #retrieveStateFromFileName()}
+	 * runs a series of checks that the restored version of a contactManger is
+	 * the same as the original. Used by by many tests!
 	 * 
-	 * @param restoreCMP restored version of testCMP to check.
+	 * @param origCMP
+	 *            the original
+	 * @param restoreCMP
+	 *            restored version to check.
 	 */
-	private void checkRestoreCMP(ContactManagerPlus restoreCMP) {
-		
-		assertNotNull(
-				"\nRestoration of ContactManagerPlus failed:\n"
-				+ "The restored ContactManagerPlus is null!",
-				restoreCMP);
+	static void checkRestoreCMP(ContactManagerPlus origCMP,
+			ContactManagerPlus restoreCMP) {
 
-		// N.B. the comparison will use the .equals method of ContactImpl
+		assertNotNull("\nRestoration of ContactManagerPlus failed:\n"
+				+ "The restored ContactManagerPlus is null!", restoreCMP);
+
 		assertThat("\nRestored ContactManagerPlus has same contacts?",
-				restoreCMP.getAllContacts(), is(testCMP.getAllContacts()));
+				restoreCMP.getAllContacts(), is(origCMP.getAllContacts()));
 
 		assertThat("\nRestored ContactManagerPlus has same future meetings?",
 				restoreCMP.getAllFutureMeetings(),
-				is(testCMP.getAllFutureMeetings()));
+				is(origCMP.getAllFutureMeetings()));
 
 		assertThat("\nRestored ContactManagerPlus has same past meetings?",
 				restoreCMP.getAllPastMeetings(),
-				is(testCMP.getAllPastMeetings()));
+				is(origCMP.getAllPastMeetings()));
 
-		// so complete object should be the same
-		assertThat("\nRestored ContactManagerPlus .equals original",
-				restoreCMP, is(testCMP));
+		assertThat("\nRestored ContactManagerPlus has same pretendNow time?",
+				restoreCMP.getPretendNow().getTime(), is(origCMP
+						.getPretendNow().getTime()));
 
 		/*
 		 * Check for denormalisation:
 		 * 
 		 * being paranoid it is possible that the contact objects in the
 		 * MeetingsImpl.contacts are clones rather than references to the
-		 * contacts. Test by altering John Smith's notes in both objects in turn
+		 * contacts. Test by altering all user's notes in both objects in turn
 		 */
-		Contact johnSmith = (Contact) testCMP.getContacts("John Smith")
-				.toArray()[0];
-		johnSmith.addNotes("alter John's notes");
-		// john is involved in a past meeting so these should no longer match
-		// (This test shows that testCMP is normalised).
-		assertThat("\nAfter altering John Smith's notes in the original\n"
-				+ "pastMeetings should no longer match.",
-				restoreCMP.getAllPastMeetings(),
-				not(testCMP.getAllPastMeetings()));
-		// now make the same alteration in the restored version
-		johnSmith = (Contact) restoreCMP.getContacts("John Smith").toArray()[0];
-		johnSmith.addNotes("alter John's notes");
+		for (Contact itCon : origCMP.getAllContacts()) {
+			itCon.addNotes("altered user notes");
+		}
+		// so meeting lists should not now match
+		// (This test shows that origCMP is normalised).
+		if (origCMP.getAllPastMeetings().size() > 0)
+			assertThat("\nAfter altering all users notes in the original\n"
+					+ "pastMeetings should no longer match.",
+					restoreCMP.getAllPastMeetings(),
+					not(origCMP.getAllPastMeetings()));
+		if (origCMP.getAllFutureMeetings().size() > 0)
+			assertThat("\nAfter altering all users notes in the original\n"
+					+ "pastMeetings should no longer match.",
+					restoreCMP.getAllFutureMeetings(),
+					not(origCMP.getAllFutureMeetings()));
+        // make same change on restored
+		for (Contact itCon : restoreCMP.getAllContacts()) {
+			itCon.addNotes("altered user notes");
+		}
 
-		// if the past meetings are back in sync then restoreCMP is normalised
-		assertThat("\nAfter altering John Smith's notes in the both\n"
-				+ "pastMeetings should match again."
-				+ "Normalisation problem???",
-				"" + restoreCMP.getAllPastMeetings(),
-				is("" + testCMP.getAllPastMeetings()));
+		// the two objects should be back in sync
+		if (origCMP.getAllPastMeetings().size() > 0)
+			assertThat("\nAfter altering all users notes in both\n"
+					+ "pastMeetings should match again.",
+					restoreCMP.getAllPastMeetings(),
+					is(origCMP.getAllPastMeetings()));
 
-		/*
-		 * TODO: there is probably a bug in pastMeetingImpl.equals as the repeat
-		 * of past test not using .toString fails:
-		 */
-		// assertThat(restoreCMP.getAllPastMeetings(),
-		// is(testCMP.getAllPastMeetings()));
+		// the two objects should be back in sync
+		if (origCMP.getAllFutureMeetings().size() > 0)
+			assertThat("\nAfter altering all users notes in both\n"
+					+ "future Meetings should match again.",
+					restoreCMP.getAllFutureMeetings(),
+					is(origCMP.getAllFutureMeetings()));
+
 
 	}
 

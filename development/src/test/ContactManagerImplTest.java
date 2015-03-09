@@ -727,21 +727,8 @@ public class ContactManagerImplTest {
 			}
 		}
 
-		// check that get back data we put in
-		assertThat("\nRetrieved ContactManagerPlus has same contacts?",
-				retrieveCMP.getAllContacts(), is(standardCMP.getAllContacts()));
-
-		assertThat("\nRetrieved ContactManagerPlus has same future meetings?",
-				retrieveCMP.getAllFutureMeetings(),
-				is(standardCMP.getAllFutureMeetings()));
-
-		assertThat("\nRetrieved ContactManagerPlus has same past meetings?",
-				retrieveCMP.getAllPastMeetings(),
-				is(standardCMP.getAllPastMeetings()));
-
-		assertThat("\nRetrieved ContactManagerPlus has pretendNow time?",
-				retrieveCMP.getPretendNow().getTime(), is(standardCMP
-						.getPretendNow().getTime()));
+		// Use standardised checks on restoration
+		FileSaveRetrieveTest.checkRestoreCMP(standardCMP, retrieveCMP);
 	}
 
 	/**
@@ -783,22 +770,10 @@ public class ContactManagerImplTest {
 						+ "\n" + "Exception detail: " + ex);
 			}
 		}
+		
+		// Use standardised checks on restoration
+		FileSaveRetrieveTest.checkRestoreCMP(standardCMP, retrieveCMP);
 
-		// check that get back data we put in
-		assertThat("\nRetrieved ContactManagerPlus has same contacts?",
-				retrieveCMP.getAllContacts(), is(standardCMP.getAllContacts()));
-
-		assertThat("\nRetrieved ContactManagerPlus has same future meetings?",
-				retrieveCMP.getAllFutureMeetings(),
-				is(standardCMP.getAllFutureMeetings()));
-
-		assertThat("\nRetrieved ContactManagerPlus has same past meetings?",
-				retrieveCMP.getAllPastMeetings(),
-				is(standardCMP.getAllPastMeetings()));
-
-		assertThat("\nRetrieved ContactManagerPlus has pretendNow time?",
-				retrieveCMP.getPretendNow().getTime(), is(standardCMP
-						.getPretendNow().getTime()));
 	}
 
 }
