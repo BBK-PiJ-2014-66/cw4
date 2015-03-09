@@ -27,7 +27,6 @@ import cw4.Contact;
 import cw4.ContactManagerPlus;
 import cw4.FileSaveRetrieve;
 import cw4.FileSaveRetrieveMethod;
-import cw4.PastMeeting;
 
 /**
  * 
@@ -267,54 +266,31 @@ public class FileSaveRetrieveTest {
 		if (origCMP.getAllPastMeetings().size() > 0)
 			assertThat("\nAfter altering all users notes in the original\n"
 					+ "pastMeetings should no longer match.",
-					"" + restoreCMP.getAllPastMeetings(),
-					not("" + origCMP.getAllPastMeetings()));
+					restoreCMP.getAllPastMeetings(),
+					not(origCMP.getAllPastMeetings()));
 		if (origCMP.getAllFutureMeetings().size() > 0)
 			assertThat("\nAfter altering all users notes in the original\n"
 					+ "pastMeetings should no longer match.",
-					"" + restoreCMP.getAllFutureMeetings(),
-					not("" + origCMP.getAllFutureMeetings()));
+					restoreCMP.getAllFutureMeetings(),
+					not(origCMP.getAllFutureMeetings()));
 		// make same change on restored
 		for (Contact itCon : restoreCMP.getAllContacts()) {
 			itCon.addNotes("altered user notes");
 		}
 
 		// the two objects should be back in sync
-		if (origCMP.getAllPastMeetings().size() > 0) {
+		if (origCMP.getAllPastMeetings().size() > 0) 
 			assertThat("\nAfter altering all users notes in both\n"
 					+ "pastMeetings should match again.",
-					"" + restoreCMP.getAllPastMeetings(),
-					is("" + origCMP.getAllPastMeetings()));
-
-			// track down .equals bug
-			PastMeeting origPM = origCMP.getAllPastMeetings().get(0);
-			PastMeeting restorePM = restoreCMP.getAllPastMeetings().get(0);
-
-			// assertThat(origPM, is(restorePM)); // fails
-
-			Set<Contact> origContacts = origPM.getContacts();
-			Set<Contact> restContacts = restorePM.getContacts();
-
-			// get the contact out of each set - this passes
-			Contact origCon0 = (Contact) origContacts.toArray()[0];
-			Contact restCon0 = (Contact) restContacts.toArray()[0];
-			assertThat("contact comparison", origCon0, is(restCon0)); // passes
-
-			// test whether set contains object
-			assertTrue("original set should .contains its own first element",
-					origContacts.contains(origCon0));
-
-			// but comparing the set fails
-			assertThat("set comparison", origContacts, is(restContacts)); // fails
-
-		}
+					restoreCMP.getAllPastMeetings(),
+					is(origCMP.getAllPastMeetings()));
 
 		// the two objects should be back in sync
 		if (origCMP.getAllFutureMeetings().size() > 0)
 			assertThat("\nAfter altering all users notes in both\n"
 					+ "future Meetings should match again.",
-					"" + restoreCMP.getAllFutureMeetings(),
-					is("" + origCMP.getAllFutureMeetings()));
+					restoreCMP.getAllFutureMeetings(),
+					is(origCMP.getAllFutureMeetings()));
 
 	}
 

@@ -1,9 +1,11 @@
 package cw4;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 
@@ -27,7 +29,12 @@ public class MeetingImpl implements Meeting, Serializable {
 
 	private int id; // unique ID
 	private Calendar date;
-	private Set<Contact> contacts;
+	/**
+	 * although we are supplied contacts as a set the Contact objects are
+	 * mutable so so storing as a set is problematic. Instead store as a list
+	 * and convert
+	 */
+	private List<Contact> contacts;
 
 	/**
 	 * Constructor for Meeting
@@ -54,8 +61,10 @@ public class MeetingImpl implements Meeting, Serializable {
 			throw new IllegalArgumentException("empty contact set supplied."
 					+ " A meeting must have at least one contact.");
 		this.id = id;
-		this.contacts = contacts;
+		this.contacts = new ArrayList<Contact>(contacts);
+		this.contacts.sort(ContactImpl::orderByID); // sort by ID after input
 		this.date = date;
+
 	}
 
 	/**
@@ -79,7 +88,7 @@ public class MeetingImpl implements Meeting, Serializable {
 	 */
 	@Override
 	public Set<Contact> getContacts() {
-		return contacts;
+		return new HashSet<Contact>(contacts);
 	}
 
 	/**
@@ -88,15 +97,11 @@ public class MeetingImpl implements Meeting, Serializable {
 	@Override
 	public String toString() {
 		/*
-		 * Contacts are sorted by ID
+		 * Contacts should be sorted by ID
 		 */
-		return "id="
-				+ id
-				+ ", date="
-				+ date.getTime()
-				+ ", contacts="
-				+ contacts.stream().sorted(ContactImpl::orderByID)
-						.collect(Collectors.toList());
+		this.contacts.sort(ContactImpl::orderByID); // sort by ID after input
+		return "id=" + id + ", date=" + date.getTime() + ", contacts="
+				+ contacts;
 	}
 
 	/**
