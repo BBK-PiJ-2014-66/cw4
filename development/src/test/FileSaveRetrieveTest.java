@@ -289,19 +289,24 @@ public class FileSaveRetrieveTest {
 			// track down .equals bug
 			PastMeeting origPM = origCMP.getAllPastMeetings().get(0);
 			PastMeeting restorePM = restoreCMP.getAllPastMeetings().get(0);
-			
-			//assertThat(origPM, is(restorePM)); // fails
-			
+
+			// assertThat(origPM, is(restorePM)); // fails
+
+			Set<Contact> origContacts = origPM.getContacts();
+			Set<Contact> restContacts = restorePM.getContacts();
 
 			// get the contact out of each set - this passes
-			Contact origContact = (Contact) origPM.getContacts().toArray()[0]; 
-			Contact restoreContact = (Contact) restorePM.getContacts().toArray()[0];
-			assertThat("contact comparison", origContact, is(restoreContact)); // passes
+			Contact origCon0 = (Contact) origContacts.toArray()[0];
+			Contact restCon0 = (Contact) restContacts.toArray()[0];
+			assertThat("contact comparison", origCon0, is(restCon0)); // passes
+
+			// test whether set contains object
+			assertTrue("original set should .contains its own first element",
+					origContacts.contains(origCon0));
 
 			// but comparing the set fails
-			assertThat("set comparison", origPM.getContacts(), is(restorePM.getContacts())); //fails
-			
-			
+			assertThat("set comparison", origContacts, is(restContacts)); // fails
+
 		}
 
 		// the two objects should be back in sync
