@@ -266,13 +266,13 @@ public class FileSaveRetrieveTest {
 		if (origCMP.getAllPastMeetings().size() > 0)
 			assertThat("\nAfter altering all users notes in the original\n"
 					+ "pastMeetings should no longer match.",
-					restoreCMP.getAllPastMeetings(),
-					not(origCMP.getAllPastMeetings()));
+					""+restoreCMP.getAllPastMeetings(),
+					not(""+origCMP.getAllPastMeetings()));
 		if (origCMP.getAllFutureMeetings().size() > 0)
 			assertThat("\nAfter altering all users notes in the original\n"
 					+ "pastMeetings should no longer match.",
-					restoreCMP.getAllFutureMeetings(),
-					not(origCMP.getAllFutureMeetings()));
+					""+restoreCMP.getAllFutureMeetings(),
+					not(""+origCMP.getAllFutureMeetings()));
         // make same change on restored
 		for (Contact itCon : restoreCMP.getAllContacts()) {
 			itCon.addNotes("altered user notes");
@@ -282,15 +282,15 @@ public class FileSaveRetrieveTest {
 		if (origCMP.getAllPastMeetings().size() > 0)
 			assertThat("\nAfter altering all users notes in both\n"
 					+ "pastMeetings should match again.",
-					restoreCMP.getAllPastMeetings(),
-					is(origCMP.getAllPastMeetings()));
+					""+restoreCMP.getAllPastMeetings(),
+					is(""+origCMP.getAllPastMeetings()));
 
 		// the two objects should be back in sync
 		if (origCMP.getAllFutureMeetings().size() > 0)
 			assertThat("\nAfter altering all users notes in both\n"
 					+ "future Meetings should match again.",
-					restoreCMP.getAllFutureMeetings(),
-					is(origCMP.getAllFutureMeetings()));
+					""+restoreCMP.getAllFutureMeetings(),
+					is(""+origCMP.getAllFutureMeetings()));
 
 
 	}
