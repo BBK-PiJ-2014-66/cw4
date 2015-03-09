@@ -24,7 +24,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * incompatible version. Need to increment if this class is changed so it is
 	 * not backwards compatible with its previous version.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	/**
 	 * list of Contact 's that have been registered using addNewContact.
 	 */
@@ -47,7 +47,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	/**
 	 * deals with saving state, fileName, the method, and the methods to do it
 	 */
-	private FileSaveRetrieve fileSR = new FileSaveRetrieve();
+	private FileSaveRetrieveImpl fileSR = new FileSaveRetrieveImpl();
 
 	/**
 	 * construct a brand new ContactManager with no attempt to read from a save
@@ -484,7 +484,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public FileSaveRetrieve getFileSR(){
+	public FileSaveRetrieveImpl getFileSR(){
 		return fileSR;
 	}
 

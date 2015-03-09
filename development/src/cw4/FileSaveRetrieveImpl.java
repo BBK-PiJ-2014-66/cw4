@@ -26,14 +26,14 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
  * @since 25 February 2015
  * 
  */
-public class FileSaveRetrieve implements Serializable {
+public class FileSaveRetrieveImpl implements Serializable {
 
 	/**
 	 * Needed for Serializable to throw an error if decoding a previous
 	 * incompatible version. Need to increment if this class is changed so it is
 	 * not backwards compatible with its previous version.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private FileSaveRetrieveMethod method = FileSaveRetrieveMethod.SERIALIZATION;
 

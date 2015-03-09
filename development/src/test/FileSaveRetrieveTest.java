@@ -25,12 +25,12 @@ import org.junit.runners.Parameterized.Parameters;
 
 import cw4.Contact;
 import cw4.ContactManagerPlus;
-import cw4.FileSaveRetrieve;
+import cw4.FileSaveRetrieveImpl;
 import cw4.FileSaveRetrieveMethod;
 
 /**
  * 
- * Unit tests for {@link FileSaveRetrieve}
+ * Unit tests for {@link FileSaveRetrieveImpl}
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 25 February 2015
@@ -64,14 +64,14 @@ public class FileSaveRetrieveTest {
 	@Parameter
 	public FileSaveRetrieveMethod method;
 
-	private FileSaveRetrieve fileSaveRetrieve;
+	private FileSaveRetrieveImpl fileSaveRetrieve;
 	private String fileName;
 	private ContactManagerPlus testCMP;
 
 	@Before
 	public void init() {
 		// parameterized part
-		fileSaveRetrieve = new FileSaveRetrieve();
+		fileSaveRetrieve = new FileSaveRetrieveImpl();
 		fileSaveRetrieve.setMethod(method);
 		if (method == FileSaveRetrieveMethod.XML)
 			fileName = "testfiles/fileSaveRetrieveTest.xml";
