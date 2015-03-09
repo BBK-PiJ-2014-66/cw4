@@ -25,7 +25,7 @@ public class MeetingImpl implements Meeting, Serializable {
 	 * incompatible version. Need to increment if this class is changed so it is
 	 * not backwards compatible with its previous version.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private int id; // unique ID
 	private Calendar date;
