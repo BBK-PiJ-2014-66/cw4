@@ -1,10 +1,9 @@
-# PiJ Coursework Four
 # Development branch
 
 Why a separate branch? See [wiki page](https://github.com/BBK-PiJ-2014-66/cw4/wiki/Packages,-the-use-of-%60development%60-and-branching)
 
 ## Interfaces
-* As supplied on coursework document:
+* As supplied on coursework document, except in package `cw4`:
   * [ContactManager](development/src/cw4/ContactManager.java)
   * [Contact](development/src/cw4/Contact.java)
   * [Meeting](development/src/cw4/Meeting.java)
