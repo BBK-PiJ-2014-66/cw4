@@ -71,7 +71,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * the argument fileName will be used.
 	 * 
 	 * @param fileName
-	 *            the-save-state file name
+	 *            the save-state-file name
 	 * 
 	 * @throws RuntimeException
 	 *             - if there is a problem in opening the file, reading from it
@@ -88,7 +88,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * from the file is ignored and the argument fileName will be used instead.
 	 * 
 	 * @param fileName
+	 *            the save-state-file name
 	 * @param fSRMethod
+	 *            the method used to create the save-state-file
 	 */
 	public ContactManagerImpl(String fileName, FileSaveRetrieveMethod fSRMethod) {
 		fileSR.setFileName(fileName);
