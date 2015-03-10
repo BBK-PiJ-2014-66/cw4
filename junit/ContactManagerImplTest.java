@@ -1,4 +1,4 @@
-package test;
+//package test;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -22,15 +22,15 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import cw4.Contact;
-import cw4.ContactImpl;
-import cw4.ContactManager;
-import cw4.ContactManagerImpl;
-import cw4.ContactManagerPlus;
-import cw4.FileSaveRetrieveMethod;
-import cw4.FutureMeeting;
-import cw4.Meeting;
-import cw4.PastMeeting;
+//import cw4.Contact;
+//import cw4.ContactImpl;
+//import cw4.ContactManager;
+//import cw4.ContactManagerImpl;
+//import cw4.ContactManagerPlus;
+//import cw4.FileSaveRetrieveMethod;
+//import cw4.FutureMeeting;
+//import cw4.Meeting;
+//import cw4.PastMeeting;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,

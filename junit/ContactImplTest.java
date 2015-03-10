@@ -1,4 +1,4 @@
-package test;
+//package test;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -6,8 +6,8 @@ import static org.hamcrest.CoreMatchers.not;
 
 import org.junit.Test;
 
-import cw4.Contact;
-import cw4.ContactImpl;
+//import cw4.Contact;
+//import cw4.ContactImpl;
 
 /**
  * JUnit tests for ContactImpl implementation of Contact. 
