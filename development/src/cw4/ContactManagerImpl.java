@@ -78,7 +78,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 *             or decoding the object
 	 */
 	public ContactManagerImpl(String fileName) {
-		this(fileName, FileSaveRetrieveMethod.SERIALIZATION );
+		this(fileName, FileSaveRetrieveMethod.SERIALIZATION);
 	}
 
 	/**
@@ -119,11 +119,8 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 		// check that all supplied contacts are legitimate appearing in
 		// this.contacts, throws a IllegalArgumentException if there is a
-		// problem.
+		// problem. Problem includes if a clone is supplied.
 		checkContacts(contacts.toArray(new Contact[0]));
-
-		// TODO there might be a normalisation problem where supplied contacts
-		// TODO are different objects with same value? Check this now.
 
 		FutureMeeting thisFM = new FutureMeetingImpl(contacts, date);
 		futureMeetings.add(thisFM);
@@ -479,12 +476,12 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public Calendar getPretendNow() {
 		return pretendNow;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public FileSaveRetrieve getFileSR(){
+	public FileSaveRetrieve getFileSR() {
 		return fileSR;
 	}
 
@@ -508,21 +505,26 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * Checks the contacts are all recognised and appear in this.contacts
+	 * Checks the contacts are all recognised and appear in stored contacts
 	 * 
-	 * @param contacts
+	 * @param checkContacts
 	 *            the single contact or array of contacts to be checked.
 	 * @throws IllegalArgumentException
-	 *             if any of the contacts does not appear or the contact array
-	 *             is empty.
+	 *             if any of the contacts does not appear, is supplied as a
+	 *             clone or if the contact array is empty.
 	 */
-	private void checkContacts(Contact... contacts) {
-		if (contacts.length == 0)
+	private void checkContacts(Contact... checkContacts) {
+		if (checkContacts.length == 0)
 			throw new IllegalArgumentException("Empty contact set.");
-		for (Contact itCon : contacts) {
+		for (Contact itCon : checkContacts) {
 			// is itCon in this.contacts?
-			if (!this.contacts.contains(itCon))
+			if (!contacts.contains(itCon))
 				throw new IllegalArgumentException("Unknown contact: " + itCon);
+			// check that it is not a clone
+			Contact original = contacts.get(contacts.indexOf(itCon));
+			if (!(original == itCon))
+				throw new IllegalArgumentException("Cloned contact: " + itCon
+						+ " (this is forbidden).");
 		}
 	}
 
