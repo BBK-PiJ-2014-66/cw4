@@ -12,8 +12,6 @@
 hs_err_pid*
 /bin/
 /src/doc
-.classpath
-.project
 .settings/
 *~
 fileSaveRetrieveTest.*
