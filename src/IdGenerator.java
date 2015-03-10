@@ -1,4 +1,4 @@
-package cw4;
+//package cw4;
 
 /**
  * Two singleton classes used to issue unique ID numbers for contacts and for
