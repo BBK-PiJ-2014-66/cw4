@@ -123,7 +123,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		checkContacts(contacts.toArray(new Contact[0]));
 
 		// TODO there might be a normalisation problem where supplied contacts
-		// TODO are different objects with same value? Check this latter.
+		// TODO are different objects with same value? Check this now.
 
 		FutureMeeting thisFM = new FutureMeetingImpl(contacts, date);
 		futureMeetings.add(thisFM);

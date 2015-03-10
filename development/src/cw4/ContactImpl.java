@@ -58,6 +58,23 @@ public class ContactImpl implements Contact, Serializable {
 	}
 
 	/**
+	 * Three parameter constructor (useful in testing to make a clone)
+	 *
+	 * @param name
+	 *            the contact's name
+	 * @param notes
+	 *            notes about the contact (email...?)
+	 * @param id
+	 *            id number
+	 * @throws NullPointerException
+	 *             if name or notes are null.
+	 */
+	public ContactImpl(String name, String notes, int id) {
+		this(name, notes);
+		this.id = id;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override

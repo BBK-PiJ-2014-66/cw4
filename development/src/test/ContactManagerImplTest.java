@@ -138,6 +138,33 @@ public class ContactManagerImplTest {
 	}
 
 	/**
+	 * Test addFutureMeeting() with a clone of a known contact rather than the
+	 * original this should be rejected to avoid denormalization problems. (Want
+	 * changing notes on a contact to change the notes of that contact in all
+	 * his/her meetings).
+	 * 
+	 * want to check the exception message so run a test with try / catch
+	 */
+	@Test
+	public void testaddFutureMeetingClonedContact() {
+		assertTrue("\nfor test to work need at least one contact", standardCMP
+				.getAllContacts().size() > 0);
+		Contact aContact = standardCMP.getAllContacts().get(0);
+		Contact aClone = new ContactImpl(aContact.getName(),
+				aContact.getNotes(), aContact.getId());
+		Set<Contact> cloneSet = new HashSet<>(Arrays.asList(aClone));
+		try {
+			standardCMP.addFutureMeeting(cloneSet, futureCal);
+			fail("\nProviding a clone of a user for a future meeting failed to produce a RuntimeException");
+		} catch (RuntimeException ex) {
+			assertTrue(
+					"\nProviding a cloned contact for a future meeting correctly produced a RuntimeException,\n"
+							+ "but its message failed to contain 'clone'. Message is:\n"
+							+ ex, ex.toString().contains("clone"));
+		}
+	}
+
+	/**
 	 * test getFutureMeeting(id) with unknown meeting id - should return null.
 	 */
 	@Test
@@ -610,37 +637,6 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * Provides a standard test filled CMP for unit tests.
-	 * 
-	 * @return a Contact manager with contact, future Meetings
-	 */
-	public ContactManagerPlus standardFilledCMP() {
-		ContactManagerPlus filledCMP = new ContactManagerImpl();
-		filledCMP.overrideDateNow(nowCal);
-		filledCMP.addNewContact(testName, testNotes);
-		// to add contacts have to provide set
-		Set<Contact> testContacts = filledCMP.getContacts(testName);
-		assertThat(
-				"standardFilledCMP(): check that testContacts set has 1 contact.",
-				testContacts.size(), is(1));
-		// make 3 meetings with this user on futureCal: 10 am 9am 7am
-		filledCMP.addFutureMeeting(testContacts, futureCal);
-		Calendar cal9am = (Calendar) futureCal.clone();
-		cal9am.set(Calendar.HOUR_OF_DAY, 9);
-		filledCMP.addFutureMeeting(testContacts, cal9am);
-		Calendar cal7am = (Calendar) futureCal.clone();
-		cal7am.set(Calendar.HOUR_OF_DAY, 7);
-		filledCMP.addFutureMeeting(testContacts, cal7am);
-
-		// and a past meeting
-		filledCMP.addNewPastMeeting(testContacts, pastCal, "the meeting was..");
-
-		// to keep track of everything print to console
-		// System.out.println("debug standardFilledCMP:" + filledCMP);
-		return filledCMP;
-	}
-
-	/**
 	 * idea test constructor load from "testfiles/contacts.txt" this is a
 	 * SERIALIZATION file written as file "fileSaveRetrieveTest.txt" by the test
 	 * {@link test.FileSaveRetrieveTest#saveStateToFileName()}
@@ -770,10 +766,41 @@ public class ContactManagerImplTest {
 						+ "\n" + "Exception detail: " + ex);
 			}
 		}
-		
+
 		// Use standardised checks on restoration
 		FileSaveRetrieveTest.checkRestoreCMP(standardCMP, retrieveCMP);
 
+	}
+
+	/**
+	 * Provides a standard test filled CMP for unit tests.
+	 * 
+	 * @return a Contact manager with contact, future Meetings
+	 */
+	public ContactManagerPlus standardFilledCMP() {
+		ContactManagerPlus filledCMP = new ContactManagerImpl();
+		filledCMP.overrideDateNow(nowCal);
+		filledCMP.addNewContact(testName, testNotes);
+		// to add contacts have to provide set
+		Set<Contact> testContacts = filledCMP.getContacts(testName);
+		assertThat(
+				"standardFilledCMP(): check that testContacts set has 1 contact.",
+				testContacts.size(), is(1));
+		// make 3 meetings with this user on futureCal: 10 am 9am 7am
+		filledCMP.addFutureMeeting(testContacts, futureCal);
+		Calendar cal9am = (Calendar) futureCal.clone();
+		cal9am.set(Calendar.HOUR_OF_DAY, 9);
+		filledCMP.addFutureMeeting(testContacts, cal9am);
+		Calendar cal7am = (Calendar) futureCal.clone();
+		cal7am.set(Calendar.HOUR_OF_DAY, 7);
+		filledCMP.addFutureMeeting(testContacts, cal7am);
+
+		// and a past meeting
+		filledCMP.addNewPastMeeting(testContacts, pastCal, "the meeting was..");
+
+		// to keep track of everything print to console
+		// System.out.println("debug standardFilledCMP:" + filledCMP);
+		return filledCMP;
 	}
 
 }
