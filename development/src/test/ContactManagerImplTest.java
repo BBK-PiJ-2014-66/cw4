@@ -155,12 +155,14 @@ public class ContactManagerImplTest {
 		Set<Contact> cloneSet = new HashSet<>(Arrays.asList(aClone));
 		try {
 			standardCMP.addFutureMeeting(cloneSet, futureCal);
-			fail("\nProviding a clone of a user for a future meeting failed to produce a RuntimeException");
-		} catch (RuntimeException ex) {
+			fail("\nProviding a clone of a user for a future\n"
+					+ " meeting failed to produce a IllegalArgumentException");
+		} catch (IllegalArgumentException ex) {
 			assertTrue(
-					"\nProviding a cloned contact for a future meeting correctly produced a RuntimeException,\n"
+					"\nProviding a cloned contact for a future meeting "
+					+ "correctly produced a IllegalArgumentException,\n"
 							+ "but its message failed to contain 'clone'. Message is:\n"
-							+ ex, ex.toString().contains("clone"));
+							+ ex, ex.toString().toLowerCase().contains("clone"));
 		}
 	}
 
