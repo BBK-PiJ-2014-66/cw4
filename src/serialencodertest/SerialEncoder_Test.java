@@ -3,6 +3,7 @@ package serialencodertest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -54,8 +55,9 @@ public class SerialEncoder_Test {
 /**
  * Little toy class for tests. A person has a name and an age.
  *
+ * Serializable needed for JOSBASE64 but not required for XStreamXML
  */
-class TestPerson {
+class TestPerson implements Serializable {
 	private String name;
 	private int age;
 
