@@ -6,8 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Base64;
 
-import cw4.ContactManagerPlus;
-
 /**
  * 
  * Uses * Java serialization using {@link java.io.ObjectOutputStream} and
