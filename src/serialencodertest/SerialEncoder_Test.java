@@ -44,8 +44,6 @@ public class SerialEncoder_Test {
 	@Test
 	public void testEncodeDecode() {
 		String encoded = sEncoder.encode(testperson);
-		System.out
-				.println("debug info" + testperson + " encoded is " + encoded);
 		TestPerson decoded = (TestPerson) sEncoder.decode(encoded);
 		assertThat(decoded.toString(), is(testperson.toString()));
 	}
