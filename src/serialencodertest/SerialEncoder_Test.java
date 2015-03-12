@@ -2,6 +2,8 @@ package serialencodertest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -31,7 +33,8 @@ public class SerialEncoder_Test {
 	// Run same tests on the two classes
 	@Parameters
 	public static Collection<Object[]> data() {
-		Object[][] data = new Object[][] { { new SerialEncoderImplXSTREAMXML() },
+		Object[][] data = new Object[][] {
+				{ new SerialEncoderImplXSTREAMXML() },
 				{ new SerialEncoderImplJOSBASE64() } };
 		return Arrays.asList(data);
 	}
@@ -41,11 +44,37 @@ public class SerialEncoder_Test {
 
 	private TestPerson testperson = new TestPerson("John", 75);
 
+	/**
+	 * test for normal behaviour encode to string and decode check we get back
+	 * what we put in
+	 */
 	@Test
 	public void testEncodeDecode() {
 		String encoded = sEncoder.encode(testperson);
 		TestPerson decoded = (TestPerson) sEncoder.decode(encoded);
 		assertThat(decoded.toString(), is(testperson.toString()));
+	}
+
+	/**
+	 * Test that we get a RuntimeException after restoring from nonsense string.
+	 * Furthermore it should have a meaningful exception message it should
+	 * contain "string to contactManager" as it should have been recast.
+	 */
+	@Test
+	public void attemptRestoreFromNonsenseString() {
+		String require = "not sure what to check for yet"; // TODO
+		try {
+			sEncoder.decode("This string does not encode anything!");
+			fail("Attempt to restore Object from nonsense string\n"
+					+ "failed to produce a RuntimeException");
+
+		} catch (RuntimeException ex) {
+			assertTrue("Attempt to restore Object from nonsense string\n"
+					+ "Failure of test that exception message contains '"
+					+ require + "'\n" + "Exception message is:\n " + ex, ex
+					.toString().contains(require));
+		}
+
 	}
 
 }
