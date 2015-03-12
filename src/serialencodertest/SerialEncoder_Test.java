@@ -13,6 +13,7 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import serialencoder.SerialEncoder;
+import serialencoder.SerialEncoderJOSBASE64;
 import serialencoder.SerialEncoderXSTREAMXML;
 
 /**
@@ -26,17 +27,17 @@ import serialencoder.SerialEncoderXSTREAMXML;
 @RunWith(Parameterized.class)
 public class SerialEncoder_Test {
 
-	
 	// Run same tests on the two classes
 	@Parameters
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] { { new SerialEncoderXSTREAMXML() },
-				 };
+				{ new SerialEncoderJOSBASE64() } };
 		return Arrays.asList(data);
 	}
+
 	@Parameter
 	public SerialEncoder sEncoder; // the Parameter
-	
+
 	private TestPerson testperson = new TestPerson("John", 75);
 
 	@Test
