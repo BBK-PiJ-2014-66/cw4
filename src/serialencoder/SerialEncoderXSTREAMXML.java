@@ -14,7 +14,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
  * @since 12 March 2015
  * 
  */
-public class SerialEncoderXStreamXML extends SerialEncoder {
+public class SerialEncoderXSTREAMXML extends SerialEncoder {
 
 	/**
 	 * Uses <a href="http://xstream.codehaus.org/">XStream</a> and <a

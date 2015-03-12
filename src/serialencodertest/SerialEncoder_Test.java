@@ -13,7 +13,7 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import serialencoder.SerialEncoder;
-import serialencoder.SerialEncoderXStreamXML;
+import serialencoder.SerialEncoderXSTREAMXML;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class SerialEncoder_Test {
 	// Run same tests on the two classes
 	@Parameters
 	public static Collection<Object[]> data() {
-		Object[][] data = new Object[][] { { new SerialEncoderXStreamXML() },
+		Object[][] data = new Object[][] { { new SerialEncoderXSTREAMXML() },
 				 };
 		return Arrays.asList(data);
 	}
