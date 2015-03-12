@@ -3,6 +3,8 @@ package serialencoder;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
+import cw4.ContactManagerPlus;
+
 /**
  * Uses XStream <a
  * href="http://xstream.codehaus.org/">http://xstream.codehaus.org/</a> to
@@ -32,7 +34,9 @@ public class SerialEncoderXStreamXML extends SerialEncoder {
 	 */
 	@Override
 	public String encode(Object obj) {
-		throw new RuntimeException("encode method not yet implemented"); // TODO
+		XStream xstream = new XStream(new StaxDriver());
+		String xml = xstream.toXML(obj);
+		return xml;
 	}
 
 	/**
@@ -41,7 +45,7 @@ public class SerialEncoderXStreamXML extends SerialEncoder {
 	 * href="http://en.wikipedia.org/wiki/XML">XML</a> encoding created by
 	 * {@link #encode(Object obj)} recovering the Object.
 	 * 
-	 * @param str
+	 * @param xml
 	 *            the String to decode
 	 * @return the object encoded in str.
 	 * @throws RuntimeException
@@ -49,8 +53,18 @@ public class SerialEncoderXStreamXML extends SerialEncoder {
 	 *
 	 */
 	@Override
-	public Object decode(String str) {
-		throw new RuntimeException("decode method not yet implemented"); // TODO
+	public Object decode(String xml) {
+		try {
+			XStream xstream = new XStream(new StaxDriver());
+			Object restore = xstream.fromXML(xml);
+			return restore;
+		} catch (Exception ex) {
+			// complex procedures! So catch any exception (a bit naughty) and
+			// recast it to Runtime with a meaningful prefix
+			throw new RuntimeException(
+					"Error in decodingXML string to an Object. Details: "
+							+ ex);
+		}
 	}
 
 }
