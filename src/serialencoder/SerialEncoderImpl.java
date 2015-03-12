@@ -9,7 +9,7 @@ package serialencoder;
  * @since 11 March 2015
  * 
  */
-public abstract class SerialEncoder {
+public abstract class SerialEncoderImpl {
 	/**
 	 * Converts the supplied obj to a string so that it can be subsequently
 	 * recovered by {@link #decode(String str)}.

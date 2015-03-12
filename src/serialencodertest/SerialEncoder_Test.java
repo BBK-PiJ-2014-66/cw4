@@ -13,7 +13,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-import serialencoder.SerialEncoder;
+import serialencoder.SerialEncoderImpl;
 import serialencoder.SerialEncoderJOSBASE64;
 import serialencoder.SerialEncoderXSTREAMXML;
 
@@ -37,7 +37,7 @@ public class SerialEncoder_Test {
 	}
 
 	@Parameter
-	public SerialEncoder sEncoder; // the Parameter
+	public SerialEncoderImpl sEncoder; // the Parameter
 
 	private TestPerson testperson = new TestPerson("John", 75);
 
