@@ -90,7 +90,7 @@ public class SerialEncoderImplJOSBASE64 extends SerialEncoderImpl {
 			// complex procedures! So catch any exception (a bit naughty) and
 			// recast it to Runtime with a meaningful prefix
 			throw new RuntimeException(
-					"Error in JOSBASE64 deserialization of string to contactManager. Details: "
+					"Error in JOSBASE64 deserialization of string to Object. Details: "
 							+ ex);
 
 		}

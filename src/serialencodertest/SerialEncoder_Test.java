@@ -62,7 +62,8 @@ public class SerialEncoder_Test {
 	 */
 	@Test
 	public void attemptRestoreFromNonsenseString() {
-		String require = "not sure what to check for yet"; // TODO
+		// The re-throw of exception includes "Details"
+		String require = "Details"; 
 		try {
 			sEncoder.decode("This string does not encode anything!");
 			fail("Attempt to restore Object from nonsense string\n"
