@@ -9,7 +9,7 @@ package serialencoder;
  * @since 11 March 2015
  * 
  */
-public abstract class SerialEncoderImpl implements SerialEncoder {
+public interface SerialEncoder {
 	/**
 	 * Converts the supplied obj to a string so that it can be subsequently
 	 * recovered by {@link #decode(String str)}.
@@ -21,7 +21,7 @@ public abstract class SerialEncoderImpl implements SerialEncoder {
 	 * @throws RuntimeException
 	 *             if there is any problem encoding the object
 	 */
-	public abstract String encode(Object obj);
+	String encode(Object obj);
 
 	/**
 	 * Decodes a string created by {@link #encode(Object obj)} recovering the
@@ -33,8 +33,7 @@ public abstract class SerialEncoderImpl implements SerialEncoder {
 	 * @throws RuntimeException
 	 *             if there is any problem decoding the string
 	 */
-	@Override
-	public abstract Object decode(String str);
+	Object decode(String str);
 
 	/**
 	 * saves the object to a file, so that it can be read at a later time by
@@ -48,10 +47,7 @@ public abstract class SerialEncoderImpl implements SerialEncoder {
 	 *             if there is any problem opening the file or encoding the
 	 *             object
 	 */
-	@Override
-	public void saveToFile(Object obj, String outFileName) {
-		throw new RuntimeException("not yet implemented"); // TODO
-	}
+	void saveToFile(Object obj, String outFileName);
 
 	/**
 	 * retrieves an object from a file created by {@link saveToFile}
@@ -60,9 +56,5 @@ public abstract class SerialEncoderImpl implements SerialEncoder {
 	 *            the name for the input file (must exist)
 	 * @return the Object encoded in the file
 	 */
-	@Override
-	public Object retreiveFromFile(String inFileName) {
-		throw new RuntimeException("not yet implemented"); // TODO
-	}
-
+	Object retreiveFromFile(String inFileName);
 }
