@@ -1,7 +1,12 @@
 package serialencoder;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Base64;
+
+import cw4.ContactManagerPlus;
 
 /**
  * 
@@ -31,7 +36,36 @@ public class SerialEncoderJOSBASE64 extends SerialEncoder {
 	 */
 	@Override
 	public String encode(Object obj) {
-		throw new RuntimeException("not yet implemented"); // TODO
+		/*
+		 * serialize the object, originally followed:
+		 * 
+		 * http://stackoverflow.com/questions/8887197/reliably
+		 * -convert-any-object-to-string-and-then-back-again
+		 * 
+		 * but this fails. So use base64 encoding instead as shown by
+		 * 
+		 * http://stackoverflow.com/questions/134492/how-to-serialize-an-object-into
+		 * -a-string
+		 * 
+		 * except use Java8 base64 encoding procedure following
+		 * 
+		 * http://blog.eyallupu.com/2013/11/base64-encoding-in-java-8.html
+		 */
+		String str = "";
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(obj);
+			oos.close();
+			str = Base64.getEncoder().encodeToString(baos.toByteArray());
+		} catch (Exception ex) {
+			// complex procedures! So catch any exception (a bit naughty) and
+			// recast it to Runtime with a meaningful prefix
+			throw new RuntimeException(
+					"Error in JOSBASE64 serialization of Object to a String. Details: "
+							+ ex);
+		}
+		return str;
 	}
 
 	/**
@@ -48,7 +82,21 @@ public class SerialEncoderJOSBASE64 extends SerialEncoder {
 	 */
 	@Override
 	public Object decode(String txt) {
-		throw new RuntimeException("not yet implemented"); // TODO
+		Object restore = null;
+		try {
+			byte data[] = Base64.getDecoder().decode(txt);
+			ByteArrayInputStream bais = new ByteArrayInputStream(data);
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			restore = ois.readObject();
+		} catch (Exception ex) {
+			// complex procedures! So catch any exception (a bit naughty) and
+			// recast it to Runtime with a meaningful prefix
+			throw new RuntimeException(
+					"Error in JOSBASE64 deserialization of string to contactManager. Details: "
+							+ ex);
+
+		}
+		return restore;
 	}
 
 }
