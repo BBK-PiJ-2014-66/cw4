@@ -3,7 +3,14 @@ package serialencodertest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 import serialencoder.SerialEncoder;
 import serialencoder.SerialEncoderXStreamXML;
@@ -15,10 +22,22 @@ import serialencoder.SerialEncoderXStreamXML;
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 12 March 2015
  * 
- */public class SerialEncoder_Test {
+ */
+@RunWith(Parameterized.class)
+public class SerialEncoder_Test {
 
+	
+	// Run same tests on the two classes
+	@Parameters
+	public static Collection<Object[]> data() {
+		Object[][] data = new Object[][] { { new SerialEncoderXStreamXML() },
+				 };
+		return Arrays.asList(data);
+	}
+	@Parameter
+	public SerialEncoder sEncoder; // the Parameter
+	
 	private TestPerson testperson = new TestPerson("John", 75);
-	private SerialEncoder sEncoder = new SerialEncoderXStreamXML();
 
 	@Test
 	public void testEncodeDecode() {
