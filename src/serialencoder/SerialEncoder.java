@@ -2,8 +2,8 @@ package serialencoder;
 
 /**
  * 
- * Provides methods to encode an Object to a String and to decode it back using
- * some form of serialization.
+ * Provides methods to encode an Object to a String or a file and to decode it
+ * back using some form of serialization.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 11 March 2015
@@ -15,8 +15,9 @@ public abstract class SerialEncoder {
 	 * recovered by {@link #decode(String str)}.
 	 * 
 	 * @param obj
-	 *            the object to encode (may need to be Serializable)
-	 * @return encoded form of the object
+	 *            the object to encode (may need to implement
+	 *            {@link java.io.Serializable})
+	 * @return encoded String containing information about the object
 	 * @throws RuntimeException
 	 *             if there is any problem encoding the object
 	 */
@@ -38,8 +39,10 @@ public abstract class SerialEncoder {
 	 * saves the object to a file, so that it can be read at a later time by
 	 * {@link retreiveFromFile}
 	 * 
-	 * @param obj the Object to be saved (may need to be Serializable)
-	 * @param outFileName the name for the output file
+	 * @param obj
+	 *            the Object to be saved (may need to be Serializable)
+	 * @param outFileName
+	 *            the name for the output file
 	 * @throws RuntimeException
 	 *             if there is any problem opening the file or encoding the
 	 *             object
@@ -51,7 +54,8 @@ public abstract class SerialEncoder {
 	/**
 	 * retrieves an object from a file created by {@link saveToFile}
 	 * 
-	 * @param inFileName the name for the input file (must exist)
+	 * @param inFileName
+	 *            the name for the input file (must exist)
 	 * @return the Object encoded in the file
 	 */
 	public Object retreiveFromFile(String inFileName) {
