@@ -58,6 +58,7 @@ public class SerialEncoder_Test {
  * Serializable needed for JOSBASE64 but not required for XStreamXML
  */
 class TestPerson implements Serializable {
+	private static final long serialVersionUID = 1L; // a must for Serializable
 	private String name;
 	private int age;
 
