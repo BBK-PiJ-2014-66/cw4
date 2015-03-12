@@ -3,8 +3,6 @@ package serialencoder;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
-import cw4.ContactManagerPlus;
-
 /**
  * Uses XStream <a
  * href="http://xstream.codehaus.org/">http://xstream.codehaus.org/</a> to
