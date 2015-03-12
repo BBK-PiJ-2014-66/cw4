@@ -14,8 +14,8 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 import serialencoder.SerialEncoderImpl;
-import serialencoder.SerialEncoderJOSBASE64;
-import serialencoder.SerialEncoderXSTREAMXML;
+import serialencoder.SerialEncoderImplJOSBASE64;
+import serialencoder.SerialEncoderImplXSTREAMXML;
 
 /**
  * 
@@ -31,8 +31,8 @@ public class SerialEncoder_Test {
 	// Run same tests on the two classes
 	@Parameters
 	public static Collection<Object[]> data() {
-		Object[][] data = new Object[][] { { new SerialEncoderXSTREAMXML() },
-				{ new SerialEncoderJOSBASE64() } };
+		Object[][] data = new Object[][] { { new SerialEncoderImplXSTREAMXML() },
+				{ new SerialEncoderImplJOSBASE64() } };
 		return Arrays.asList(data);
 	}
 

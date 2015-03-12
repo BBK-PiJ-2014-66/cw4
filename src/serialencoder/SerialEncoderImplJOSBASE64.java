@@ -17,7 +17,7 @@ import java.util.Base64;
  * @since 12 March 2015
  * 
  */
-public class SerialEncoderJOSBASE64 extends SerialEncoderImpl {
+public class SerialEncoderImplJOSBASE64 extends SerialEncoderImpl {
 
 	/**
 	 * Uses Java serialization using {@link java.io.ObjectOutputStream} and
