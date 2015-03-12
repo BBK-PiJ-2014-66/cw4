@@ -1,4 +1,5 @@
 package serialencoder;
+
 /**
  * 
  * Types of serialization provided
@@ -9,11 +10,13 @@ package serialencoder;
  */
 public enum SerialEncoderType {
 	/**
-	 * Java ObjectOutputStream ObjectInputStream encoded put through Base64 
+	 * Java serialization using {@link java.io.ObjectOutputStream} and
+	 * {@link java.io.ObjectInputStream} put through {@link java.util.Base64}
 	 */
 	JOSBASE64,
 	/**
-	 * XML created using <a href="http://xstream.codehaus.org/">XStream</a>
+	 * XML created using XStream <a
+	 * href="http://xstream.codehaus.org/">http://xstream.codehaus.org/</a>
 	 */
 	XSTREAMXML
 }
