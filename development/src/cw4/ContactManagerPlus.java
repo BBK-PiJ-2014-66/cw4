@@ -33,14 +33,6 @@ public interface ContactManagerPlus extends ContactManager, Serializable {
 	Calendar getPretendNow();
 
 	/**
-	 * Getter for fileSR used for saving the ContactManager to file
-	 * 
-	 * @return the FileSaveRetrieve object - useful to alter the file name to
-	 *         save to and/or the method used
-	 */
-	FileSaveRetrieve getFileSR();
-
-	/**
 	 * A simple getter for all contacts. Added it because it would be really
 	 * useful in actually writing a program!
 	 * 
