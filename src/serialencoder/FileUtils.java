@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.UncheckedIOException;
 
 /**
- * Static methods to save a string to a file and vice-versa.
- * package private as not intended for general use.
+ * Static methods to save a string to a file and vice-versa. package private as
+ * not intended for general use.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 13 March 2015
@@ -29,7 +30,7 @@ class FileUtils {
 	 *            the string to write
 	 * @param outFile
 	 *            the file to write to
-	 * @throws RuntimeException
+	 * @throws java.io.UncheckedIOException
 	 *             if there is an error creating the file
 	 */
 	static void stringToFile(String inStr, String outFile) {
@@ -37,8 +38,7 @@ class FileUtils {
 		try (PrintWriter pwout = new PrintWriter(outFile)) {
 			pwout.write(inStr);
 		} catch (FileNotFoundException ex) {
-			throw new RuntimeException("Error creating file '" + outFile
-					+ "' to write to. Exception details: " + ex);
+			throw new UncheckedIOException(ex);
 		}
 	}
 
@@ -49,6 +49,8 @@ class FileUtils {
 	 * @param inFile
 	 *            the file of the file
 	 * @return the contents of the file as a single string
+	 * @throws java.io.UncheckedIOException
+	 *             if there is an error opening the file
 	 */
 	static String fileContentsToString(String inFile) {
 		// adapted from sdp cw1 Translator (after bug fix) and Eckle
@@ -68,12 +70,9 @@ class FileUtils {
 				char asChar = (char) anInt;
 				stringBuilder.append(asChar);
 			}
-		} catch (FileNotFoundException ex) {
-			throw new RuntimeException("Error opening file '" + inFile
-					+ "' to read. Exception details: " + ex);
+
 		} catch (IOException ex) {
-			throw new RuntimeException("Error in read from file '" + inFile
-					+ "'. Exception details: " + ex);
+			throw new UncheckedIOException(ex);
 		}
 		return stringBuilder.toString();
 	}
