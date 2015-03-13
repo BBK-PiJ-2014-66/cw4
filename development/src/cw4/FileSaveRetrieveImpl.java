@@ -2,6 +2,10 @@ package cw4;
 
 import java.io.Serializable;
 
+import serialencoder.SerialEncoder;
+//import serialencoder.SerialEncoderImplJOSBASE64;
+import serialencoder.SerialEncoderImplXSTREAMXML;
+
 /**
  * 
  * Deals with saving {@link ContactManagerImpl} state to a string and or an
@@ -28,6 +32,21 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	private String fileName = "contacts.txt";
 
 	/**
+	 * The encoding to be used for the same to file. This is hard coded here.
+	 * 
+	 * For development version use XSTREAMXML (better)
+	 * 
+	 * For "production" (master to-be-marked) version use JOSBASE64
+	 * 
+	 * See <a href=
+	 * "https://github.com/BBK-PiJ-2014-66/cw4/wiki/Storing-data-to-string-file%3A-What-I-found-out-in-implementation"
+	 * >Project wiki page</a> for a comparison of methods
+	 */
+	private final SerialEncoder serialEncoder = new SerialEncoderImplXSTREAMXML();
+	// production:
+	//private final SerialEncoder serialEncoder = new SerialEncoderImplJOSBASE64();
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -49,12 +68,13 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 * @param contactManager
 	 *            the ContactManager to save
 	 * @throws RuntimeException
-	 *             if there is an error in encoding the contactManager or in
-	 *             opening the file or writing to it.
+	 *             if there is an error in encoding the contactManager
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or writing to the file
 	 */
 	@Override
 	public void saveToFile(ContactManagerPlus contactManager) {
-		throw new RuntimeException("saveToFile() needs new implementation"); // TODO
+		serialEncoder.saveToFile(contactManager, fileName);
 	}
 
 	/**

@@ -27,13 +27,14 @@ public interface FileSaveRetrieve {
 	String getFileName();
 
 	/**
-	 * Saves the contactManager to the current fileName
+		 * Saves the contactManager to the current {@link #fileName}
 	 * 
 	 * @param contactManager
 	 *            the ContactManager to save
 	 * @throws RuntimeException
-	 *             if there is an error in encoding the contactManager or in
-	 *             opening the file or writing to it.
+	 *             if there is an error in encoding the contactManager
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or writing to the file
 	 */
 	void saveToFile(ContactManagerPlus contactManager);
 
