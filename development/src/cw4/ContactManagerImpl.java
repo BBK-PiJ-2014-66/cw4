@@ -52,23 +52,20 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	/**
 	 * construct a brand new ContactManager with no attempt to read from a save
 	 * state file. Call to {@link #flush flush()} will save state to the default
-	 * filename "contacts.txt" using SERIALIZATION method. Use another
-	 * constructor to override defaults.
+	 * filename "contacts.txt".
 	 */
 	public ContactManagerImpl() {
 		contacts = new ArrayList<>();
 		futureMeetings = new ArrayList<>();
 		pastMeetings = new ArrayList<>();
-		fileSR.setFileName("contacts.txt"); // default save fileName
-		fileSR.setMethod(FileSaveRetrieveMethod.SERIALIZATION);
 	}
 
 	/**
-	 * Construct the contact manager with data from a SERIALIZATION
-	 * save-state-file. N.B. this file will normally be overwritten when
-	 * {@link #flush flush()} method is later called to save the state. Note
-	 * that the retrieved file name got from the save-state-file is ignored and
-	 * the argument fileName will be used.
+	 * Construct the contact manager with data from a save-state-file. N.B. this
+	 * file will normally be overwritten when {@link #flush flush()} method is
+	 * later called to save the state. Note that the retrieved file name got
+	 * from the save-state-file is ignored and the argument fileName will be
+	 * used.
 	 * 
 	 * @param fileName
 	 *            the save-state-file name
@@ -78,23 +75,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 *             or decoding the object
 	 */
 	public ContactManagerImpl(String fileName) {
-		this(fileName, FileSaveRetrieveMethod.SERIALIZATION);
-	}
-
-	/**
-	 * Construct the contact manager with data from a save-state-file. N.B. this
-	 * file will normally be overwritten when {@link #flush flush()} method is
-	 * later called to save the state. Note that the retrieved file name got
-	 * from the file is ignored and the argument fileName will be used instead.
-	 * 
-	 * @param fileName
-	 *            the save-state-file name
-	 * @param fSRMethod
-	 *            the method used to create the save-state-file
-	 */
-	public ContactManagerImpl(String fileName, FileSaveRetrieveMethod fSRMethod) {
 		fileSR.setFileName(fileName);
-		fileSR.setMethod(fSRMethod);
 		ContactManagerImpl retrieve = (ContactManagerImpl) fileSR
 				.retrieveFromFile();
 		contacts = retrieve.contacts;
@@ -477,14 +458,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	@Override
 	public Calendar getPretendNow() {
 		return pretendNow;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public FileSaveRetrieve getFileSR() {
-		return fileSR;
 	}
 
 	/*
