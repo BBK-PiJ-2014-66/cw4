@@ -45,7 +45,7 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	/* development version: uncomment next line */
 	new SerialEncoderImplXSTREAMXML();
 	/* production version: uncomment next line */
-	//new SerialEncoderImplJOSBASE64();
+	// new SerialEncoderImplJOSBASE64();
 
 	/**
 	 * {@inheritDoc}
@@ -93,5 +93,10 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	@Override
 	public ContactManagerPlus retrieveFromFile() {
 		return (ContactManagerPlus) serialEncoder.retreiveFromFile(fileName);
+		/*
+		 * tidy up after restoration by register all id's read to make sure they
+		 * will not be issued twice. This is difficult to unit test as it
+		 * depends on the state of the singleton IdGenerator
+		 */// TODO put this back in!
 	}
 }

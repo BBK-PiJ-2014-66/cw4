@@ -27,7 +27,6 @@ import cw4.ContactImpl;
 import cw4.ContactManager;
 import cw4.ContactManagerImpl;
 import cw4.ContactManagerPlus;
-import cw4.FileSaveRetrieveMethod;
 import cw4.FutureMeeting;
 import cw4.Meeting;
 import cw4.PastMeeting;
@@ -663,26 +662,6 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * idea test constructor load from "testfiles/contacts.xml" this is a XML
-	 * file written as file "fileSaveRetrieveTest.xml" by the test
-	 * {@link test.FileSaveRetrieveTest#saveStateToFileName()}
-	 * 
-	 */
-	@Test
-	public void testContactManagerFrom_Test_ContactsDotXML() {
-		String testFile = "testfiles/contacts.xml";
-		ContactManagerPlus retrieveCMP = new ContactManagerImpl(testFile,
-				FileSaveRetrieveMethod.XML);
-		// just check number of contacts, # meetings and override date
-		assertThat("retrieve contact manager from '" + testFile + "\n"
-				+ "This has three contacts.", retrieveCMP.getAllContacts()
-				.size(), is(3));
-		assertThat("retrieve contact manager from '" + testFile + "\n"
-				+ "This has pretendNow 13 Mar 2014.", retrieveCMP
-				.getPretendNow().getTime(), is(nowCal.getTime()));
-	}
-
-	/**
 	 * test flush produces a file 'contacts.txt' as per spec and that an
 	 * identical contact manager can read from the file. Simulates the
 	 * Assignment 4 scenario:
@@ -693,10 +672,6 @@ public class ContactManagerImplTest {
 	 */
 	@Test
 	public void testFlushToContacts_Txt_and_retrieve() {
-		// standardCMP has been constructed using no argument constructor so
-		// flush should
-		// write to contacts.txt
-
 		// first test that file does not exist already
 		File file = new File("contacts.txt");
 		if (file.isFile()) { // file already exists
@@ -730,51 +705,6 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * like previous test but use XML to file "temp.xml"
-	 */
-	@Test
-	public void testFlushToTemp_xml_and_retrieve() {
-		File file = new File("temp.xml");
-		// standardCMP has been constructed using no argument constructor so
-		// so by default flush with SERIALIZE to contacts.txt.
-		// Use the getter for its FileSaveRetrive object to override defaults
-		standardCMP.getFileSR().setFileName(file + "");
-		standardCMP.getFileSR().setMethod(FileSaveRetrieveMethod.XML);
-
-		// first test that the file does not exist already
-		if (file.isFile()) {
-			fail("\nCannot run testFlushToContacts_Txt_and_retrieve\n"
-					+ "because file " + file + " already exists.\n"
-					+ "please remove this file and rerun test.");
-		}
-
-		standardCMP.flush();
-		if (!file.isFile()) {
-			fail("\nstandardCMP.flush() failed to produce expected\n"
-					+ "output file " + file);
-		}
-
-		// retrieve contents as XML
-		ContactManagerPlus retrieveCMP = new ContactManagerImpl(file + "",
-				FileSaveRetrieveMethod.XML);
-
-		// clean up removing file ASAP in case of failure
-		if (file.isFile()) { // file already exists
-			// remove the file
-			try {
-				Files.delete(file.toPath());
-			} catch (IOException ex) {
-				fail("\nTest failed because could not delete file: " + file
-						+ "\n" + "Exception detail: " + ex);
-			}
-		}
-
-		// Use standardised checks on restoration
-		FileSaveRetrieveTest.checkRestoreCMP(standardCMP, retrieveCMP);
-
-	}
-
-	/**
 	 * Provides a standard test filled CMP for unit tests.
 	 * 
 	 * @return a Contact manager with contact, future Meetings
@@ -796,10 +726,10 @@ public class ContactManagerImplTest {
 		Calendar cal7am = (Calendar) futureCal.clone();
 		cal7am.set(Calendar.HOUR_OF_DAY, 7);
 		filledCMP.addFutureMeeting(testContacts, cal7am);
-
+	
 		// and a past meeting
 		filledCMP.addNewPastMeeting(testContacts, pastCal, "the meeting was..");
-
+	
 		// to keep track of everything print to console
 		// System.out.println("debug standardFilledCMP:" + filledCMP);
 		return filledCMP;
