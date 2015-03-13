@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Base64;
 
 /**
@@ -17,7 +18,8 @@ import java.util.Base64;
  * @since 12 March 2015
  * 
  */
-public class SerialEncoderImplJOSBASE64 extends SerialEncoderImpl {
+public class SerialEncoderImplJOSBASE64 extends SerialEncoderImpl implements
+		Serializable {
 
 	/**
 	 * Uses Java serialization using {@link java.io.ObjectOutputStream} and
