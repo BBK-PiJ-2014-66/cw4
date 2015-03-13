@@ -43,8 +43,10 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 * >Project wiki page</a> for a comparison of methods
 	 */
 	private final SerialEncoder serialEncoder = new SerialEncoderImplXSTREAMXML();
+
 	// production:
-	//private final SerialEncoder serialEncoder = new SerialEncoderImplJOSBASE64();
+	// private final SerialEncoder serialEncoder = new
+	// SerialEncoderImplJOSBASE64();
 
 	/**
 	 * {@inheritDoc}
@@ -83,12 +85,14 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 * {@link #saveToFile(ContactManagerPlus contactManager) saveToFile}.
 	 * 
 	 * @return the contactManagerPlus encoded in the input string
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or reading from the file
 	 * @throws RuntimeException
 	 *             if there is a problem in opening the file, reading from it or
 	 *             decoding the object
 	 */
 	@Override
 	public ContactManagerPlus retrieveFromFile() {
-		throw new RuntimeException("retriveToFile() needs new implementation"); // TODO
+		return (ContactManagerPlus) serialEncoder.retreiveFromFile(fileName);
 	}
 }
