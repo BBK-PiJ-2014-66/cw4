@@ -3,7 +3,7 @@ package cw4;
 import java.io.Serializable;
 
 import serialencoder.SerialEncoder;
-//import serialencoder.SerialEncoderImplJOSBASE64;
+import serialencoder.SerialEncoderImplJOSBASE64;
 import serialencoder.SerialEncoderImplXSTREAMXML;
 
 /**
@@ -42,11 +42,11 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 * "https://github.com/BBK-PiJ-2014-66/cw4/wiki/Storing-data-to-string-file%3A-What-I-found-out-in-implementation"
 	 * >Project wiki page</a> for a comparison of methods
 	 */
-	private final SerialEncoder serialEncoder = new SerialEncoderImplXSTREAMXML();
-
-	// production:
-	// private final SerialEncoder serialEncoder = new
-	// SerialEncoderImplJOSBASE64();
+	private final SerialEncoder serialEncoder =
+	/* development version: uncomment next line */
+	// new SerialEncoderImplXSTREAMXML();
+	/* production version: uncomment next line */
+	new SerialEncoderImplJOSBASE64();
 
 	/**
 	 * {@inheritDoc}
