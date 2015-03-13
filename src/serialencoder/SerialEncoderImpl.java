@@ -50,7 +50,8 @@ public abstract class SerialEncoderImpl implements SerialEncoder {
 	 */
 	@Override
 	public void saveToFile(Object obj, String outFileName) {
-		throw new RuntimeException("not yet implemented"); // TODO
+		String encoded = encode(obj); // implemented in daughter class.
+		FileUtils.stringToFile(encoded, outFileName);
 	}
 
 	/**
