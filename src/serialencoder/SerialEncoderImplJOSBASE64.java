@@ -20,6 +20,13 @@ import java.util.Base64;
  */
 public class SerialEncoderImplJOSBASE64 extends SerialEncoderImpl implements
 		Serializable {
+	
+	/**
+	 * Needed for Serializable to throw an error if asked to decoded a previous
+	 * incompatible version. Need to increment if this class is changed as it is
+	 * not backwards compatible with its previous version.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Uses Java serialization using {@link java.io.ObjectOutputStream} and
