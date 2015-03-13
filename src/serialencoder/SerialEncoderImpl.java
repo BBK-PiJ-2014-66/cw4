@@ -63,7 +63,8 @@ public abstract class SerialEncoderImpl implements SerialEncoder {
 	 */
 	@Override
 	public Object retreiveFromFile(String inFileName) {
-		throw new RuntimeException("retreiveFromFile not yet implemented"); // TODO
+		String strFromFile = FileUtils.fileContentsToString(inFileName);
+		return decode(strFromFile);
 	}
 
 }
