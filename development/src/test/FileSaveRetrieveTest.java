@@ -10,24 +10,17 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
 
 import cw4.Contact;
 import cw4.ContactManagerPlus;
 import cw4.FileSaveRetrieve;
 import cw4.FileSaveRetrieveImpl;
-import cw4.FileSaveRetrieveMethod;
 
 /**
  * 
@@ -37,33 +30,8 @@ import cw4.FileSaveRetrieveMethod;
  * @since 25 February 2015
  * 
  */
-@RunWith(Parameterized.class)
 public class FileSaveRetrieveTest {
 
-	/*
-	 * Want to run the same tests using FileSaveRetrieveMethod.XML and
-	 * FileSaveRetrieveMethod.SERIALIZATION do so using parameterized tests
-	 * following
-	 * 
-	 * http://www.vogella.com/tutorials/JUnit/article.html#
-	 * junitadvanced_parameterizedtests
-	 * 
-	 * https://github.com/junit-team/junit/wiki/Parameterized-tests
-	 */
-
-	// creates the test data
-	@Parameters
-	public static Collection<Object[]> data() {
-
-		Object[][] data = new Object[][] { { FileSaveRetrieveMethod.XML },
-				{ FileSaveRetrieveMethod.SERIALIZATION } };
-
-		return Arrays.asList(data);
-
-	}
-
-	@Parameter
-	public FileSaveRetrieveMethod method;
 
 	private FileSaveRetrieve fileSaveRetrieve;
 	private String fileName;
@@ -71,13 +39,8 @@ public class FileSaveRetrieveTest {
 
 	@Before
 	public void init() {
-		// parameterized part
 		fileSaveRetrieve = new FileSaveRetrieveImpl();
-		fileSaveRetrieve.setMethod(method);
-		if (method == FileSaveRetrieveMethod.XML)
-			fileName = "testfiles/fileSaveRetrieveTest.xml";
-		else
-			fileName = "testfiles/fileSaveRetrieveTest.txt";
+		fileName = "testfiles/fileSaveRetrieveTest.txt";
 		fileSaveRetrieve.setFileName(fileName);
 
 		// provide a decent contact manager to save/retrieve
@@ -91,77 +54,6 @@ public class FileSaveRetrieveTest {
 		Set<Contact> everyone = testCMP.getContacts(" ");
 		testCMP.addNewPastMeeting(everyone, new GregorianCalendar(1805,
 				Calendar.OCTOBER, 21), "Battle of Trafalgar");
-	}
-
-	/**
-	 * Test saving state to a string and creating a new ContactManagerPlus from
-	 * that string compare data returned with the original. See last commented
-	 * out test for possible bug in
-	 * {@link cw4.PastMeetingImpl#equals(Object obj)}
-	 */
-	@Test
-	public void saveToStringAndRestore() {
-		String str = fileSaveRetrieve.saveToString(testCMP);
-
-		assertNotNull(
-				"\n.saveToString( ContactManagerPlus) failed as it returned null,",
-				str);
-
-		ContactManagerPlus restoreCMP = fileSaveRetrieve
-				.retrieveFromString(str);
-
-		// run a set of standard checks that they are the same
-		checkRestoreCMP(testCMP, restoreCMP);
-
-	}
-
-	/**
-	 * Test that we get a RuntimeException after restoring from nonsense string.
-	 * Furthermore it should have a meaningful exception message it should
-	 * contain "string to contactManager" as it should have been recast.
-	 */
-	@Test
-	public void attemptRestoreFromNonsenseString() {
-		String require = "string to contactManager";
-		try {
-			fileSaveRetrieve
-					.retrieveFromString("No ContactManagerPlus in this string!");
-			fail("Attempt to restore ContactManager from nonsense string\n"
-					+ "failed to produce a RuntimeException");
-
-		} catch (RuntimeException ex) {
-			assertTrue(
-					"Attempt to restore ContactManager from nonsense string\n"
-							+ "Failure of test that exception message contains '"
-							+ require + "'\n" + "Exception message is:\n " + ex,
-					ex.toString().contains(require));
-		}
-
-	}
-
-	/**
-	 * further check that corrupting string by truncation produces reasonable
-	 * exception message
-	 */
-	@Test
-	public void attemptRestoreFromTruncatedString() {
-		String require = "string to contactManager";
-		try {
-			String str = fileSaveRetrieve.saveToString(testCMP);
-			// truncate string by half
-			str = str.substring(0, str.length() / 2);
-			fileSaveRetrieve.retrieveFromString(str);
-			fail("Attempt to restore ContactManager from truncated string\n"
-					+ "failed to produce a RuntimeException");
-
-		} catch (RuntimeException ex) {
-			assertTrue(
-					"Attempt to restore ContactManager from truncated string\n"
-							+ "Failure of test that exception message contains '"
-							+ require + "'\n" + "Exception message is:\n " + ex,
-					ex.toString().contains(require));
-		}
-
 	}
 
 	/**
