@@ -3,7 +3,6 @@ package cw4;
 import java.io.Serializable;
 
 import serialencoder.SerialEncoder;
-import serialencoder.SerialEncoderImplJOSBASE64;
 import serialencoder.SerialEncoderImplXSTREAMXML;
 
 /**
@@ -44,9 +43,9 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 */
 	private final SerialEncoder serialEncoder =
 	/* development version: uncomment next line */
-	// new SerialEncoderImplXSTREAMXML();
+	new SerialEncoderImplXSTREAMXML();
 	/* production version: uncomment next line */
-	new SerialEncoderImplJOSBASE64();
+	//new SerialEncoderImplJOSBASE64();
 
 	/**
 	 * {@inheritDoc}
