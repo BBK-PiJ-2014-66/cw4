@@ -43,9 +43,10 @@ public interface SerialEncoder {
 	 *            the Object to be saved (may need to be Serializable)
 	 * @param outFileName
 	 *            the name for the output file
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or writing to the file
 	 * @throws RuntimeException
-	 *             if there is any problem opening the file or encoding the
-	 *             object
+	 *             if there is a problem in encoding the object
 	 */
 	void saveToFile(Object obj, String outFileName);
 
@@ -55,6 +56,10 @@ public interface SerialEncoder {
 	 * @param inFileName
 	 *            the name for the input file (must exist)
 	 * @return the Object encoded in the file
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or reading from the file
+	 * @throws RuntimeException
+	 *             if there is a problem in decoding the object
 	 */
 	Object retreiveFromFile(String inFileName);
 }
