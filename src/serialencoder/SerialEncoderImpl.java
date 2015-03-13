@@ -63,7 +63,7 @@ public abstract class SerialEncoderImpl implements SerialEncoder {
 	 */
 	@Override
 	public Object retreiveFromFile(String inFileName) {
-		throw new RuntimeException("not yet implemented"); // TODO
+		throw new RuntimeException("retreiveFromFile not yet implemented"); // TODO
 	}
 
 }

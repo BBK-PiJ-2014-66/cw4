@@ -56,7 +56,9 @@ public class SerialEncoder_Test {
 	public void testEncodeDecode() {
 		String encoded = sEncoder.encode(testperson);
 		TestPerson decoded = (TestPerson) sEncoder.decode(encoded);
-		assertThat(decoded.toString(), is(testperson.toString()));
+		assertThat("\nencode testperson to a string and then decode this\n"
+				+ "must get back the same person information as was put in",
+				decoded.toString(), is(testperson.toString()));
 	}
 
 	/**
@@ -67,7 +69,7 @@ public class SerialEncoder_Test {
 	@Test
 	public void attemptRestoreFromNonsenseString() {
 		// The re-throw of exception includes "Details"
-		String require = "Details"; 
+		String require = "Details";
 		try {
 			sEncoder.decode("This string does not encode anything!");
 			fail("Attempt to restore Object from nonsense string\n"
@@ -81,7 +83,7 @@ public class SerialEncoder_Test {
 		}
 
 	}
-	
+
 	/**
 	 * Save state to fileName
 	 * 
@@ -102,15 +104,24 @@ public class SerialEncoder_Test {
 						+ "\n" + "Exception detail: " + ex);
 			}
 		}
-
 		// save our test contact manage object to the file
 		sEncoder.saveToFile(testperson, fileName);
-
 		assertTrue("\n.saveToFile(testperson) has failed to create\n"
 				+ " the save-state file: '" + fileName + "'", file.isFile());
-
 	}
 
+	/**
+	 * retrieve state from file fileName
+	 * 
+	 */
+	@Test
+	public void retrieveStateFromFileName() {
+		saveStateToFileName(); // run previous test to create the file
+		TestPerson getBack = (TestPerson) sEncoder.retreiveFromFile(fileName);
+		assertThat("\nsave testperson to a file and then retrieve to getBack\n"
+				+ "getBack must have the same person information as was put in.",
+				getBack.toString(), is(testperson.toString()));
+	}
 
 }
 
