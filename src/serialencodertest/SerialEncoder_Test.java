@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collection;
@@ -118,9 +119,27 @@ public class SerialEncoder_Test {
 	public void retrieveStateFromFileName() {
 		saveStateToFileName(); // run previous test to create the file
 		TestPerson getBack = (TestPerson) sEncoder.retreiveFromFile(fileName);
-		assertThat("\nsave testperson to a file and then retrieve to getBack\n"
-				+ "getBack must have the same person information as was put in.",
+		assertThat(
+				"\nsave testperson to a file and then retrieve to getBack\n"
+						+ "getBack must have the same person information as was put in.",
 				getBack.toString(), is(testperson.toString()));
+	}
+
+	/**
+	 * try to write to a file that cannot be opened this should produce a
+	 * UncheckedIOException exception
+	 */
+	@Test (expected = UncheckedIOException.class)
+	public void retrieveFromFileThatCannotBeOpened() {
+		/*
+		 * Want a file than will cause an IOException on any OS so use all the
+		 * nasties. See
+		 * http://stackoverflow.com/questions/1976007/what-characters
+		 * -are-forbidden-in-windows-and-linux-directory-names
+		 */
+
+		String illegalFileName = "////*.\"[]:;|=,\0";
+		sEncoder.saveToFile(testperson, illegalFileName);
 	}
 
 }
