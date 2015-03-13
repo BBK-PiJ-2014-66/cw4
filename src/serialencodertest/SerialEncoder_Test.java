@@ -129,8 +129,8 @@ public class SerialEncoder_Test {
 	 * try to write to a file that cannot be opened this should produce a
 	 * UncheckedIOException exception
 	 */
-	@Test (expected = UncheckedIOException.class)
-	public void retrieveFromFileThatCannotBeOpened() {
+	@Test(expected = UncheckedIOException.class)
+	public void saveToFileThatCannotBeOpened() {
 		/*
 		 * Want a file than will cause an IOException on any OS so use all the
 		 * nasties. See
@@ -140,6 +140,15 @@ public class SerialEncoder_Test {
 
 		String illegalFileName = "////*.\"[]:;|=,\0";
 		sEncoder.saveToFile(testperson, illegalFileName);
+	}
+
+	/**
+	 * Should get a UncheckedIOException retrieving from a file that cannot be
+	 * opened
+	 */
+	@Test(expected = UncheckedIOException.class)
+	public void retrieveFromNonexistentFile() {
+		sEncoder.retreiveFromFile("no file will exist with this name!");
 	}
 
 }
