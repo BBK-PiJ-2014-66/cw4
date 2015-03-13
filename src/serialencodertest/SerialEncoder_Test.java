@@ -46,7 +46,7 @@ public class SerialEncoder_Test {
 	public SerialEncoder sEncoder; // the Parameter
 
 	private TestPerson testperson = new TestPerson("John", 75);
-	private String fileName = "test.txt";
+	private String fileName = "testfiles/serialencoder_test.txt";
 
 	/**
 	 * test for normal behaviour encode to string and decode check we get back

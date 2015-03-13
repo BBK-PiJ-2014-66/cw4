@@ -15,3 +15,4 @@ hs_err_pid*
 .settings/
 *~
 fileSaveRetrieveTest.*
+serialencode_test.txt
