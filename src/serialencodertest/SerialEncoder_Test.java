@@ -5,7 +5,10 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -43,6 +46,7 @@ public class SerialEncoder_Test {
 	public SerialEncoder sEncoder; // the Parameter
 
 	private TestPerson testperson = new TestPerson("John", 75);
+	private String fileName = "test.txt";
 
 	/**
 	 * test for normal behaviour encode to string and decode check we get back
@@ -77,6 +81,36 @@ public class SerialEncoder_Test {
 		}
 
 	}
+	
+	/**
+	 * Save state to fileName
+	 * 
+	 * want to be able to run separately from
+	 * {@link #retrieveStateFromFileName()} so that can examine / copy file
+	 * created
+	 */
+	@Test
+	public void saveStateToFileName() {
+		File file = new File(fileName);
+
+		if (file.isFile()) { // file already exists
+			// remove the file
+			try {
+				Files.delete(file.toPath());
+			} catch (IOException ex) {
+				fail("\nTest failed because could not delete file: " + file
+						+ "\n" + "Exception detail: " + ex);
+			}
+		}
+
+		// save our test contact manage object to the file
+		sEncoder.saveToFile(testperson, fileName);
+
+		assertTrue("\n.saveToFile(testperson) has failed to create\n"
+				+ " the save-state file: '" + fileName + "'", file.isFile());
+
+	}
+
 
 }
 
