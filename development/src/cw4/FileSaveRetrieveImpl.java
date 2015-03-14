@@ -94,8 +94,13 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	@Override
 	public ContactManagerPlus retrieveFromFile() {
 		Object objRestore = serialEncoder.retreiveFromFile(fileName);
-		// TODO check for casting exception on next line?
-		ContactManagerPlus restore = (ContactManagerPlus) objRestore;
+		ContactManagerPlus restore;
+		try { // check for casting exception (belt and braces)
+			restore = (ContactManagerPlus) objRestore;
+		} catch (ClassCastException ex) {
+			throw new RuntimeException("Problem casting decoded object.\n "
+					+ "Details: " + ex);
+		}		
 		/*
 		 * tidy up after restoration by register all id's read to make sure they
 		 * will not be issued twice. This is difficult to unit test as it
