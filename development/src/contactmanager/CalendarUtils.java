@@ -9,7 +9,7 @@ import java.util.Calendar;
  * @since 02 March 2015
  * 
  */
-public class CalendarUtils {
+class CalendarUtils {
 
 	private CalendarUtils() {
 		throw new UnsupportedOperationException("Uninstantiable class");
@@ -26,7 +26,7 @@ public class CalendarUtils {
 	 *            the second calendar time
 	 * @return true if the dates match, false otherwise
 	 */
-	public static boolean sameDate(Calendar calA, Calendar calB) {
+	static boolean sameDate(Calendar calA, Calendar calB) {
 		boolean match = true;
 		if (calA.get(Calendar.YEAR) != calB.get(Calendar.YEAR)) {
 			match = false;
