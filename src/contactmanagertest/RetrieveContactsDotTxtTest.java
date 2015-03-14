@@ -1,4 +1,4 @@
-package test;
+package contactmanagertest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -16,7 +16,7 @@ import contactmanager.ContactManagerPlus;
  * 
  * idea test constructor load from "testfiles/contacts.txt" this is written as
  * file "fileSaveRetrieveTest.txt" by the test
- * {@link test.FileSaveRetrieveTest#saveStateToFileName()}
+ * {@link contactmanagertest.FileSaveRetrieveTest#saveStateToFileName()}
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015

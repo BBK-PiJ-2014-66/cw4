@@ -1,4 +1,4 @@
-package test;
+package contactmanagertest;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;

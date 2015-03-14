@@ -1,4 +1,4 @@
-package test;
+package contactmanagertest;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
