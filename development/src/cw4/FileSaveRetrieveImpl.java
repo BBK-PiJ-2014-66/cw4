@@ -44,6 +44,7 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	private final SerialEncoder serialEncoder =
 	/* development version: uncomment next line */
 	new SerialEncoderImplXSTREAMXML();
+
 	/* production version: uncomment next line */
 	// new SerialEncoderImplJOSBASE64();
 
@@ -92,11 +93,29 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 */
 	@Override
 	public ContactManagerPlus retrieveFromFile() {
-		return (ContactManagerPlus) serialEncoder.retreiveFromFile(fileName);
+		Object objRestore = serialEncoder.retreiveFromFile(fileName);
+		// TODO check for casting exception on next line?
+		ContactManagerPlus restore = (ContactManagerPlus) objRestore;
 		/*
 		 * tidy up after restoration by register all id's read to make sure they
 		 * will not be issued twice. This is difficult to unit test as it
 		 * depends on the state of the singleton IdGenerator
-		 */// TODO put this back in!
+		 */
+		if (restore == null) {
+			throw new RuntimeException("retrieveFromFile resulted in"
+					+ " null ContactManagerPlus.");
+		} else {
+			for (Contact itCon : restore.getAllContacts()) {
+				int id = itCon.getId();
+				IdGenerator.CONTACT.registerExistingID(id);
+			}
+			for (FutureMeeting itFM : restore.getAllFutureMeetings()) {
+				IdGenerator.MEETING.registerExistingID(itFM.getId());
+			}
+			for (PastMeeting itPM : restore.getAllPastMeetings()) {
+				IdGenerator.MEETING.registerExistingID(itPM.getId());
+			}
+		}
+		return restore;
 	}
 }
