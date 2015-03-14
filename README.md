@@ -10,7 +10,7 @@
 
 ## JavaDoc
 
-[Online version of JavaDoc for project](http://bbk-pij-2014-66.github.io/cw4/javadoc/), public interfaces for the [development](https://github.com/BBK-PiJ-2014-66/cw4/tree/development version rather than the _to-be-marked-lite_ version
+[Online version of JavaDoc for project](http://bbk-pij-2014-66.github.io/cw4/javadoc/), public interfaces for the [development](https://github.com/BBK-PiJ-2014-66/cw4/tree/development) version rather than the _to-be-marked-lite_ version
 
 
 ## Guide to source code
@@ -50,6 +50,6 @@ Nice thing as same code can provide separate ID's for Contacts and Meetings.
 
 #### Implementation & Tests
 * [SerialEncoderImplJOSBASE64](src/serialencoder/SerialEncoderImplJOSBASE64.java) uses Java serialization using `ObjectOutputStream` and `ObjectInputStream` put through Base64.
-* ~~[SerialEncoderImplXSTREAMXML](src/serialencoder/SerialEncoderImplXSTREAMXML.java) uses  [XStream](http://xstream.codehaus.org/) to serialize to XML format.~~ *REMOVED*
-* ~~Both~~ The remaining implementation~s are~ is tested by parameterized test [SerialEncoder_Test](src/serialencodertest/SerialEncoder_Test.java).
+* ~~[SerialEncoderImplXSTREAMXML](src/serialencoder/SerialEncoderImplXSTREAMXML.java) uses  [XStream](http://xstream.codehaus.org/) to serialize to XML format.~~ *REMOVED in lite version*
+* ~~Both~~ The remaining implementation~~s are~~ is tested by parameterized test [SerialEncoder_Test](src/serialencodertest/SerialEncoder_Test.java).
 
