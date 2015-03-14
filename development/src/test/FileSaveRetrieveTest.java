@@ -17,10 +17,10 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import cw4.Contact;
-import cw4.ContactManagerPlus;
-import cw4.FileSaveRetrieve;
-import cw4.FileSaveRetrieveImpl;
+import contactmanager.Contact;
+import contactmanager.ContactManagerPlus;
+import contactmanager.FileSaveRetrieve;
+import contactmanager.FileSaveRetrieveImpl;
 
 /**
  * 

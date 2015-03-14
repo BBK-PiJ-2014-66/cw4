@@ -8,8 +8,8 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import cw4.ContactManagerImpl;
-import cw4.ContactManagerPlus;
+import contactmanager.ContactManagerImpl;
+import contactmanager.ContactManagerPlus;
 
 /**
  * Single test run in isolation:

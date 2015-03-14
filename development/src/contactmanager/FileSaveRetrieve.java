@@ -1,4 +1,4 @@
-package cw4;
+package contactmanager;
 
 /**
  * 

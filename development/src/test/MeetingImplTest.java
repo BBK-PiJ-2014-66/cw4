@@ -7,10 +7,10 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import cw4.Contact;
-import cw4.ContactImpl;
-import cw4.Meeting;
-import cw4.MeetingImpl;
+import contactmanager.Contact;
+import contactmanager.ContactImpl;
+import contactmanager.Meeting;
+import contactmanager.MeetingImpl;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;

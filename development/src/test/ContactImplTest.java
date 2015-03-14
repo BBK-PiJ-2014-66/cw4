@@ -6,8 +6,8 @@ import static org.hamcrest.CoreMatchers.not;
 
 import org.junit.Test;
 
-import cw4.Contact;
-import cw4.ContactImpl;
+import contactmanager.Contact;
+import contactmanager.ContactImpl;
 
 /**
  * JUnit tests for ContactImpl implementation of Contact. 

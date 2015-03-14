@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import static cw4.CalendarUtils.sameDate;
+import static contactmanager.CalendarUtils.sameDate;
 /**
  * Unit tests of CalendarUtils
  * 

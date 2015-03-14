@@ -10,10 +10,10 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import cw4.Contact;
-import cw4.ContactImpl;
-import cw4.PastMeeting;
-import cw4.PastMeetingImpl;
+import contactmanager.Contact;
+import contactmanager.ContactImpl;
+import contactmanager.PastMeeting;
+import contactmanager.PastMeetingImpl;
 
 /**
  * JUnit tests for PastMeetingImpl.

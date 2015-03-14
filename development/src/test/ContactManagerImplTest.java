@@ -22,14 +22,14 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import cw4.Contact;
-import cw4.ContactImpl;
-import cw4.ContactManager;
-import cw4.ContactManagerImpl;
-import cw4.ContactManagerPlus;
-import cw4.FutureMeeting;
-import cw4.Meeting;
-import cw4.PastMeeting;
+import contactmanager.Contact;
+import contactmanager.ContactImpl;
+import contactmanager.ContactManager;
+import contactmanager.ContactManagerImpl;
+import contactmanager.ContactManagerPlus;
+import contactmanager.FutureMeeting;
+import contactmanager.Meeting;
+import contactmanager.PastMeeting;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
