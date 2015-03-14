@@ -9,7 +9,7 @@ import java.util.Base64;
 
 /**
  * 
- * Uses * Java serialization using {@link java.io.ObjectOutputStream} and
+ * Uses Java serialization using {@link java.io.ObjectOutputStream} and
  * {@link java.io.ObjectInputStream} put through {@link java.util.Base64} to
  * serialize to TXT format. Note that it requires the Object and underlying
  * Objects to implement {@link java.io.Serializable}.

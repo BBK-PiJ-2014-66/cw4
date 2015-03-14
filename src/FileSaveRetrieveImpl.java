@@ -10,8 +10,8 @@ import serialencoder.SerialEncoderImplJOSBASE64;
  * Deals with saving {@link ContactManagerImpl} state to a string and or an
  * external text file.
  * 
- * This development version uses {@link serialencoder.SerialEncoderImplXSTREAMXML} to produce <a
- * href="http://en.wikipedia.org/wiki/XML">XML</a> format files.
+ * This "to-be-marked-lite" version uses Java Serialization and Base64 encoding for
+ * the text file. See {@link serialencoder.SerialEncoderImplJOSBASE64}
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 25 February 2015
@@ -38,7 +38,7 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 * 
 	 * For development version use XSTREAMXML (better)
 	 * 
-	 * For "production" (master to-be-marked) version use JOSBASE64
+	 * For "to-be-marked-lite" version use JOSBASE64
 	 * 
 	 * See <a href=
 	 * "https://github.com/BBK-PiJ-2014-66/cw4/wiki/Storing-data-to-string-file%3A-What-I-found-out-in-implementation"
