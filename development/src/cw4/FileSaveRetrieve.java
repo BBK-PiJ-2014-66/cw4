@@ -27,7 +27,8 @@ public interface FileSaveRetrieve {
 	String getFileName();
 
 	/**
-		 * Saves the contactManager to the current {@link #fileName}
+	 * Saves the contactManager to the current fileName (set by
+	 * {@link #setFileName(String)}).
 	 * 
 	 * @param contactManager
 	 *            the ContactManager to save
