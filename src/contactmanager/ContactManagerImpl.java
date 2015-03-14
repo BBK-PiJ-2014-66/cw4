@@ -65,14 +65,16 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * file will normally be overwritten when {@link #flush flush()} method is
 	 * later called to save the state. Note that the retrieved file name got
 	 * from the save-state-file is ignored and the argument fileName will be
-	 * used.
+	 * used. See {@link FileSaveRetrieveImpl} for details of the save-state-file
+	 * format used.
 	 * 
 	 * @param fileName
 	 *            the save-state-file name
-	 * 
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or reading from the file
 	 * @throws RuntimeException
-	 *             - if there is a problem in opening the file, reading from it
-	 *             or decoding the object
+	 *             if there is a problem in opening the file, reading from it or
+	 *             decoding the ContactManager from it
 	 */
 	public ContactManagerImpl(String fileName) {
 		fileSR.setFileName(fileName);
@@ -401,12 +403,15 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * 
 	 * "{@inheritDoc}"
 	 * 
-	 * Note that the file name and method to be saved are set in whatever
-	 * constructor was used and at present cannot be altered.
+	 * Note that the file name used for the save are set in whatever constructor
+	 * was used and at present cannot be altered. See
+	 * {@link FileSaveRetrieveImpl} for details of the file format used for the
+	 * save.
 	 * 
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or writing to the file
 	 * @throws RuntimeException
-	 *             - if there is an error in encoding the contactManager or in
-	 *             opening the file or writing to it.
+	 *             encoding the ContactManager into a string to write
 	 */
 	@Override
 	public void flush() {

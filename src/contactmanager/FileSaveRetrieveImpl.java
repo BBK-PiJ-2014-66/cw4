@@ -10,6 +10,9 @@ import serialencoder.SerialEncoderImplXSTREAMXML;
  * Deals with saving {@link ContactManagerImpl} state to a string and or an
  * external text file.
  * 
+ * This development version uses {@link serialencoder.SerialEncoderImplXSTREAMXML} to produce <a
+ * href="http://en.wikipedia.org/wiki/XML">XML</a> format files.
+ * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 25 February 2015
  * 
@@ -100,7 +103,7 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 		} catch (ClassCastException ex) {
 			throw new RuntimeException("Problem casting decoded object.\n "
 					+ "Details: " + ex);
-		}		
+		}
 		/*
 		 * tidy up after restoration by register all id's read to make sure they
 		 * will not be issued twice. This is difficult to unit test as it

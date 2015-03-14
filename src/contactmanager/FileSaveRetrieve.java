@@ -45,6 +45,8 @@ public interface FileSaveRetrieve {
 	 * saveToFile}.
 	 * 
 	 * @return the contactManagerPlus encoded in the input string
+	 * @throws java.io.UncheckedIOException
+	 *             if there is a problem opening or reading from the file
 	 * @throws RuntimeException
 	 *             if there is a problem in opening the file, reading from it or
 	 *             decoding the object
