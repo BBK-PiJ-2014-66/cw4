@@ -448,7 +448,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void overrideDateNow(Calendar pretendNow) {
+	public void setPretendNow(Calendar pretendNow) {
 		this.pretendNow = pretendNow;
 	}
 

@@ -22,7 +22,7 @@ public interface ContactManagerPlus extends ContactManager, Serializable {
 	 * @param pretendNow
 	 *            the date/time to treat as "now".
 	 */
-	void overrideDateNow(Calendar pretendNow);
+	void setPretendNow(Calendar pretendNow);
 
 	/**
 	 * Getter for pretendNow - the overriding date for "now".
