@@ -8,7 +8,7 @@ package cw4;
  * @since 27 February 2015
  * 
  */
-public enum IdGenerator {
+enum IdGenerator {
 	CONTACT, // Separate Unique ID for Contact
 	MEETING; // and for Meeting
 
