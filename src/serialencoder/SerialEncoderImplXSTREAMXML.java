@@ -1,5 +1,7 @@
 package serialencoder;
 
+import java.io.Serializable;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
@@ -14,7 +16,15 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
  * @since 12 March 2015
  * 
  */
-public class SerialEncoderImplXSTREAMXML extends SerialEncoderImpl {
+public class SerialEncoderImplXSTREAMXML extends SerialEncoderImpl implements
+		Serializable {
+
+	/**
+	 * Needed for Serializable to throw an error if asked to decoded a previous
+	 * incompatible version. Need to increment if this class is changed as it is
+	 * not backwards compatible with its previous version.
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Uses <a href="http://xstream.codehaus.org/">XStream</a> and <a
@@ -60,8 +70,7 @@ public class SerialEncoderImplXSTREAMXML extends SerialEncoderImpl {
 			// complex procedures! So catch any exception (a bit naughty) and
 			// recast it to Runtime with a meaningful prefix
 			throw new RuntimeException(
-					"Error in decodingXML string to an Object. Details: "
-							+ ex);
+					"Error in decodingXML string to an Object. Details: " + ex);
 		}
 	}
 
