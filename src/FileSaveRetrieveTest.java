@@ -1,4 +1,4 @@
-package contactmanagertest;
+
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -16,11 +16,6 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import contactmanager.Contact;
-import contactmanager.ContactManagerPlus;
-import contactmanager.FileSaveRetrieve;
-import contactmanager.FileSaveRetrieveImpl;
 
 /**
  * 

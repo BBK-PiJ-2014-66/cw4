@@ -1,13 +1,10 @@
-package contactmanagertest;
+
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 
 import org.junit.Test;
-
-import contactmanager.Contact;
-import contactmanager.ContactImpl;
 
 /**
  * JUnit tests for ContactImpl implementation of Contact. 

@@ -1,4 +1,4 @@
-package contactmanagertest;
+
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -7,10 +7,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import contactmanager.Contact;
-import contactmanager.ContactImpl;
-import contactmanager.Meeting;
-import contactmanager.MeetingImpl;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;

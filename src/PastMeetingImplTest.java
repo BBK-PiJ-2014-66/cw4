@@ -1,4 +1,4 @@
-package contactmanagertest;
+
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -9,11 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
-import contactmanager.Contact;
-import contactmanager.ContactImpl;
-import contactmanager.PastMeeting;
-import contactmanager.PastMeetingImpl;
 
 /**
  * JUnit tests for PastMeetingImpl.

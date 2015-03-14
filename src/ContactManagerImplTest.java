@@ -1,4 +1,4 @@
-package contactmanagertest;
+
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -21,15 +21,6 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import contactmanager.Contact;
-import contactmanager.ContactImpl;
-import contactmanager.ContactManager;
-import contactmanager.ContactManagerImpl;
-import contactmanager.ContactManagerPlus;
-import contactmanager.FutureMeeting;
-import contactmanager.Meeting;
-import contactmanager.PastMeeting;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
