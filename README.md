@@ -46,5 +46,7 @@ Nice thing as same code can provide separate ID's for Contacts and Meetings.
 * Abstract Class [SerialEncoderImpl](src/serialencoder/SerialEncoderImpl.java)
 
 #### Implementation & Tests
-
+* [SerialEncoderImplJOSBASE64](src/serialencoder/SerialEncoderImplJOSBASE64.java) uses Java serialization using `ObjectOutputStream` and `ObjectInputStream` put through Base64.
+* [SerialEncoderImplXSTREAMXML](src/serialencoder/SerialEncoderImplXSTREAMXML.java) uses  [XStream](http://xstream.codehaus.org/) to serialize to XML format.
+* Both implementations are tested by parameterized test [SerialEncoder_Test](src/serialencoder/SerialEncoder_Test.java).
 
