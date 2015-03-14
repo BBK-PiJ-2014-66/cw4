@@ -638,30 +638,6 @@ public class ContactManagerImplTest {
 	}
 
 	/**
-	 * idea test constructor load from "testfiles/contacts.txt" this is a
-	 * SERIALIZATION file written as file "fileSaveRetrieveTest.txt" by the test
-	 * {@link test.FileSaveRetrieveTest#saveStateToFileName()}
-	 */
-	@Test
-	public void testContactManagerFrom_Test_ContactsDotTxt() {
-		String testFile = "testfiles/contacts.txt";
-		ContactManagerPlus retrieveCMP = new ContactManagerImpl(testFile);
-		// just check number of contacts, # meetings and override date
-		assertThat("retrieve contact manager from '" + testFile + "\n"
-				+ "This has three contacts.", retrieveCMP.getAllContacts()
-				.size(), is(3));
-		assertThat("retrieve contact manager from '" + testFile + "\n"
-				+ "This has two past meetings.", retrieveCMP
-				.getAllPastMeetings().size(), is(2));
-		assertThat("retrieve contact manager from '" + testFile + "\n"
-				+ "This has three future meetings.", retrieveCMP
-				.getAllFutureMeetings().size(), is(3));
-		assertThat("retrieve contact manager from '" + testFile + "\n"
-				+ "This has pretendNow 13 Mar 2014.", retrieveCMP
-				.getPretendNow().getTime(), is(nowCal.getTime()));
-	}
-
-	/**
 	 * test flush produces a file 'contacts.txt' as per spec and that an
 	 * identical contact manager can read from the file. Simulates the
 	 * Assignment 4 scenario:
