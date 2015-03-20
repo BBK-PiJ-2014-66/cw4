@@ -27,7 +27,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * incompatible version. Need to increment if this class is changed so it is
 	 * not backwards compatible with its previous version.
 	 */
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 	/**
 	 * list of Contact 's that have been registered using addNewContact.
 	 */
