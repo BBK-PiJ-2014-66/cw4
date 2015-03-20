@@ -1,4 +1,4 @@
-package contactmanagertest;
+package uk.fictitiousurl.contactmanagertest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -8,15 +8,15 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import contactmanager.ContactManagerImpl;
-import contactmanager.ContactManagerPlus;
+import uk.fictitiousurl.contactmanager.ContactManagerImpl;
+import uk.fictitiousurl.contactmanager.ContactManagerPlus;
 
 /**
  * Single test run in isolation:
  * 
  * idea test constructor load from "testfiles/contacts.txt" this is written as
  * file "fileSaveRetrieveTest.txt" by the test
- * {@link contactmanagertest.FileSaveRetrieveTest#saveStateToFileName()}
+ * {@link uk.fictitiousurl.contactmanagertest.FileSaveRetrieveTest#saveStateToFileName()}
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 24 February 2015

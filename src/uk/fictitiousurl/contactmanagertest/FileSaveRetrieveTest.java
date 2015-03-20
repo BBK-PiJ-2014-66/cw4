@@ -1,4 +1,4 @@
-package contactmanagertest;
+package uk.fictitiousurl.contactmanagertest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -17,10 +17,10 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import contactmanager.Contact;
-import contactmanager.ContactManagerPlus;
-import contactmanager.FileSaveRetrieve;
-import contactmanager.FileSaveRetrieveImpl;
+import uk.fictitiousurl.contactmanager.Contact;
+import uk.fictitiousurl.contactmanager.ContactManagerPlus;
+import uk.fictitiousurl.contactmanager.FileSaveRetrieve;
+import uk.fictitiousurl.contactmanager.FileSaveRetrieveImpl;
 
 /**
  * 

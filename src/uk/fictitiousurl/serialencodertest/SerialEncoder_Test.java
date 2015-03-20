@@ -1,4 +1,4 @@
-package serialencodertest;
+package uk.fictitiousurl.serialencodertest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,9 +19,9 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-import serialencoder.SerialEncoder;
-import serialencoder.SerialEncoderImplJOSBASE64;
-import serialencoder.SerialEncoderImplXSTREAMXML;
+import uk.fictitiousurl.serialencoder.SerialEncoder;
+import uk.fictitiousurl.serialencoder.SerialEncoderImplJOSBASE64;
+import uk.fictitiousurl.serialencoder.SerialEncoderImplXSTREAMXML;
 
 /**
  * 

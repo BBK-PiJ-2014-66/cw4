@@ -1,4 +1,4 @@
-package contactmanager;
+package uk.fictitiousurl.contactmanager;
 
 import java.io.Serializable;
 import java.util.Calendar;

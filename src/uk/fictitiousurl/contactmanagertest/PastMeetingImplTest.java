@@ -1,4 +1,4 @@
-package contactmanagertest;
+package uk.fictitiousurl.contactmanagertest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -10,10 +10,10 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import contactmanager.Contact;
-import contactmanager.ContactImpl;
-import contactmanager.PastMeeting;
-import contactmanager.PastMeetingImpl;
+import uk.fictitiousurl.contactmanager.Contact;
+import uk.fictitiousurl.contactmanager.ContactImpl;
+import uk.fictitiousurl.contactmanager.PastMeeting;
+import uk.fictitiousurl.contactmanager.PastMeetingImpl;
 
 /**
  * JUnit tests for PastMeetingImpl.

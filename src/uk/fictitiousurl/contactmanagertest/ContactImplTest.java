@@ -1,4 +1,4 @@
-package contactmanagertest;
+package uk.fictitiousurl.contactmanagertest;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -6,8 +6,8 @@ import static org.hamcrest.CoreMatchers.not;
 
 import org.junit.Test;
 
-import contactmanager.Contact;
-import contactmanager.ContactImpl;
+import uk.fictitiousurl.contactmanager.Contact;
+import uk.fictitiousurl.contactmanager.ContactImpl;
 
 /**
  * JUnit tests for ContactImpl implementation of Contact. 

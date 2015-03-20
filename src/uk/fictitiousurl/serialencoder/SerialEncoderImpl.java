@@ -1,4 +1,4 @@
-package serialencoder;
+package uk.fictitiousurl.serialencoder;
 
 /**
  * 

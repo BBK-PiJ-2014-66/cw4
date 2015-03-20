@@ -1,4 +1,4 @@
-package contactmanager;
+package uk.fictitiousurl.contactmanager;
 
 /**
  * A meeting to be held in the future

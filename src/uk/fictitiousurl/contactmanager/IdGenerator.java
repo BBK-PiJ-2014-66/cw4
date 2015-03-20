@@ -1,4 +1,4 @@
-package contactmanager;
+package uk.fictitiousurl.contactmanager;
 
 /**
  * Two singleton classes used to issue unique ID numbers for contacts and for

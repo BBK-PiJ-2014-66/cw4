@@ -1,4 +1,4 @@
-package serialencoder;
+package uk.fictitiousurl.serialencoder;
 
 import java.io.Serializable;
 

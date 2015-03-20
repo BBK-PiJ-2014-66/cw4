@@ -1,4 +1,4 @@
-package contactmanagertest;
+package uk.fictitiousurl.contactmanagertest;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -22,14 +22,14 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import contactmanager.Contact;
-import contactmanager.ContactImpl;
-import contactmanager.ContactManager;
-import contactmanager.ContactManagerImpl;
-import contactmanager.ContactManagerPlus;
-import contactmanager.FutureMeeting;
-import contactmanager.Meeting;
-import contactmanager.PastMeeting;
+import uk.fictitiousurl.contactmanager.Contact;
+import uk.fictitiousurl.contactmanager.ContactImpl;
+import uk.fictitiousurl.contactmanager.ContactManager;
+import uk.fictitiousurl.contactmanager.ContactManagerImpl;
+import uk.fictitiousurl.contactmanager.ContactManagerPlus;
+import uk.fictitiousurl.contactmanager.FutureMeeting;
+import uk.fictitiousurl.contactmanager.Meeting;
+import uk.fictitiousurl.contactmanager.PastMeeting;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,

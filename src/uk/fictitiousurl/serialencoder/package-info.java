@@ -6,4 +6,4 @@
  * @since 11 March 2015
  *
  */
-package serialencoder;
+package uk.fictitiousurl.serialencoder;

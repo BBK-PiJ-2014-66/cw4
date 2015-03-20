@@ -1,16 +1,16 @@
-package contactmanager;
+package uk.fictitiousurl.contactmanager;
 
 import java.io.Serializable;
 
-import serialencoder.SerialEncoder;
-import serialencoder.SerialEncoderImplXSTREAMXML;
+import uk.fictitiousurl.serialencoder.SerialEncoder;
+import uk.fictitiousurl.serialencoder.SerialEncoderImplXSTREAMXML;
 
 /**
  * 
  * Deals with saving {@link ContactManagerImpl} state to a string and or an
  * external text file.
  * 
- * This development version uses {@link serialencoder.SerialEncoderImplXSTREAMXML} to produce <a
+ * This development version uses {@link uk.fictitiousurl.serialencoder.SerialEncoderImplXSTREAMXML} to produce <a
  * href="http://en.wikipedia.org/wiki/XML">XML</a> format files.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
