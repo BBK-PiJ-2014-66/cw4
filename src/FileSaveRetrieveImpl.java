@@ -3,7 +3,7 @@
 import java.io.Serializable;
 
 import uk.fictitiousurl.serialencoder.SerialEncoder;
-import uk.fictitiousurl.serialencoder.SerialEncoderImplXSTREAMXML;
+import uk.fictitiousurl.serialencoder.SerialEncoderImplJOSBASE64;
 
 /**
  * 
@@ -46,10 +46,10 @@ public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 	 */
 	private final SerialEncoder serialEncoder =
 	/* development version: uncomment next line */
-	new SerialEncoderImplXSTREAMXML();
+	//new SerialEncoderImplXSTREAMXML();
 
 	/* production version: uncomment next line */
-	// new SerialEncoderImplJOSBASE64();
+	new SerialEncoderImplJOSBASE64();
 
 	/**
 	 * {@inheritDoc}

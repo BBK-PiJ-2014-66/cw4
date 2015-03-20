@@ -21,11 +21,12 @@ import org.junit.runners.Parameterized.Parameters;
 
 import uk.fictitiousurl.serialencoder.SerialEncoder;
 import uk.fictitiousurl.serialencoder.SerialEncoderImplJOSBASE64;
-import uk.fictitiousurl.serialencoder.SerialEncoderImplXSTREAMXML;
 
 /**
  * 
  * JUnit tests for SerialEncoderXStreamXML and SerialEncoderJOSBase64
+ * 
+ * in production to-be-marked lite version XStream stripped out!
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @since 12 March 2015
@@ -38,7 +39,7 @@ public class SerialEncoder_Test {
 	@Parameters
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] {
-				{ new SerialEncoderImplXSTREAMXML() },
+			//	{ new SerialEncoderImplXSTREAMXML() },
 				{ new SerialEncoderImplJOSBASE64() } };
 		return Arrays.asList(data);
 	}
