@@ -10,8 +10,8 @@ import uk.fictitiousurl.serialencoder.SerialEncoderImplJOSBASE64;
  * Deals with saving {@link ContactManagerImpl} state to a string and or an
  * external text file.
  * 
- * This development version uses {@link uk.fictitiousurl.serialencoder.SerialEncoderImplXSTREAMXML} to produce <a
- * href="http://en.wikipedia.org/wiki/XML">XML</a> format files.
+ * This "to-be-marked-lite" version uses Java Serialization and Base64 encoding for
+ * the text file. See {@link serialencoder.SerialEncoderImplJOSBASE64}
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
  * @version 3.0.01
