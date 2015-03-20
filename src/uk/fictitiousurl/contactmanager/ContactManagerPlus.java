@@ -14,24 +14,6 @@ import java.util.List;
  * 
  */
 public interface ContactManagerPlus extends ContactManager, Serializable {
-
-	/**
-	 * Used to set a false current date in place of the real actual date/time
-	 * "now". Useful for testing and may be for the program.
-	 * 
-	 * @param pretendNow
-	 *            the date/time to treat as "now".
-	 */
-	void setPretendNow(Calendar pretendNow);
-
-	/**
-	 * Getter for pretendNow - the overriding date for "now".
-	 * 
-	 * @return the date/time to treat as "now" or null if no pretend is set (so
-	 *         real system time will be used).
-	 */
-	Calendar getPretendNow();
-
 	/**
 	 * A simple getter for all contacts. Added it because it would be really
 	 * useful in actually writing a program!
