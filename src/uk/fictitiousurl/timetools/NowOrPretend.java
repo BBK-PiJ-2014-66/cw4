@@ -12,6 +12,13 @@ import java.util.Calendar;
  * 
  */
 public enum NowOrPretend {
+	/**
+	 * the single instance of this enum. 
+	 * <p> 
+	 * Name chosen so
+	 * as invoking <tt>NowOrPretend.TIME.checkDateIsFuture(date)</tt>
+	 * is pretty clear.
+	 */
 	TIME; 
 
 	/**
@@ -43,9 +50,11 @@ public enum NowOrPretend {
 	}
 
 	/**
-	 * check whether a date is in the future N.B. checks against current
-	 * date/time unless {@link #overrideDateNow(Calendar) overrideDateNow} has
-	 * been used to set a "pretendNow"
+	 * check whether a date is in the future.
+	 * <p>
+	 * N.B. checks against current
+	 * date/time unless {@link #setPretendNow(Calendar) setPretendNow} has
+	 * been used to set a "pretend" date/time to be take as now.
 	 * 
 	 * @param date
 	 *            the date to check
