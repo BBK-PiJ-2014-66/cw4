@@ -13,4 +13,3 @@
  * @version 3.0.01
  * @since 1.0
  */
-package uk.fictitiousurl.contactmanager;

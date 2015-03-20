@@ -10,11 +10,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import uk.fictitiousurl.contactmanager.Contact;
-import uk.fictitiousurl.contactmanager.ContactImpl;
-import uk.fictitiousurl.contactmanager.PastMeeting;
-import uk.fictitiousurl.contactmanager.PastMeetingImpl;
-
 /**
  * JUnit tests for PastMeetingImpl.
  * 

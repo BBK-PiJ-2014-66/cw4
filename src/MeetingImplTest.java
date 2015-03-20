@@ -7,10 +7,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import uk.fictitiousurl.contactmanager.Contact;
-import uk.fictitiousurl.contactmanager.ContactImpl;
-import uk.fictitiousurl.contactmanager.Meeting;
-import uk.fictitiousurl.contactmanager.MeetingImpl;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;

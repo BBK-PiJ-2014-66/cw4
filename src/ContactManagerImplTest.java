@@ -22,14 +22,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.fictitiousurl.contactmanager.Contact;
-import uk.fictitiousurl.contactmanager.ContactImpl;
-import uk.fictitiousurl.contactmanager.ContactManager;
-import uk.fictitiousurl.contactmanager.ContactManagerImpl;
-import uk.fictitiousurl.contactmanager.ContactManagerPlus;
-import uk.fictitiousurl.contactmanager.FutureMeeting;
-import uk.fictitiousurl.contactmanager.Meeting;
-import uk.fictitiousurl.contactmanager.PastMeeting;
 import uk.fictitiousurl.timetools.NowOrPretend;
 
 /**

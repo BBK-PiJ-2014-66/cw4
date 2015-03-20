@@ -17,11 +17,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import uk.fictitiousurl.contactmanager.Contact;
-import uk.fictitiousurl.contactmanager.ContactManagerPlus;
-import uk.fictitiousurl.contactmanager.FileSaveRetrieve;
-import uk.fictitiousurl.contactmanager.FileSaveRetrieveImpl;
-
 /**
  * 
  * Unit tests for {@link FileSaveRetrieveImpl}

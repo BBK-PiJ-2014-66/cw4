@@ -6,9 +6,6 @@ import static org.hamcrest.CoreMatchers.not;
 
 import org.junit.Test;
 
-import uk.fictitiousurl.contactmanager.Contact;
-import uk.fictitiousurl.contactmanager.ContactImpl;
-
 /**
  * JUnit tests for ContactImpl implementation of Contact. 
  * 

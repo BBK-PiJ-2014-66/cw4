@@ -5,9 +5,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import uk.fictitiousurl.contactmanager.ContactManagerImpl;
-import uk.fictitiousurl.contactmanager.ContactManagerPlus;
-
 /**
  * Single test run in isolation:
  * 
