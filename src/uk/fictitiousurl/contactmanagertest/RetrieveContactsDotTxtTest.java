@@ -23,11 +23,6 @@ import uk.fictitiousurl.contactmanager.ContactManagerPlus;
  *
  */
 public class RetrieveContactsDotTxtTest {
-	/**
-	 * Date for nowCal in contacts.txt
-	 */
-	private Calendar nowCal = new GregorianCalendar(2014, Calendar.MARCH, 13,
-			10, 00);
 
 	@Test
 	public void testContactManagerFrom_Test_ContactsDotTxt() {
@@ -43,9 +38,6 @@ public class RetrieveContactsDotTxtTest {
 		assertThat("retrieve contact manager from '" + testFile + "\n"
 				+ "This has three future meetings.", retrieveCMP
 				.getAllFutureMeetings().size(), is(3));
-		assertThat("retrieve contact manager from '" + testFile + "\n"
-				+ "This has pretendNow 13 Mar 2014.", retrieveCMP
-				.getPretendNow().getTime(), is(nowCal.getTime()));
 		// check for problems in the id generation by adding 1000 contacts
 		for (int cc = 0; cc < 1000; cc++)
 			retrieveCMP.addNewContact("new contact #" + (cc+1), "notes");

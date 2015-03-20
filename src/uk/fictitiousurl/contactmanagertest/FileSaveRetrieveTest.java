@@ -45,7 +45,8 @@ public class FileSaveRetrieveTest {
 
 		// provide a decent contact manager to save/retrieve
 		ContactManagerImplTest cmpit = new ContactManagerImplTest();
-		testCMP = cmpit.standardFilledCMP(); // one contact 4 meetings
+		// one contact 4 meetings - N.B. also overrides date to "nowCal"
+		testCMP = cmpit.standardFilledCMP(); 
 		// want to check how new lines and <> are encoded in the XML
 		testCMP.addNewContact("John Smith",
 				"email: <j.smith@somecompany.com>\n" + "tel: 0123 456789.");
@@ -140,9 +141,6 @@ public class FileSaveRetrieveTest {
 				restoreCMP.getAllPastMeetings(),
 				is(origCMP.getAllPastMeetings()));
 
-		assertThat("\nRestored ContactManagerPlus has same pretendNow time?",
-				restoreCMP.getPretendNow().getTime(), is(origCMP
-						.getPretendNow().getTime()));
 
 		/*
 		 * Check for denormalisation:

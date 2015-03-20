@@ -30,6 +30,7 @@ import uk.fictitiousurl.contactmanager.ContactManagerPlus;
 import uk.fictitiousurl.contactmanager.FutureMeeting;
 import uk.fictitiousurl.contactmanager.Meeting;
 import uk.fictitiousurl.contactmanager.PastMeeting;
+import uk.fictitiousurl.timetools.NowOrPretend;
 
 /**
  * JUnit tests for ContactManagerImpl implementation of ContactManager. N.B.,
@@ -84,7 +85,7 @@ public class ContactManagerImplTest {
 	public void init() {
 		testCM = new ContactManagerImpl();
 		testCMP = new ContactManagerImpl();
-		testCMP.setPretendNow(nowCal);
+		NowOrPretend.TIME.setPretendNow(nowCal); // time for the tests
 		standardCMP = standardFilledCMP();
 	}
 
@@ -301,7 +302,7 @@ public class ContactManagerImplTest {
 		 */
 
 		// change "now" so conversion will work
-		standardCMP.setPretendNow(futureCal);
+		NowOrPretend.TIME.setPretendNow(futureCal);
 		// convert it
 		standardCMP.addMeetingNotes(meets.get(0).getId(), "some meeting notes");
 		meets = standardCMP.getFutureMeetingList(futureCal);
@@ -372,7 +373,7 @@ public class ContactManagerImplTest {
 		// get the Meeting Object of this meeting before we add notes
 		Meeting meetBefore = standardCMP.getMeeting(id);
 		// adjust "now" the mock current date time so date will be ok
-		standardCMP.setPretendNow(futureCal);
+		NowOrPretend.TIME.setPretendNow(futureCal);
 
 		// add the notes
 		String meetingNotes = "Some notes about the meeting";
@@ -449,7 +450,7 @@ public class ContactManagerImplTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testAddMeetingNotesWithBadId() {
 		// adjust "now" the mock current date time so date will be ok
-		standardCMP.setPretendNow(futureCal);
+		NowOrPretend.TIME.setPretendNow(futureCal);
 		standardCMP.addMeetingNotes(Integer.MIN_VALUE, "notes");
 	}
 
@@ -469,7 +470,7 @@ public class ContactManagerImplTest {
 	@Test(expected = NullPointerException.class)
 	public void testAddMeetingNotesWithNullNotes() {
 		// adjust "now" the mock current date time so date will be ok
-		standardCMP.setPretendNow(futureCal);
+		NowOrPretend.TIME.setPretendNow(futureCal);
 		// need a valid id as only want one error
 		int id = standardCMP.getAllFutureMeetings().get(0).getId();
 		standardCMP.addMeetingNotes(id, null);
@@ -686,8 +687,8 @@ public class ContactManagerImplTest {
 	 * @return a Contact manager with contact, future Meetings
 	 */
 	public ContactManagerPlus standardFilledCMP() {
+		NowOrPretend.TIME.setPretendNow(nowCal); // time for the tests
 		ContactManagerPlus filledCMP = new ContactManagerImpl();
-		filledCMP.setPretendNow(nowCal);
 		filledCMP.addNewContact(testName, testNotes);
 		// to add contacts have to provide set
 		Set<Contact> testContacts = filledCMP.getContacts(testName);
