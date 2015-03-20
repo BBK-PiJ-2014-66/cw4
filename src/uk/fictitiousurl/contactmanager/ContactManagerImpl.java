@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import uk.fictitiousurl.timetools.CalendarUtils;
+import uk.fictitiousurl.timetools.NowOrPretend;
+
 /**
  * Class to Manage contacts and Meetings
  * 
@@ -38,12 +41,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	 * addNewPastMeeting.
 	 */
 	private List<PastMeeting> pastMeetings;
-	/**
-	 * Normally the real system date time will be used to check whether a
-	 * meeting is in the future or past. However if pretendNow is not null then
-	 * this date time will be used instead. Intended for testing.
-	 */
-	private Calendar pretendNow = null;
 	/**
 	 * deals with saving state, fileName, the method, and the methods to do it
 	 */
@@ -83,7 +80,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		contacts = retrieve.contacts;
 		futureMeetings = retrieve.futureMeetings;
 		pastMeetings = retrieve.pastMeetings;
-		pretendNow = retrieve.pretendNow;
 	}
 
 	/**
@@ -97,7 +93,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		// I would add a check that the meeting time/date is not the same as
 		// another meeting maybe +/- 5 mins but as this is not in the spec!
-		if (!checkDateIsFuture(date))
+		if (!NowOrPretend.TIME.checkDateIsFuture(date))
 			throw new IllegalArgumentException(
 					"Future meetings cannot have past dates."
 							+ " Supplied date =" + date.getTime());
@@ -277,7 +273,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		// this.contacts, throws a IllegalArgumentException if there is a
 		// problem.
 		checkContacts(contacts.toArray(new Contact[0]));
-		if (checkDateIsFuture(date))
+		if (NowOrPretend.TIME.checkDateIsFuture(date))
 			throw new IllegalStateException(
 					"Cannot add  a past meeting with a future date.");
 
@@ -307,7 +303,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		for (FutureMeeting itFM : futureMeetings) {
 			if (itFM.getId() == id) {
 				// check the date of the meeting itFM is not in the future
-				if (checkDateIsFuture(itFM.getDate()))
+				if (NowOrPretend.TIME.checkDateIsFuture(itFM.getDate()))
 					throw new IllegalStateException(
 							"Cannot add notes to a meeting in the future.");
 				/*
@@ -449,40 +445,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		return pastMeetings;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setPretendNow(Calendar pretendNow) {
-		this.pretendNow = pretendNow;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Calendar getPretendNow() {
-		return pretendNow;
-	}
-
 	/*
 	 * private methods
 	 */
-
-	/**
-	 * check whether a date is in the future N.B. checks against current
-	 * date/time unless {@link #overrideDateNow(Calendar) overrideDateNow} has
-	 * been used to set a "pretendNow"
-	 * 
-	 * @param date
-	 *            the date to check
-	 * @return whether the date is in the future.
-	 */
-	private boolean checkDateIsFuture(Calendar date) {
-		Calendar now = (pretendNow != null) ? pretendNow : Calendar
-				.getInstance();
-		return date.after(now);
-	}
 
 	/**
 	 * Checks the contacts are all recognised and appear in stored contacts
@@ -569,6 +534,9 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		ret.append("\n\tfuture meetings: \n");
 		for (FutureMeeting itFM : futureMeetings)
 			ret.append("\t\t" + itFM + "\n");
+		
+		// warn if pretendNow is set.
+		Calendar pretendNow = NowOrPretend.TIME.getPretendNow();
 		if (pretendNow != null)
 			ret.append("\n\tN.B. Overriding current date/time ('now') to: "
 					+ pretendNow.getTime() + "\n");
@@ -590,8 +558,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 				+ ((futureMeetings == null) ? 0 : futureMeetings.hashCode());
 		result = prime * result
 				+ ((pastMeetings == null) ? 0 : pastMeetings.hashCode());
-		result = prime * result
-				+ ((pretendNow == null) ? 0 : pretendNow.hashCode());
 		return result;
 	}
 
@@ -623,11 +589,6 @@ public class ContactManagerImpl implements ContactManagerPlus {
 			if (other.pastMeetings != null)
 				return false;
 		} else if (!pastMeetings.equals(other.pastMeetings))
-			return false;
-		if (pretendNow == null) {
-			if (other.pretendNow != null)
-				return false;
-		} else if (!pretendNow.equals(other.pretendNow))
 			return false;
 		return true;
 	}
