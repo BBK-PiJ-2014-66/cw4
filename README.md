@@ -40,8 +40,8 @@ Nice thing as same code can provide separate ID's for Contacts and Meetings.
 
 
 ### package `timetools`
-* [NowOrPretend](src/uk/fictitiousurl/timetools/NowOrPretend.java) an `Enum` that provides a singleton class supplying either the real system time for now or a "pretend" time.
-* [CalendarUtils](src/uk/fictitiousurl/timetools/CalendarUtils.java) utility function (tested in development but altered to package-private so test removed).
+* [NowOrPretend](src/uk/fictitiousurl/timetools/NowOrPretend.java) an `Enum` that provides a singleton class supplying either the real system time for now or a "pretend" time. (Tested in the `contactmanager` tests)
+* [CalendarUtils](src/uk/fictitiousurl/timetools/CalendarUtils.java) utility function tested by [CalendarUtilsTest](src/uk/fictitiousurl/timetoolstest/CalendarUtilsTest.java)
 
 ### package `serialencoder` & `serialencodertest`
 
