@@ -35,9 +35,13 @@ Why a separate branch? See [wiki page](https://github.com/BBK-PiJ-2014-66/cw4/wi
 * [FutureMeetingImpl](src/uk/fictitiousurl/contactmanager/FutureMeetingImpl.java) tested by [FutureMeetingImplTest](src/uk/fictitiousurl/contactmanagertest/FutureMeetingImplTest.java).
 * [IdGenerator](src/uk/fictitiousurl/contactmanager/IdGenerator.java) uses `Enum` singleton objects for unique ID's. 
 Nice thing as same code can provide separate ID's for Contacts and Meetings.
-* [CalendarUtils](src/uk/fictitiousurl/contactmanager/CalendarUtils.java) utility function (tested in development but altered to package-private so test removed). 
+ 
 * [FileSaveRetrieveImpl](src/uk/fictitiousurl/contactmanager/FileSaveRetrieveImpl.java) tested by [FileSaveRetrieveTest](src/uk/fictitiousurl/contactmanagertest/FileSaveRetrieveTest.java)
 
+
+### package `timetools`
+* [NowOrPretend](src/uk/fictitiousurl/timetools/NowOrPretend.java) an `Enum` that provides a singleton class supplying either the real system time for now or a "pretend" time.
+* [CalendarUtils](src/uk/fictitiousurl/timetools/CalendarUtils.java) utility function (tested in development but altered to package-private so test removed).
 
 ### package `serialencoder` & `serialencodertest`
 
