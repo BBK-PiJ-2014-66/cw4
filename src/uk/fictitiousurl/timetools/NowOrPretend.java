@@ -7,6 +7,8 @@ import java.util.Calendar;
  * for now or a "pretend" time.
  *
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
+ * @version 3.0.01
+ * @since 3.0
  * 
  */
 public enum NowOrPretend {

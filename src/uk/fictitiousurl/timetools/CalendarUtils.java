@@ -6,7 +6,8 @@ import java.util.Calendar;
  * Class to Calendar related utilities
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 02 March 2015
+ * @version 3.0.01
+ * @since 3.0
  * 
  */
 class CalendarUtils {
