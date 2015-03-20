@@ -15,8 +15,8 @@ import java.util.Set;
  * contacts: so a pretty simple class single constructor and three getters.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 28 February 2015
- *
+ * @version 3.0.01
+ * @since 1.0
  */
 public class MeetingImpl implements Meeting, Serializable {
 

@@ -14,8 +14,8 @@ import uk.fictitiousurl.serialencoder.SerialEncoderImplXSTREAMXML;
  * href="http://en.wikipedia.org/wiki/XML">XML</a> format files.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 25 February 2015
- * 
+ * @version 3.0.01
+ * @since 1.0
  */
 public class FileSaveRetrieveImpl implements FileSaveRetrieve, Serializable {
 

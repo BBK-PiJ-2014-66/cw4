@@ -17,7 +17,8 @@ import uk.fictitiousurl.timetools.NowOrPretend;
  * @see ContactManager
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 24 February 2015
+ * @version 3.0.01
+ * @since 1.0
  * 
  */
 public class ContactManagerImpl implements ContactManagerPlus {

@@ -10,8 +10,8 @@ import java.io.Serializable;
  * @see Contact
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 24 February 2015
- * 
+ * @version 3.0.01
+ * @since 1.0
  */
 public class ContactImpl implements Contact, Serializable {
 

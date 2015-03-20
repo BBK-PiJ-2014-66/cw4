@@ -9,7 +9,8 @@ import java.util.Set;
  * happened and what was agreed."
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 28 February 2015
+ * @version 3.0.01
+ * @since 1.0
  */
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting,
 		Serializable {

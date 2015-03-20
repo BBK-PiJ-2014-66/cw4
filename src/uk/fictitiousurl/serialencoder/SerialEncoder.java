@@ -6,8 +6,8 @@ package uk.fictitiousurl.serialencoder;
  * back using some form of serialization.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 11 March 2015
- * 
+ * @version 3.0.01
+ * @since 2.0
  */
 public interface SerialEncoder {
 	/**

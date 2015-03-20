@@ -10,8 +10,8 @@ import java.util.List;
  * program.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 28 February 2015
- * 
+ * @version 3.0.01
+ * @since 1.0
  */
 public interface ContactManagerPlus extends ContactManager, Serializable {
 	/**

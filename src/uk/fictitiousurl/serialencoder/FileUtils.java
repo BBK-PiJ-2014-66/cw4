@@ -14,8 +14,8 @@ import java.io.UncheckedIOException;
  * not intended for general use.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 13 March 2015
- * 
+ * @version 3.0.01
+ * @since 2.0
  */
 class FileUtils {
 

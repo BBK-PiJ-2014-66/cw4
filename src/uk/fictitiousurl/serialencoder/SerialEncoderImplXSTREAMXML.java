@@ -13,8 +13,8 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
  * {@link java.io.Serializable}.
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
- * @since 12 March 2015
- * 
+ * @version 3.0.01
+ * @since 2.0
  */
 public class SerialEncoderImplXSTREAMXML extends SerialEncoderImpl implements
 		Serializable {
