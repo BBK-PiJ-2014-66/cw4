@@ -3,9 +3,6 @@ package uk.fictitiousurl.contactmanagertest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.junit.Test;
 
 import uk.fictitiousurl.contactmanager.ContactManagerImpl;
