@@ -14,6 +14,13 @@ import uk.fictitiousurl.timetools.NowOrPretend;
 /**
  * Class to Manage contacts and Meetings
  * 
+ * <p>
+ * 
+ * <b>Note:</b> In this implementation future meetings are only altered to be
+ * past meetings by a call to {@link #addMeetingNotes(int, String)}. So until
+ * they are written up there will be "future meetings" that have happened (or
+ * were possibly cancelled).
+ * 
  * @see ContactManager
  * 
  * @author Oliver Smart {@literal <osmart01@dcs.bbk.ac.uk>}
@@ -59,12 +66,13 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * Construct the contact manager with data from a save-state-file. N.B. this
-	 * file will normally be overwritten when {@link #flush flush()} method is
-	 * later called to save the state. Note that the retrieved file name got
-	 * from the save-state-file is ignored and the argument fileName will be
-	 * used. See {@link FileSaveRetrieveImpl} for details of the save-state-file
-	 * format used.
+	 * Construct the contact manager with data from a save-state-file.
+	 * <p>
+	 * N.B. this file will normally be overwritten when {@link #flush flush()}
+	 * method is later called to save the state. Note that the retrieved file
+	 * name got from the save-state-file is ignored and the argument fileName
+	 * will be used. See {@link FileSaveRetrieveImpl} for details of the
+	 * save-state-file format used.
 	 * 
 	 * @param fileName
 	 *            the save-state-file name
@@ -283,7 +291,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 
 	/**
 	 * "{@inheritDoc}"
-	 * 
+	 * <p>
 	 * N.B. if used to add notes to a past meeting, the new notes replace the
 	 * existing ones (rather than being appended).
 	 * 
@@ -519,8 +527,11 @@ public class ContactManagerImpl implements ContactManagerPlus {
 	}
 
 	/**
-	 * Customised toString() N.B. produces output on multiple lines as this is
-	 * useful in debugging.
+	 * Customised toString().
+	 * 
+	 * <p>
+	 * 
+	 * N.B. produces output on multiple lines as this is useful in debugging.
 	 */
 	@Override
 	public String toString() {
@@ -535,7 +546,7 @@ public class ContactManagerImpl implements ContactManagerPlus {
 		ret.append("\n\tfuture meetings: \n");
 		for (FutureMeeting itFM : futureMeetings)
 			ret.append("\t\t" + itFM + "\n");
-		
+
 		// warn if pretendNow is set.
 		Calendar pretendNow = NowOrPretend.TIME.getPretendNow();
 		if (pretendNow != null)
