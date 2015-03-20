@@ -1,4 +1,4 @@
-package uk.fictitiousurl.contactmanagertest;
+
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
